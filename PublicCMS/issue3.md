@@ -3,9 +3,9 @@ title: "PublicCMS issue3: Department Resource Authorization Expansion"
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/sysDept/save`. Users in that department can gain access to categories, pages, or config resources outside the actor's intended management scope"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -17,6 +17,7 @@ PublicCMS has a missing authorization vulnerability in `POST /admin/sysDept/save
 
 - Attack precondition: The attacker is a logged-in backend administrator with access to department save functionality
 - Affected endpoint: ``POST /admin/sysDept/save``
+- Affected authorization property: `sysDept.ownsAllCategory, sysDept.ownsAllPage, sysDept.ownsAllConfig, sysDeptItem.itemType, sysDeptItem.itemId, ownsAll*`
 - Security impact: Users in that department can gain access to categories, pages, or config resources outside the actor's intended management scope
 
 ### 1.2 Exploit path

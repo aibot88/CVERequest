@@ -34,12 +34,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "DSpace has a missing authorization vulnerability: Relationship Creation Allows Unauthorized Author/Profile Binding. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata",
+          "value": "DSpace has a missing authorization vulnerability. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "DSpace has a missing authorization vulnerability: Relationship Creation Allows Unauthorized Author/Profile Binding. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata<p>This issue affects DSpace.</p>"
+              "value": "DSpace has a missing authorization vulnerability. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata<p>This issue affects DSpace.</p>"
             }
           ]
         }
@@ -89,7 +89,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7054345",
+    "cveId": "CAN-2026-5043805",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

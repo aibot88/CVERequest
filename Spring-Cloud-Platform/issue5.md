@@ -1,11 +1,11 @@
 ---
-title: "Spring-Cloud-Platform issue5: 未授权新增菜单污染全局权限定义"
-description: "Spring-Cloud-Platform has a missing authorization vulnerability: 未授权新增菜单污染全局权限定义. 攻击者可未授权写入全局权限定义来源。`PermissionService.getAllPermission()` 会把 `base_menu` 中所有菜单转换为全局 `PermissionInfo`，影响系统对资源权限的定义和匹配。"
+title: "Spring-Cloud-Platform issue5: Missing Authorization in POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}"
+description: "Spring-Cloud-Platform has a missing authorization vulnerability in POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}. An authenticated attacker can perform authorization-sensitive operations through POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} without the required permission."
 tags:
   - Spring-Cloud-Platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,13 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-Spring-Cloud-Platform has a missing authorization vulnerability: 未授权新增菜单污染全局权限定义. 攻击者可未授权写入全局权限定义来源。`PermissionService.getAllPermission()` 会把 `base_menu` 中所有菜单转换为全局 `PermissionInfo`，影响系统对资源权限的定义和匹配。
+Spring-Cloud-Platform has a missing authorization vulnerability in POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}. An authenticated attacker can perform authorization-sensitive operations through POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} without the required permission.
 
-- Security impact: 攻击者可未授权写入全局权限定义来源。`PermissionService.getAllPermission()` 会把 `base_menu` 中所有菜单转换为全局 `PermissionInfo`，影响系统对资源权限的定义和匹配。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}`
+- Affected authorization property: `MenuController, BaseController.add, base_menu, MenuBiz, path, PermissionService.getAllPermission()`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} without the required permission.
 
 ### 1.2 Exploit path
 
-`POST /api/admin/menu` 由 `MenuController` 继承通用 `BaseController.add`。初始化权限字典将新增菜单权限登记为 `POST /admin/menu/{*}`，但真实新增接口没有 id 段，是 `POST /admin/menu`。权限检查未命中后默认放行，业务层写入 `base_menu`，并由 `MenuBiz` 派生 `path`。
+The attacker sends crafted requests to POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -39,10 +42,6 @@ Evidence location: PermissionService.java
 
 Evidence location: init.sql
 
-## 2. Existing checks and why they fail
-
-JWT 只证明登录；权限路径登记错误导致 fail-open；未看到仅管理员可写权限定义的服务端检查或字段白名单限制。
-
 ## 3. Root Cause Analysis
 
 Root Cause 1: Missing server-side authorization on the vulnerable operation.
@@ -55,7 +54,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-修正新增菜单权限为 `POST /admin/menu`；管理类未匹配资源默认拒绝；限制只有高权限管理员可写 `base_menu` 中影响授权模型的字段。
+Enforce server-side authorization for POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

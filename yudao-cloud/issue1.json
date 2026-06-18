@@ -27,12 +27,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions",
+          "value": "yudao-cloud has a missing authorization vulnerability in system_role.data_scope/data_scope_dept_ids. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions<p>This issue affects yudao-cloud.</p>"
+              "value": "yudao-cloud has a missing authorization vulnerability in system_role.data_scope/data_scope_dept_ids. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions<p>This issue affects yudao-cloud.</p>"
             }
           ]
         }
@@ -82,7 +82,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2219710",
+    "cveId": "CAN-2026-8626211",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

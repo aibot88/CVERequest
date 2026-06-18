@@ -1,11 +1,11 @@
 ---
 title: "platform issue8: Role Authorization Model Readable Without Authorization"
-description: "platform has a missing authorization vulnerability: Role Authorization Model Readable Without Authorization. Leaks role data scope, role members, and role-resource authorization bindings"
+description: "platform has a missing authorization vulnerability in GET /roles/{id}/detail, GET /roles/{roleId}/users, GET /roles/{role_id}/permissions, GET /roles/{roleId}/role_res. Leaks role data scope, role members, and role-resource authorization bindings"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Role Authorization Model Readable Without Authorization. Leaks role data scope, role members, and role-resource authorization bindings
+platform has a missing authorization vulnerability in GET /roles/{id}/detail, GET /roles/{roleId}/users, GET /roles/{role_id}/permissions, GET /roles/{roleId}/role_res. Leaks role data scope, role members, and role-resource authorization bindings
 
 - Attack precondition: The attacker is authenticated and knows or can enumerate `roleId`
+- Affected endpoint: `GET /roles/{id}/detail, GET /roles/{roleId}/users, GET /roles/{role_id}/permissions, GET /roles/{roleId}/role_res`
+- Affected authorization property: `roleId, @SaCheckPermission`
 - Security impact: Leaks role data scope, role members, and role-resource authorization bindings
 
 ### 1.2 Exploit path

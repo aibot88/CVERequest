@@ -1,11 +1,11 @@
 ---
 title: "inlong issue7: D-5: Group auth/filter/blacklist mutation via manager-filled master token"
-description: "inlong has a missing authorization vulnerability: D-5: Group auth/filter/blacklist mutation via manager-filled master token. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries"
+description: "inlong has a missing authorization vulnerability in /v1/group, /v1/group/blackGroup. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-5: Group auth/filter/blacklist mutation via manager-filled master token. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries
+inlong has a missing authorization vulnerability in /v1/group, /v1/group/blackGroup. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries
 
 - Attack precondition: The attacker can access `/v1/group` or `/v1/group/blackGroup`
+- Affected endpoint: `/v1/group, /v1/group/blackGroup`
+- Affected authorization property: `clusterId, masterService.baseRequestMaster`
 - Security impact: Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries
 
 ### 1.2 Exploit path

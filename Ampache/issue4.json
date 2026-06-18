@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Ampache has a missing authorization vulnerability: Web Share Create / External Share Arbitrary Target. The attacker can create a public share for an object they cannot otherwise access",
+          "value": "Ampache has a missing authorization vulnerability in GET /share.php?action=show_create&type={type}&id={id}, POST /share.php?action=create, GET /share.php?action=external_share&plugin={plugin}&type={type}&id={id}. The attacker can create a public share for an object they cannot otherwise access",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Ampache has a missing authorization vulnerability: Web Share Create / External Share Arbitrary Target. The attacker can create a public share for an object they cannot otherwise access<p>This issue affects Ampache.</p>"
+              "value": "Ampache has a missing authorization vulnerability in GET /share.php?action=show_create&type={type}&id={id}, POST /share.php?action=create, GET /share.php?action=external_share&plugin={plugin}&type={type}&id={id}. The attacker can create a public share for an object they cannot otherwise access<p>This issue affects Ampache.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7591398",
+    "cveId": "CAN-2026-2158682",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

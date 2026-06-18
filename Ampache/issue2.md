@@ -1,11 +1,11 @@
 ---
 title: "Ampache issue2: API Shares List"
-description: "Ampache has a missing authorization vulnerability: API Shares List. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk"
+description: "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk"
 tags:
   - Ampache
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-Ampache has a missing authorization vulnerability: API Shares List. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk
+Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk
 
 - Attack precondition: A low-privileged user has valid API session / API ACL access, the `share` feature is enabled, and other users have existing share rows
+- Affected endpoint: `POST /server/{json`
+- Affected authorization property: `share, secret, public_url, Shares8Method, $browse->set_type('share'), $browse->get_objects()`
 - Security impact: The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk
 
 ### 1.2 Exploit path

@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: Workflow Configuration Read Authorization Bypass. 泄露工作流配置，包括审批身份 `identity`、字段权限 `fieldPermission` 和 `bpmnXml`。",
+          "value": "surveyking has a missing authorization vulnerability in GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId=. An authenticated attacker can perform authorization-sensitive operations through GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: Workflow Configuration Read Authorization Bypass. 泄露工作流配置，包括审批身份 `identity`、字段权限 `fieldPermission` 和 `bpmnXml`。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId=. An authenticated attacker can perform authorization-sensitive operations through GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1992358",
+    "cveId": "CAN-2026-9633484",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -1,11 +1,11 @@
 ---
 title: "mall-swarm issue5: Member Read History Unauthorized Delete"
-description: "mall-swarm has a missing authorization vulnerability: Member Read History Unauthorized Delete. 可删除他人的浏览历史记录。"
+description: "mall-swarm has a missing authorization vulnerability in POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers."
 tags:
   - mall-swarm
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,10 +13,12 @@ tags:
 
 ### 1.1 Summary
 
-mall-swarm has a missing authorization vulnerability: Member Read History Unauthorized Delete. 可删除他人的浏览历史记录。
+mall-swarm has a missing authorization vulnerability in POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
-- Attack precondition: 任意已登录商城会员，知道他人浏览历史 Mongo `_id`。
-- Security impact: 可删除他人的浏览历史记录。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete`
+- Affected authorization property: `_id, ids, MemberReadHistoryServiceImpl.delete, memberReadHistoryRepository.deleteAll(deleteList), member_read_history.id -> member_id -> currentMember.id, memberId`
+- Security impact: An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
 ### 1.2 Exploit path
 
@@ -43,7 +45,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-删除时按 `id in ids AND memberId=currentMember.id` 执行；对不属于当前会员的 id 忽略或返回错误。
+Enforce server-side authorization for POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

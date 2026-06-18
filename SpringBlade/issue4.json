@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `GET /user/detail` and `GET /user/user-list`. cross-tenant exposure of user authorization bindings and organizational relationships",
+          "value": "SpringBlade has a missing authorization vulnerability in /user/detail, /user/user-list, /user/list. cross-tenant exposure of user authorization bindings and organizational relationships",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `GET /user/detail` and `GET /user/user-list`. cross-tenant exposure of user authorization bindings and organizational relationships<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in /user/detail, /user/user-list, /user/list. cross-tenant exposure of user authorization bindings and organizational relationships<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5391776",
+    "cveId": "CAN-2026-6219539",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

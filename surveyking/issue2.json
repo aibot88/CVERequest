@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: Workflow Save/Deploy Authorization Bypass. 篡改项目工作流审批人、字段可见/可编辑权限、流程定义，影响后续发起与审批授权。",
+          "value": "surveyking has a missing authorization vulnerability in POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: Workflow Save/Deploy Authorization Bypass. 篡改项目工作流审批人、字段可见/可编辑权限、流程定义，影响后续发起与审批授权。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7940688",
+    "cveId": "CAN-2026-3772117",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

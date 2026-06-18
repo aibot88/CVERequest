@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue6: `GET /menu/role-tree-keys`"
-description: "SpringBlade has a missing authorization vulnerability: `GET /menu/role-tree-keys`. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships"
+description: "SpringBlade has a missing authorization vulnerability in /menu/role-tree-keys?roleIds=, /menu/role-tree-keys. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `GET /menu/role-tree-keys`. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships
+SpringBlade has a missing authorization vulnerability in /menu/role-tree-keys?roleIds=, /menu/role-tree-keys. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships
 
 - Attack precondition: any authenticated user who can guess or obtain role IDs
+- Affected endpoint: `/menu/role-tree-keys?roleIds=, /menu/role-tree-keys`
+- Affected authorization property: `roleMenu.menuId, roleScope.scopeId, roleScope.scopeCategory, @PreAuth, roleIds, RoleMenu`
 - Security impact: discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships
 
 ### 1.2 Exploit path
@@ -30,11 +32,11 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   194  	/**
-  195  	 * 获取权限分配树形结构
+  195  	 * [non-English text removed]
   196  	 */
   197  	@GetMapping("/role-tree-keys")
   198  	@ApiOperationSupport(order = 11)
-  199  	@Operation(summary = "角色所分配的树", description = "角色所分配的树")
+  199  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]")
   200  	public R<CheckedTreeVO> roleTreeKeys(String roleIds) {
 ```
 
@@ -44,7 +46,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   156  	}
-  157  
+  157
   158  	@Override
   159  	public List<String> roleTreeKeys(String roleIds) {
   160  		List<RoleMenu> roleMenus = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().in(RoleMenu::getRoleId, Func.toLongList(roleIds)));
@@ -59,7 +61,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
   161  		return roleMenus.stream().map(roleMenu -> Func.toStr(roleMenu.getMenuId())).collect(Collectors.toList());
   162  	}
-  163  
+  163
   164  	@Override
   165  	public List<String> dataScopeTreeKeys(String roleIds) {
   166  		List<RoleScope> roleScopes = roleScopeService.list(Wrappers.<RoleScope>query().lambda().eq(RoleScope::getScopeCategory, DATA_SCOPE_CATEGORY).in(RoleScope::getRoleId, Func.toLongList(roleIds)));
@@ -73,7 +75,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
    30  	public static String AUTH_KEY = TokenConstant.HEADER;
    31  	private static final List<String> DEFAULT_SKIP_URL = new ArrayList<>();
-   32  
+   32
    33  	static {
    34  		DEFAULT_SKIP_URL.add("/example");
    35  		DEFAULT_SKIP_URL.add("/token/**");

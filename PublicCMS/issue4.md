@@ -3,9 +3,9 @@ title: "PublicCMS issue4: Content Import Category Authorization Bypass"
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/cmsContent/doImport`. The attacker can create or overwrite content in categories they should not be allowed to manage"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -17,6 +17,7 @@ PublicCMS has a missing authorization vulnerability in `POST /admin/cmsContent/d
 
 - Attack precondition: The attacker is a logged-in backend administrator with content import permission
 - Affected endpoint: ``POST /admin/cmsContent/doImport``
+- Affected authorization property: `cmsContent.categoryId, cmsContent.userId, cmsContent.deptId, categoryCode, siteId, userId`
 - Security impact: The attacker can create or overwrite content in categories they should not be allowed to manage
 
 ### 1.2 Exploit path

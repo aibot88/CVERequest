@@ -3,9 +3,9 @@ title: "lamp-cloud issue6: Unauthorized Permission Disclosure via `GET /anyone/v
 description: "lamp-cloud has a missing authorization vulnerability in `GET /anyone/visible/resource`. Disclosure of another employee's authorization profile, including role list, resource code list, and router/menu list"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,9 +35,9 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support
 
 ```text
    70      caseSensitive: false
-   71      # 系统没有配置某个URI时，是否允许访问
+   71      # [non-English text removed]URI[non-English text removed],[non-English text removed]
    72      notConfigUriAllow: false
-   73      anyone: # 请求中 需要携带Tenant 且 需要携带Token(不需要登录)，但不需要验证uri权限
+   73      anyone: # [non-English text removed] [non-English text removed]Tenant [non-English text removed] [non-English text removed]Token([non-English text removed]),[non-English text removed]uri[non-English text removed]
    74        ALL:
    75          - /anyone/**
    76          - /service/model/*/json
@@ -52,11 +52,11 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support
 ```text
    70                      })
    71                      .check(r -> StpUtil.checkLogin());
-   72  
-   73              // 接口权限
+   72
+   73              // [non-English text removed]
    74              Map<String, Set<String>> anyone = ignoreProperties.buildAnyone();
    75              Map<String, Set<String>> allApi = this.defResourceFacade.listAllApi();
-   76  
+   76
    77              allApi.forEach((api, auth) -> {
    78                  List<String> list = StrUtil.split(api, "###");
    79                  String uri = list.get(0);
@@ -73,7 +73,7 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support
    90                                          if (StrUtil.equals(ignore, path)) {
    91                                              return true;
    92                                          }
-   93  
+   93
    94                                          if (SaPathPatternParserUtil.match(ignore, path)) {
    95                                              return true;
    96                                          }
@@ -84,8 +84,8 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support
   101                          })
   102                          .check(r -> StpUtil.checkPermissionOr(auth.toArray(String[]::new)));
   103              });
-  104  
-  105  
+  104
+  105
 ```
 
 

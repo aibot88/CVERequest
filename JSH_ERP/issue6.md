@@ -3,9 +3,9 @@ title: "JSH_ERP issue6: Target User Menu Permission Disclosure via `/function/fi
 description: "JSH_ERP has a missing authorization vulnerability in `POST /function/findMenuByPNumber`. The endpoint discloses another user's effective menu permissions and role-derived function access. This is authorization-state leakage"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,12 +35,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   141       * @throws Exception
   142       */
   143      @PostMapping(value = "/findMenuByPNumber")
-  144      @ApiOperation(value = "根据父编号查询菜单")
+  144      @ApiOperation(value = "[non-English text removed]")
   145      public JSONArray findMenuByPNumber(@RequestBody JSONObject jsonObject,
   146                                HttpServletRequest request)throws Exception {
   147          String pNumber = jsonObject.getString("pNumber");
   148          String userId = jsonObject.getString("userId");
-  149          //存放数据json数组
+  149          //[non-English text removed]json[non-English text removed]
   150          JSONArray dataArray = new JSONArray();
   151          try {
   152              Long roleId = 0L;
@@ -62,12 +62,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   159                      roleId = Long.parseLong(roleIdStr);
   160                  }
   161              }
-  162              //当前用户所拥有的功能列表，格式如：[1][2][5]
+  162              //[non-English text removed],[non-English text removed]:[1][2][5]
   163              List<UserBusiness> funList = userBusinessService.getBasicData(roleId.toString(), "RoleFunctions");
   164              if(funList!=null && funList.size()>0){
   165                  fc = funList.get(0).getValue();
   166              }
-  167              //获取系统配置信息-是否开启多级审核
+  167              //[non-English text removed]-[non-English text removed]
   168              String approvalFlag = "0";
 ```
 
@@ -78,34 +78,34 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   171                  approvalFlag = list.get(0).getMultiLevelApprovalFlag();
   172              }
-  173  
+  173
   174              List<Function> dataList = functionService.getRoleFunction(pNumber);
   175              if (dataList.size() != 0) {
   176                  User userInfo = userService.getCurrentUser();
-  177                  //获取当前用户所属的租户所拥有的功能id的map
+  177                  //[non-English text removed]id[non-English text removed]map
   178                  Map<Long, Long> funIdMap = functionService.getCurrentTenantFunIdMap();
   179                  dataArray = getMenuByFunction(dataList, fc, approvalFlag, funIdMap, userInfo);
-  180                  //增加首页菜单项
+  180                  //[non-English text removed]
   181                  JSONObject homeItem = new JSONObject();
   182                  homeItem.put("id", 0);
-  183                  homeItem.put("text", "首页");
+  183                  homeItem.put("text", "[non-English text removed]");
   184                  homeItem.put("icon", "home");
   185                  homeItem.put("url", "/dashboard/analysis");
   186                  homeItem.put("component", "/layouts/TabLayout");
   187                  dataArray.add(0,homeItem);
   188              }
   189          } catch (DataAccessException e) {
-  190              logger.error(">>>>>>>>>>>>>>>>>>>查找异常", e);
+  190              logger.error(">>>>>>>>>>>>>>>>>>>[non-English text removed]", e);
   191          }
   192          return dataArray;
   193      }
-  194  
+  194
   195      public JSONArray getMenuByFunction(List<Function> dataList, String fc, String approvalFlag, Map<Long, Long> funIdMap, User userInfo) throws Exception {
   196          JSONArray dataArray = new JSONArray();
   197          for (Function function : dataList) {
-  198              //如果不是超管也不是租户就需要校验，防止分配下级用户的功能权限，大于租户的权限
+  198              //[non-English text removed],[non-English text removed],[non-English text removed]
   199              if("admin".equals(userInfo.getLoginName()) || userInfo.getId().equals(userInfo.getTenantId()) || funIdMap.get(function.getId())!=null) {
-  200                  //如果关闭多级审核，遇到任务审核菜单直接跳过
+  200                  //[non-English text removed],[non-English text removed]
   201                  if("0".equals(approvalFlag) && "/workflow".equals(function.getUrl())) {
   202                      continue;
   203                  }
@@ -134,9 +134,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ## 2. Existing checks and why they fail
 
-- The login filter authenticates the caller only.
-- Tenant function-map filtering limits returned functions to the current tenant's function set, but does not authorize reading the target user's permission state.
-- No check enforces `body.userId == currentUser.id` or that the caller manages the target user.
+- The login filter authenticates the caller only. - Tenant function-map filtering limits returned functions to the current tenant's function set, but does not authorize reading the target user's permission state. - No check enforces `body.userId == currentUser.id` or that the caller manages the target user
 
 ## 3. Root Cause Analysis
 

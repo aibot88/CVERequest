@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Module Uninstall Permission Update. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations",
+          "value": "PrestaShop has a missing authorization vulnerability in edit/UPDATE, configure/edit, uninstall/delete. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Module Uninstall Permission Update. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations<p>This issue affects PrestaShop.</p>"
+              "value": "PrestaShop has a missing authorization vulnerability in edit/UPDATE, configure/edit, uninstall/delete. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations<p>This issue affects PrestaShop.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5682755",
+    "cveId": "CAN-2026-7574786",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

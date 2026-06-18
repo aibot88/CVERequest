@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色菜单权限关系可被越权改写. 低权限用户可以给任意角色授予菜单权限，污染后续 RBAC 权限派生结果。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色菜单权限关系可被越权改写. 低权限用户可以给任意角色授予菜单权限，污染后续 RBAC 权限派生结果。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu without the required permission.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1623656",
+    "cveId": "CAN-2026-3074389",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

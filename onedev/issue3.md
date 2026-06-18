@@ -1,11 +1,11 @@
 ---
-title: "onedev issue3: Detector MCP/TOD issue time tracking 读取泄露"
-description: "onedev has a missing authorization vulnerability: Detector MCP/TOD issue time tracking 读取泄露. 未确认到当前版本存在该读取泄露。"
+title: "onedev issue3: Detector MCP/TOD issue time tracking"
+description: "onedev has a missing authorization vulnerability in McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue. An authenticated attacker can read authorization-sensitive data that should be restricted."
 tags:
   - onedev
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-onedev has a missing authorization vulnerability: Detector MCP/TOD issue time tracking 读取泄露. 未确认到当前版本存在该读取泄露。
+onedev has a missing authorization vulnerability in McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue. An authenticated attacker can read authorization-sensitive data that should be restricted.
 
-- Attack precondition: 当前代码中没有报告所称的 `McpHelperResource / /mcp-helper` 路径；对应实现是 `/tod`。
-- Security impact: 未确认到当前版本存在该读取泄露。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue`
+- Affected authorization property: `IssueHelper.getSummary, totalEstimatedTime, totalSpentTime, ownEstimatedTime, ownSpentTime, progress`
+- Security impact: An authenticated attacker can read authorization-sensitive data that should be restricted.
 
 ### 1.2 Exploit path
 
-detector 声称 `IssueHelper.getSummary` 未移除 time fields，但当前代码已经移除。
+The attacker sends crafted requests to McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -54,7 +56,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-无需针对当前代码修复；可补回归测试防止 helper 重新暴露 time fields。
+Enforce server-side authorization for McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

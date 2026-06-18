@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue7: `POST /user/grant`"
-description: "SpringBlade has a missing authorization vulnerability: `POST /user/grant`. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`"
+description: "SpringBlade has a missing authorization vulnerability in /user/grant, RoleServiceImpl.selectList/tree. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `POST /user/grant`. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`
+SpringBlade has a missing authorization vulnerability in /user/grant, RoleServiceImpl.selectList/tree. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`
 
 - Attack precondition: tenant admin with `HAS_ROLE_ADMIN`
+- Affected endpoint: `/user/grant, RoleServiceImpl.selectList/tree`
+- Affected authorization property: `HAS_ROLE_ADMIN, user.roleId, roleIds, roleId, userIds, TenantGuard.verifyBatch`
 - Security impact: assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`
 
 ### 1.2 Exploit path
@@ -34,7 +36,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
   160  	 */
   161  	@PostMapping("/grant")
   162  	@ApiOperationSupport(order = 7)
-  163  	@Operation(summary = "权限设置", description = "传入roleId集合以及menuId集合")
+  163  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]roleId[non-English text removed]menuId[non-English text removed]")
   164  	@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 ```
 
@@ -49,7 +51,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
   208  		R<Tenant> result = sysClient.getTenant(user.getTenantId());
   209  		Tenant tenant = result.getData();
   210  		if (!result.isSuccess() || tenant == null || tenant.getId() == null) {
-  211  			throw new ServiceException("租户信息错误!");
+  211  			throw new ServiceException("[non-English text removed]!");
 ```
 
 3. `blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java`
@@ -59,11 +61,11 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
   209  		Tenant tenant = result.getData();
   210  		if (!result.isSuccess() || tenant == null || tenant.getId() == null) {
-  211  			throw new ServiceException("租户信息错误!");
+  211  			throw new ServiceException("[non-English text removed]!");
   212  		}
   213  		UserOauth userOauth = userOauthService.getById(oauthId);
   214  		if (userOauth == null || userOauth.getId() == null) {
-  215  			throw new ServiceException("第三方登陆信息错误!");
+  215  			throw new ServiceException("[non-English text removed]!");
 ```
 
 4. `blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java`
@@ -72,11 +74,11 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   162  		if (!user.getPassword().equals(DigestUtil.encrypt(oldPassword))) {
-  163  			throw new ServiceException("原密码不正确!");
+  163  			throw new ServiceException("[non-English text removed]!");
   164  		}
   165  		return this.update(Wrappers.<User>update().lambda().set(User::getPassword, DigestUtil.encrypt(newPassword)).eq(User::getId, userId));
   166  	}
-  167  
+  167
   168  	@Override
 ```
 
@@ -88,10 +90,10 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
    48  	public final static String HEADER_KEY = "Authorization";
    49  	public final static String HEADER_PREFIX = "Basic ";
    50  	public final static String ENCRYPT_PREFIX = "04";
-   51  	public final static String USER_HAS_TOO_MANY_FAILS = "用户登录失败次数过多";
-   52  	public final static String IP_HAS_TOO_MANY_FAILS = "用户登录失败次数过多，请稍后再试";
+   51  	public final static String USER_HAS_TOO_MANY_FAILS = "[non-English text removed]";
+   52  	public final static String IP_HAS_TOO_MANY_FAILS = "[non-English text removed],[non-English text removed]";
    53  	public final static String DEFAULT_AVATAR = "https://bladex.cn/images/logo.png";
-   54  
+   54
 ```
 
 

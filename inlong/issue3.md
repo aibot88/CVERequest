@@ -1,11 +1,11 @@
 ---
 title: "inlong issue3: D-1: `/v1/cluster` leaks TubeMQ master token"
-description: "inlong has a missing authorization vulnerability: D-1: `/v1/cluster` leaks TubeMQ master token. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs"
+description: "inlong has a missing authorization vulnerability in GET /v1/cluster, /v1/cluster, /v1/*, tubemq-manager/src/main. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-1: `/v1/cluster` leaks TubeMQ master token. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs
+inlong has a missing authorization vulnerability in GET /v1/cluster, /v1/cluster, /v1/*, tubemq-manager/src/main. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs
 
 - Attack precondition: The attacker can access TubeMQ Manager HTTP `/v1/cluster`
+- Affected endpoint: `GET /v1/cluster, /v1/cluster, /v1/*, tubemq-manager/src/main`
+- Affected authorization property: `ClusterVo.masterEntries, MasterEntry.token, confModAuthToken, queryCluster, queryAllClusterVo, convertToClusterVo`
 - Security impact: Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs
 
 ### 1.2 Exploit path

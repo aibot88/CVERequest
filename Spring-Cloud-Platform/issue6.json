@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: group-user 读取接口泄露成员关系和用户敏感字段. 泄露角色成员/负责人关系以及用户密码哈希等敏感信息。成员关系本身也参与后续权限派生。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*}. An authenticated attacker can perform authorization-sensitive operations through GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: group-user 读取接口泄露成员关系和用户敏感字段. 泄露角色成员/负责人关系以及用户密码哈希等敏感信息。成员关系本身也参与后续权限派生。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*}. An authenticated attacker can perform authorization-sensitive operations through GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} without the required permission.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9723894",
+    "cveId": "CAN-2026-9354464",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

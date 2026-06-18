@@ -1,11 +1,11 @@
 ---
 title: "DSpace issue2: EPerson byEmail Search Leaks Account Authorization Properties"
-description: "DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags"
+description: "DSpace has a missing authorization vulnerability in GET /api/eperson/epersons/search/byEmail, GET /api/eperson/epersons/search/byEmail?email=, GET /api/eperson/epersons/search/byEmail?email=<target>. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags"
 tags:
   - DSpace
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags
+DSpace has a missing authorization vulnerability in GET /api/eperson/epersons/search/byEmail, GET /api/eperson/epersons/search/byEmail?email=, GET /api/eperson/epersons/search/byEmail?email=<target>. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags
 
 - Attack precondition: The attacker can call `GET /api/eperson/epersons/search/byEmail` and knows or guesses a target email address
+- Affected endpoint: `GET /api/eperson/epersons/search/byEmail, GET /api/eperson/epersons/search/byEmail?email=, GET /api/eperson/epersons/search/byEmail?email=<target>`
+- Affected authorization property: `findByEmail(), @PreAuthorize, EPersonRest, EPERSON READ, findOne, email`
 - Security impact: Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags
 
 ### 1.2 Exploit path

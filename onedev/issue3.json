@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "onedev has a missing authorization vulnerability: Detector MCP/TOD issue time tracking 读取泄露. 未确认到当前版本存在该读取泄露。",
+          "value": "onedev has a missing authorization vulnerability in McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue. An authenticated attacker can read authorization-sensitive data that should be restricted.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "onedev has a missing authorization vulnerability: Detector MCP/TOD issue time tracking 读取泄露. 未确认到当前版本存在该读取泄露。<p>This issue affects onedev.</p>"
+              "value": "onedev has a missing authorization vulnerability in McpHelperResource / /mcp-helper, /tod, /tod/query-issues, /tod/get-issue. An authenticated attacker can read authorization-sensitive data that should be restricted.<p>This issue affects onedev.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4008844",
+    "cveId": "CAN-2026-4990451",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

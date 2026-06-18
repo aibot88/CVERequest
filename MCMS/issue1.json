@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MCMS has a missing authorization vulnerability: Backend category list bypasses `cms:category:view`. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers",
+          "value": "MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, GET/POST /ms/cms/category/list, /ms/**, /list, /ms/cms/category/list. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MCMS has a missing authorization vulnerability: Backend category list bypasses `cms:category:view`. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers<p>This issue affects MCMS.</p>"
+              "value": "MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, GET/POST /ms/cms/category/list, /ms/**, /list, /ms/cms/category/list. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers<p>This issue affects MCMS.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4104794",
+    "cveId": "CAN-2026-9348098",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

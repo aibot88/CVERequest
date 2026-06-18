@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: OAuth Registered Client Can Be Read or Modified Without Authorization. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings",
+          "value": "platform has a missing authorization vulnerability in GET /registered-client/list, GET /registered-client/page, POST /registered-client, PUT /registered-client/{id}, DELETE /registered-client/{id}. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: OAuth Registered Client Can Be Read or Modified Without Authorization. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in GET /registered-client/list, GET /registered-client/page, POST /registered-client, PUT /registered-client/{id}, DELETE /registered-client/{id}. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7994468",
+    "cveId": "CAN-2026-3294219",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

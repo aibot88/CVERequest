@@ -1,11 +1,11 @@
 ---
 title: "inlong issue9: D-7: Async topic task creates/configures topics via server-side master token"
-description: "inlong has a missing authorization vulnerability: D-7: Async topic task creates/configures topics via server-side master token. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster"
+description: "inlong has a missing authorization vulnerability in /v1/task?method=addTopicTask, /v1/cluster, /v1/node/master. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-7: Async topic task creates/configures topics via server-side master token. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster
+inlong has a missing authorization vulnerability in /v1/task?method=addTopicTask, /v1/cluster, /v1/node/master. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster
 
 - Attack precondition: The attacker can access `/v1/task?method=addTopicTask`; scheduler is enabled; the target cluster has configurable brokers
+- Affected endpoint: `/v1/task?method=addTopicTask, /v1/cluster, /v1/node/master`
+- Affected authorization property: `BatchAddTopicTaskReq, clusterId, TopicTaskEntry, req.legal(), MasterEntry.token, in_charges`
 - Security impact: Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster
 
 ### 1.2 Exploit path

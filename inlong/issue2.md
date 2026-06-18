@@ -1,11 +1,11 @@
 ---
 title: "inlong issue2: C-4: ID-based consume get/update/delete without ownership check"
-description: "inlong has a missing authorization vulnerability: C-4: ID-based consume get/update/delete without ownership check. Unauthorized read, modification, or deletion of consume records and their authorization-related fields such as creator, in-charges, group/topic binding, status, and related MQ configuration"
+description: "inlong has a missing authorization vulnerability in /api/consume/get/{id}, /api/consume/update, /api/consume/delete/{id}, creator/inCharges. Unauthorized read, modification, or deletion of consume records and their authorization-related fields such as creator, in-charges, group/topic binding, status, and related MQ configuration"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: C-4: ID-based consume get/update/delete without ownership check. Unauthorized read, modification, or deletion of consume records and their authorization-related fields such as creator, in-charges, group/topic binding, status, and related MQ configuration
+inlong has a missing authorization vulnerability in /api/consume/get/{id}, /api/consume/update, /api/consume/delete/{id}, creator/inCharges. Unauthorized read, modification, or deletion of consume records and their authorization-related fields such as creator, in-charges, group/topic binding, status, and related MQ configuration
 
 - Attack precondition: The attacker is authenticated in the same deployment and can guess or obtain an `inlong_consume.id` belonging to another user or group
+- Affected endpoint: `/api/consume/get/{id}, /api/consume/update, /api/consume/delete/{id}, creator/inCharges`
+- Affected authorization property: `inlong_consume.id, in_charges, get, update, delete, updateStatus`
 - Security impact: Unauthorized read, modification, or deletion of consume records and their authorization-related fields such as creator, in-charges, group/topic binding, status, and related MQ configuration
 
 ### 1.2 Exploit path

@@ -1,11 +1,11 @@
 ---
 title: "Ampache issue5: Playlist Source Object Authorization Bypass"
-description: "Ampache has a missing authorization vulnerability: Playlist Source Object Authorization Bypass. The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`"
+description: "Ampache has a missing authorization vulnerability in RecordPlay8Method / Scrobble8Method -> Song::set_played(). The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`"
 tags:
   - Ampache
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-Ampache has a missing authorization vulnerability: Playlist Source Object Authorization Bypass. The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`
+Ampache has a missing authorization vulnerability in RecordPlay8Method / Scrobble8Method -> Song::set_played(). The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`
 
 - Attack precondition: A low-privileged API user can modify a playlist they own or collaborate on, and knows a source object id they cannot access, such as another user's private playlist
+- Affected endpoint: `RecordPlay8Method / Scrobble8Method -> Song::set_played()`
+- Affected authorization property: `playlist_add, type, id, type=playlist&id={other_private_playlist}, playlist_data, playlist_data.playlist`
 - Security impact: The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`
 
 ### 1.2 Exploit path

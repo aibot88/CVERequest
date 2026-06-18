@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Ampache has a missing authorization vulnerability: API Direct Share Read. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share",
+          "value": "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Ampache has a missing authorization vulnerability: API Direct Share Read. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share<p>This issue affects Ampache.</p>"
+              "value": "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share<p>This issue affects Ampache.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5311985",
+    "cveId": "CAN-2026-8350975",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

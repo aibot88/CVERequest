@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `GET /tenant/page`. cross-tenant enumeration and disclosure of tenant records and contact metadata",
+          "value": "SpringBlade has a missing authorization vulnerability in /tenant/page. cross-tenant enumeration and disclosure of tenant records and contact metadata",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `GET /tenant/page`. cross-tenant enumeration and disclosure of tenant records and contact metadata<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in /tenant/page. cross-tenant enumeration and disclosure of tenant records and contact metadata<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8153369",
+    "cveId": "CAN-2026-4899819",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

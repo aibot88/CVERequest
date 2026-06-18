@@ -3,9 +3,9 @@ title: "JSH_ERP issue2: Unauthorized Read of Authorization Relationships via `/u
 description: "JSH_ERP has a missing authorization vulnerability in `GET /userBusiness/getBasicData`. The endpoint discloses authorization relationships: users' roles, role functions/buttons, warehouse access, and customer access. These relationships are consumed by permission and data-scope logic throughout the application"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,7 +35,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   102       * @throws Exception
   103       */
   104      @GetMapping(value = "/getBasicData")
-  105      @ApiOperation(value = "获取信息")
+  105      @ApiOperation(value = "[non-English text removed]")
   106      public BaseResponseInfo getBasicData(@RequestParam(value = "KeyId") String keyId,
   107                                           @RequestParam(value = "Type") String type,
   108                                           HttpServletRequest request)throws Exception {
@@ -58,7 +58,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   122          return 1;
   123      }
-  124  
+  124
   125      public List<UserBusiness> getBasicData(String keyId, String type)throws Exception{
   126          List<UserBusiness> list=null;
   127          try{
@@ -75,13 +75,13 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
    12          )
    13      </update>
-   14  
+   14
    15      <select id="getBasicDataByKeyIdAndType" resultType="com.jsh.erp.datasource.entities.UserBusiness">
    16          select * from jsh_user_business
    17          where key_id=#{keyId} and type=#{type}
    18          and ifnull(delete_flag,'0') !='1'
    19      </select>
-   20  
+   20
    21      <update id="updateValueByTypeAndKeyId">
    22          update jsh_user_business
 ```
@@ -103,9 +103,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ## 2. Existing checks and why they fail
 
-- The login filter only checks session existence.
-- No check ensures the caller is reading their own relationship or an object they administer.
-- The custom mapper is excluded from tenant filtering, so tenant scoping is not a reliable fallback here.
+- The login filter only checks session existence. - No check ensures the caller is reading their own relationship or an object they administer. - The custom mapper is excluded from tenant filtering, so tenant scoping is not a reliable fallback here
 
 ## 3. Root Cause Analysis
 

@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue8: RBAC Grant Upper Bound Missing"
-description: "surveyking has a missing authorization vulnerability: RBAC Grant Upper Bound Missing. 授予自己或他人更高权限，突破 RBAC 权限上界。"
+description: "surveyking has a missing authorization vulnerability in /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId. An authenticated attacker can perform authorization-sensitive operations through /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: RBAC Grant Upper Bound Missing. 授予自己或他人更高权限，突破 RBAC 权限上界。
+surveyking has a missing authorization vulnerability in /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId. An authenticated attacker can perform authorization-sensitive operations through /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId without the required permission.
 
-- Attack precondition: 存在持有 `system:user:update` 或 `system:role:update`、但不应授予高权限角色/权限的管理员类用户。
-- Security impact: 授予自己或他人更高权限，突破 RBAC 权限上界。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/api/system/user/update, /api/system/role/update, role.authority/userRole.roleId`
+- Affected authorization property: `system:user:update, system:role:update, roles, authorities, userIds, role.authority`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId without the required permission.
 
 ### 1.2 Exploit path
 
-通过 `/api/system/user/update` 修改 `roles`，或 `/api/system/role/update` 修改 `authorities` / 绑定 `userIds`。
+The attacker sends crafted requests to /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -55,7 +57,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-增加角色层级和授予上界校验；禁止操作者授予自己不具备或高于自身等级的角色/权限。
+Enforce server-side authorization for /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

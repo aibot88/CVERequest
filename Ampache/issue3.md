@@ -1,11 +1,11 @@
 ---
 title: "Ampache issue3: API `share_create` Arbitrary Target"
-description: "Ampache has a missing authorization vulnerability: API `share_create` Arbitrary Target. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow"
+description: "Ampache has a missing authorization vulnerability in PUT /server/{json. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow"
 tags:
   - Ampache
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-Ampache has a missing authorization vulnerability: API `share_create` Arbitrary Target. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow
+Ampache has a missing authorization vulnerability in PUT /server/{json. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow
 
 - Attack precondition: A low-privileged API user can call `share_create`, the `share` feature is enabled, and the attacker knows an existing object id they cannot access, such as another user's private playlist
+- Affected endpoint: `PUT /server/{json`
+- Affected authorization property: `share_create, share, share.secret, share.public_url, share.user, share.object_type`
 - Security impact: The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow
 
 ### 1.2 Exploit path

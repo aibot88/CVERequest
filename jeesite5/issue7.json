@@ -33,12 +33,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: company/office/treeData?isAll=true 组织/用户树枚举. 攻击者可枚举公司/机构组织树；在加载用户时，还可枚举用户节点及组织归属。不会直接返回 password，但会暴露组织结构、编码、人员目录等权限边界信息。",
+          "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/company/treeData?isAll=true, GET/POST ${adminPath}/sys/office/treeData?isAll=true, isLoadUser=true/lazy, EmpUser.userCode/loginCode/userName, office/treeData, company/listData. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/company/treeData?isAll=true, GET/POST ${adminPath}/sys/office/treeData?isAll=true, isLoadUser=true/lazy, EmpUser.userCode/loginCode/userName, office/treeData, company/listData without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: company/office/treeData?isAll=true 组织/用户树枚举. 攻击者可枚举公司/机构组织树；在加载用户时，还可枚举用户节点及组织归属。不会直接返回 password，但会暴露组织结构、编码、人员目录等权限边界信息。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/company/treeData?isAll=true, GET/POST ${adminPath}/sys/office/treeData?isAll=true, isLoadUser=true/lazy, EmpUser.userCode/loginCode/userName, office/treeData, company/listData. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/company/treeData?isAll=true, GET/POST ${adminPath}/sys/office/treeData?isAll=true, isLoadUser=true/lazy, EmpUser.userCode/loginCode/userName, office/treeData, company/listData without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -88,7 +88,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5001417",
+    "cveId": "CAN-2026-7909174",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

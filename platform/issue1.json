@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Data Permission Assignment Missing Authorization. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`",
+          "value": "platform has a missing authorization vulnerability in PUT /data-permissions/{ownerType}/{ownerId}. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Data Permission Assignment Missing Authorization. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in PUT /data-permissions/{ownerType}/{ownerId}. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4374000",
+    "cveId": "CAN-2026-9212489",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

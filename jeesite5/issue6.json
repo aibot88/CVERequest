@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: role/treeData?isAll=true 角色枚举. 攻击者可枚举角色标识和名称，为后续授权猜测、组合攻击或社工提供权限模型信息。",
+          "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/role/treeData?isAll=true, role/treeData, id/code/name. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/role/treeData?isAll=true, role/treeData, id/code/name without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: role/treeData?isAll=true 角色枚举. 攻击者可枚举角色标识和名称，为后续授权猜测、组合攻击或社工提供权限模型信息。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/role/treeData?isAll=true, role/treeData, id/code/name. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/role/treeData?isAll=true, role/treeData, id/code/name without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2205388",
+    "cveId": "CAN-2026-8060768",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

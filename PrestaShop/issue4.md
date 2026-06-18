@@ -1,11 +1,11 @@
 ---
 title: "PrestaShop issue4: Legacy AdminImport Direct Route Writes Customer/Address Bindings Under READ Permission"
-description: "PrestaShop has a missing authorization vulnerability: Legacy AdminImport Direct Route Writes Customer/Address Bindings Under READ Permission. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:"
+description: "PrestaShop has a missing authorization vulnerability in /process. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:"
 tags:
   - PrestaShop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,8 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-PrestaShop has a missing authorization vulnerability: Legacy AdminImport Direct Route Writes Customer/Address Bindings Under READ Permission. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:
+PrestaShop has a missing authorization vulnerability in /process. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:
 
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/process`
+- Affected authorization property: `AdminImport, csv=<uploaded file>, entity=<Customers or Addresses>, customer.id_shop, customer.id_shop_group, customer.id_default_group`
 - Security impact: A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:
 
 ### 1.2 Exploit path
@@ -59,10 +62,7 @@ Evidence location: controllers/admin/AdminImportController.php#L3155
 
 ## 2. Existing checks and why they fail
 
-- Valid admin token is still required, so this is not unauthenticated.
-- The secure Symfony route is not the vulnerable path.
-- Customer/address validation checks existence and field validity, but does not check whether the employee may bind customers/addresses to the selected shop/customer/group.
-- The legacy permission mapper treats `import=1` as READ, which is insufficient for a write operation.
+- Valid admin token is still required, so this is not unauthenticated. - The secure Symfony route is not the vulnerable path. - Customer/address validation checks existence and field validity, but does not check whether the employee may bind customers/addresses to the selected shop/customer/group. - The legacy permission mapper treats `import=1` as READ, which is insufficient for a write operation
 
 ## 3. Root Cause Analysis
 

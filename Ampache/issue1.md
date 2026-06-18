@@ -1,11 +1,11 @@
 ---
 title: "Ampache issue1: API Direct Share Read"
-description: "Ampache has a missing authorization vulnerability: API Direct Share Read. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share"
+description: "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share"
 tags:
   - Ampache
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-Ampache has a missing authorization vulnerability: API Direct Share Read. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share
+Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share
 
 - Attack precondition: A low-privileged user has valid API session / API ACL access, the `share` feature is enabled, and the attacker knows or guesses another user's `share_id`
+- Affected endpoint: `POST /server/{json`
+- Affected authorization property: `share, share_id, secret, public_url, object_type, object_id`
 - Security impact: The attacker can read another user's share `secret`, `public_url`, `object_type`, `object_id`, `allow_stream`, and `allow_download`. The `secret` and `public_url` are capability-style access credentials that can be used to consume the share
 
 ### 1.2 Exploit path

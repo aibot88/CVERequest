@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue1: `POST /user/save-user`"
-description: "SpringBlade has a missing authorization vulnerability: `POST /user/save-user`. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database"
+description: "SpringBlade has a missing authorization vulnerability in POST /user/save-user, /user/save-user. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `POST /user/save-user`. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database
+SpringBlade has a missing authorization vulnerability in POST /user/save-user, /user/save-user. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database
 
 - Attack precondition: low-privileged authenticated user can reach `/user/save-user`
+- Affected endpoint: `POST /user/save-user, /user/save-user`
+- Affected authorization property: `@RestController, user.tenantId, user.roleId, user.deptId, user.postId, user.password`
 - Security impact: creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database
 
 ### 1.2 Exploit path
@@ -29,12 +31,12 @@ attacker submits a new `User` object with chosen `tenantId`, privileged `roleId`
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service-api/blade-user-api/src/main/java/org/springblade/system/user/feign/IUserClient.java#L78
 
 ```text
-   75  	 * @param user 用户实体
+   75  	 * @param user [non-English text removed]
    76  	 * @return
    77  	 */
    78  	@PostMapping(API_PREFIX + "/save-user")
    79  	R<Boolean> saveUser(@RequestBody User user);
-   80  
+   80
    81  }
 ```
 
@@ -44,7 +46,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    57  	}
-   58  
+   58
    59  	@Override
    60  	@PostMapping(API_PREFIX + "/save-user")
    61  	public R<Boolean> saveUser(User user) {
@@ -57,10 +59,10 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java#L73
 
 ```text
-   70  
+   70
    71  	@Override
    72  	public boolean updateUserInfo(User user) {
-   73  		// 用户修改自身信息强制指定当前请求账号的ID
+   73  		// [non-English text removed]ID
    74  		user.setId(SecureUtil.getUserId());
    75  		User currentUser = getById(user.getId());
    76  		if (currentUser == null) {
@@ -74,10 +76,10 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
    48  	public final static String HEADER_KEY = "Authorization";
    49  	public final static String HEADER_PREFIX = "Basic ";
    50  	public final static String ENCRYPT_PREFIX = "04";
-   51  	public final static String USER_HAS_TOO_MANY_FAILS = "用户登录失败次数过多";
-   52  	public final static String IP_HAS_TOO_MANY_FAILS = "用户登录失败次数过多，请稍后再试";
+   51  	public final static String USER_HAS_TOO_MANY_FAILS = "[non-English text removed]";
+   52  	public final static String IP_HAS_TOO_MANY_FAILS = "[non-English text removed],[non-English text removed]";
    53  	public final static String DEFAULT_AVATAR = "https://bladex.cn/images/logo.png";
-   54  
+   54
 ```
 
 

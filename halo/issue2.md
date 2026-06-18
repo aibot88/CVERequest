@@ -1,11 +1,11 @@
 ---
-title: "halo issue2: Public get-by-name 绕过评论 hidden/approved 可见性过滤"
-description: "halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。"
+title: "halo issue2: Public get-by-name hidden/approved"
+description: "halo has a missing authorization vulnerability in GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name}. An authenticated attacker can perform authorization-sensitive operations through GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} without the required permission."
 tags:
   - halo
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,13 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。
+halo has a missing authorization vulnerability in GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name}. An authenticated attacker can perform authorization-sensitive operations through GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} without the required permission.
 
-- Security impact: 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name}`
+- Affected authorization property: `metadata.name, CommentFinderEndpoint.getComment, commentPublicQueryService.getByName(name), CommentPublicQueryServiceImpl.getByName, client.fetch(Comment.class, name), CommentVo.from(comment)`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} without the required permission.
 
 ### 1.2 Exploit path
 
-1. 攻击者请求 `GET /apis/api.halo.run/v1alpha1/comments/{name}`。 2. `CommentFinderEndpoint.getComment` 调用 `commentPublicQueryService.getByName(name)`。 3. `CommentPublicQueryServiceImpl.getByName` 直接 `client.fetch(Comment.class, name)`。 4. 返回值经 `CommentVo.from(comment)` 转换后响应给客户端。 5. 该路径没有执行 list/reply 路径中使用的 hidden/approved 可见性过滤。
+The attacker sends crafted requests to GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -42,12 +45,6 @@ Evidence location: https://github.com/halo-dev/halo/blob/master/application/src/
 
 Evidence location: https://github.com/halo-dev/halo/blob/master/api/src/main/java/run/halo/app/core/extension/content/Comment.java
 
-## 2. Existing checks and why they fail
-
-- `filterCommentSensitiveData` 会处理 owner/IP/email 等敏感信息，但不清除 `raw`、`content`、`hidden`、`approved`。
-- list/reply 路径有可见性过滤，但 get-by-name 路径未调用。
-- 需要知道 comment name 只是利用前提，不是可靠防线。
-
 ## 3. Root Cause Analysis
 
 Root Cause 1: Missing server-side authorization on the vulnerable operation.
@@ -60,7 +57,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-修改 `CommentPublicQueryServiceImpl.getByName`，fetch comment 后调用与 list/reply 相同的 `populateVisibleListOptions(comment)` 或等价权限检查。 - 对不可见评论返回 not found，避免暴露资源存在性。 - 增加测试覆盖：匿名用户不能按 name 读取 hidden 或未审核评论；评论 owner 或具备 `role-template-view-comments` 的用户可以按策略读取。
+Enforce server-side authorization for GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

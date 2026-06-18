@@ -1,11 +1,11 @@
 ---
 title: "MCMS issue3: `getFromFengMian` bypasses `cms:content:view`"
-description: "MCMS has a missing authorization vulnerability: `getFromFengMian` bypasses `cms:content:view`. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count"
+description: "MCMS has a missing authorization vulnerability in GET /ms/cms/content/getFromFengMian?categoryId=..., GET /ms/cms/content/getFromFengMian?categoryId=, /getFromFengMian. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count"
 tags:
   - MCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-MCMS has a missing authorization vulnerability: `getFromFengMian` bypasses `cms:content:view`. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count
+MCMS has a missing authorization vulnerability in GET /ms/cms/content/getFromFengMian?categoryId=..., GET /ms/cms/content/getFromFengMian?categoryId=, /getFromFengMian. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count
 
 - Attack precondition: The attacker is an authenticated backend `manager` user without `cms:content:view`, and knows or can guess a `categoryId`
+- Affected endpoint: `GET /ms/cms/content/getFromFengMian?categoryId=..., GET /ms/cms/content/getFromFengMian?categoryId=, /getFromFengMian`
+- Affected authorization property: `manager, cms:content:view, categoryId, ContentEntity, @RequiresPermissions, ContentEntity::getCategoryId`
 - Security impact: Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count
 
 ### 1.2 Exploit path

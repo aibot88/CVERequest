@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: D-1: `/v1/cluster` leaks TubeMQ master token. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs",
+          "value": "inlong has a missing authorization vulnerability in GET /v1/cluster, /v1/cluster, /v1/*, tubemq-manager/src/main. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: D-1: `/v1/cluster` leaks TubeMQ master token. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in GET /v1/cluster, /v1/cluster, /v1/*, tubemq-manager/src/main. Disclosure of master `confModAuthToken`, which protects TubeMQ master modification APIs<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2479514",
+    "cveId": "CAN-2026-8761917",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

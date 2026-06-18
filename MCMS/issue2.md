@@ -1,11 +1,11 @@
 ---
 title: "MCMS issue2: Generate module category list bypasses category/generate read permission"
-description: "MCMS has a missing authorization vulnerability: Generate module category list bypasses category/generate read permission. Unauthorized backend users can retrieve complete category metadata through the static-generation helper endpoint"
+description: "MCMS has a missing authorization vulnerability in POST /ms/cms/generate/list, GET/POST /ms/cms/generate/list, /list. Unauthorized backend users can retrieve complete category metadata through the static-generation helper endpoint"
 tags:
   - MCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-MCMS has a missing authorization vulnerability: Generate module category list bypasses category/generate read permission. Unauthorized backend users can retrieve complete category metadata through the static-generation helper endpoint
+MCMS has a missing authorization vulnerability in POST /ms/cms/generate/list, GET/POST /ms/cms/generate/list, /list. Unauthorized backend users can retrieve complete category metadata through the static-generation helper endpoint
 
 - Attack precondition: The attacker is an authenticated backend `manager` user without category-view or generate-view privileges
+- Affected endpoint: `POST /ms/cms/generate/list, GET/POST /ms/cms/generate/list, /list`
+- Affected authorization property: `manager, categoryBiz.list(...), cms:generate:*, @RequiresPermissions, @RequiresPermissions("cms:category:view"), cms:generate:view`
 - Security impact: Unauthorized backend users can retrieve complete category metadata through the static-generation helper endpoint
 
 ### 1.2 Exploit path

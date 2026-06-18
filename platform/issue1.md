@@ -1,11 +1,11 @@
 ---
 title: "platform issue1: Data Permission Assignment Missing Authorization"
-description: "platform has a missing authorization vulnerability: Data Permission Assignment Missing Authorization. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`"
+description: "platform has a missing authorization vulnerability in PUT /data-permissions/{ownerType}/{ownerId}. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Data Permission Assignment Missing Authorization. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`
+platform has a missing authorization vulnerability in PUT /data-permissions/{ownerType}/{ownerId}. The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`
 
 - Attack precondition: The attacker is authenticated and can reach `PUT /data-permissions/{ownerType}/{ownerId}`. The impact is clearest when the target role has `scopeType=CUSTOMIZE`
+- Affected endpoint: `PUT /data-permissions/{ownerType}/{ownerId}`
+- Affected authorization property: `scopeType=CUSTOMIZE, dataType, scopeType, dataIds, sys_data_permission_ref, @SaCheckPermission("sys:data-permission:assign")`
 - Security impact: The attacker can expand role/user data visibility by modifying authorization-model records in `sys_data_permission_ref`
 
 ### 1.2 Exploit path

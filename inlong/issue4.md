@@ -1,11 +1,11 @@
 ---
 title: "inlong issue4: D-2: `/v1/node/master` modifies master token/ip/webPort"
-description: "inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations"
+description: "inlong has a missing authorization vulnerability in /v1/node/master?method=modify, /v1/node/master. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations
+inlong has a missing authorization vulnerability in /v1/node/master?method=modify, /v1/node/master. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations
 
 - Attack precondition: The attacker can access `/v1/node/master?method=modify`, and the target master record exists
+- Affected endpoint: `/v1/node/master?method=modify, /v1/node/master`
+- Affected authorization property: `MasterDto, clusterId, token, ip, webPort, standby`
 - Security impact: The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations
 
 ### 1.2 Exploit path

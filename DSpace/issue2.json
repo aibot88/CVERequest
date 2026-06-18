@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags",
+          "value": "DSpace has a missing authorization vulnerability in GET /api/eperson/epersons/search/byEmail, GET /api/eperson/epersons/search/byEmail?email=, GET /api/eperson/epersons/search/byEmail?email=<target>. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags<p>This issue affects DSpace.</p>"
+              "value": "DSpace has a missing authorization vulnerability in GET /api/eperson/epersons/search/byEmail, GET /api/eperson/epersons/search/byEmail?email=, GET /api/eperson/epersons/search/byEmail?email=<target>. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags<p>This issue affects DSpace.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9710174",
+    "cveId": "CAN-2026-3769184",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

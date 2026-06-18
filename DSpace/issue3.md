@@ -1,11 +1,11 @@
 ---
 title: "DSpace issue3: Registration Token Path Allows Arbitrary netid Binding"
-description: "DSpace has a missing authorization vulnerability: Registration Token Path Allows Arbitrary netid Binding. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier"
+description: "DSpace has a missing authorization vulnerability in POST /api/eperson/epersons?token=, POST /api/eperson/epersons?token=<token>. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier"
 tags:
   - DSpace
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-DSpace has a missing authorization vulnerability: Registration Token Path Allows Arbitrary netid Binding. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier
+DSpace has a missing authorization vulnerability in POST /api/eperson/epersons?token=, POST /api/eperson/epersons?token=<token>. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier
 
 - Attack precondition: Registration is enabled. The attacker has a valid registration token for their email, provides a password, and chooses an unused `netid` value
+- Affected endpoint: `POST /api/eperson/epersons?token=, POST /api/eperson/epersons?token=<token>`
+- Affected authorization property: `netid, canRegisterExternalAccount(), setNetid(), eperson.netid, selfRegistered, WRITE`
 - Security impact: Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier
 
 ### 1.2 Exploit path

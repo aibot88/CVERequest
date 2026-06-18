@@ -1,11 +1,11 @@
 ---
 title: "mall-swarm issue4: Cart updateAttr Soft Deletes Other User's Cart Item"
-description: "mall-swarm has a missing authorization vulnerability: Cart updateAttr Soft Deletes Other User's Cart Item. 可软删除他人的购物车项。"
+description: "mall-swarm has a missing authorization vulnerability in POST /mall-portal/cart/update/attr, POST /cart/update/attr. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers."
 tags:
   - mall-swarm
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,10 +13,12 @@ tags:
 
 ### 1.1 Summary
 
-mall-swarm has a missing authorization vulnerability: Cart updateAttr Soft Deletes Other User's Cart Item. 可软删除他人的购物车项。
+mall-swarm has a missing authorization vulnerability in POST /mall-portal/cart/update/attr, POST /cart/update/attr. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
-- Attack precondition: 任意已登录商城会员，知道他人购物车项 `id`。
-- Security impact: 可软删除他人的购物车项。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /mall-portal/cart/update/attr, POST /cart/update/attr`
+- Affected authorization property: `id, OmsCartItemServiceImpl.updateAttr, deleteStatus=1, oms_cart_item.id -> oms_cart_item.member_id -> currentMember.id, updateAttr, memberId`
+- Security impact: An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
 ### 1.2 Exploit path
 
@@ -43,7 +45,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-在 `updateAttr` 中使用当前会员 ID 查询/更新旧项，例如 `id + currentMember.id + deleteStatus=0`；未匹配时返回 403/404。
+Enforce server-side authorization for POST /mall-portal/cart/update/attr, POST /cart/update/attr before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

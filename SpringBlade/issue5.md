@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue5: `GET /tenant/page`"
-description: "SpringBlade has a missing authorization vulnerability: `GET /tenant/page`. cross-tenant enumeration and disclosure of tenant records and contact metadata"
+description: "SpringBlade has a missing authorization vulnerability in /tenant/page. cross-tenant enumeration and disclosure of tenant records and contact metadata"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `GET /tenant/page`. cross-tenant enumeration and disclosure of tenant records and contact metadata
+SpringBlade has a missing authorization vulnerability in /tenant/page. cross-tenant enumeration and disclosure of tenant records and contact metadata
 
 - Attack precondition: tenant admin with `HAS_ROLE_ADMIN`
+- Affected endpoint: `/tenant/page`
+- Affected authorization property: `HAS_ROLE_ADMIN, tenant.tenantId, selectTenantPage, administrator, applyTenantScope, blade_tenant where is_deleted = 0`
 - Security impact: cross-tenant enumeration and disclosure of tenant records and contact metadata
 
 ### 1.2 Exploit path
@@ -29,13 +31,13 @@ attacker calls `/tenant/page`; controller invokes `selectTenantPage`, whose mapp
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/controller/TenantController.java#L95
 
 ```text
-   92  	@Operation(summary = "下拉数据源", description = "传入tenant")
+   92  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]tenant")
    93  	public R<List<Tenant>> select(Tenant tenant, BladeUser bladeUser) {
    94  		QueryWrapper<Tenant> queryWrapper = Condition.getQueryWrapper(tenant);
    95  		List<Tenant> list = tenantService.list((!bladeUser.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID)) ? queryWrapper.lambda().eq(Tenant::getTenantId, bladeUser.getTenantId()) : queryWrapper);
    96  		return R.data(list);
    97  	}
-   98  
+   98
 ```
 
 2. `blade-service/blade-system/src/main/java/org/springblade/system/service/impl/TenantServiceImpl.java`
@@ -45,7 +47,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
    63  		return page.setRecords(baseMapper.selectTenantPage(page, tenant));
    64  	}
-   65  
+   65
    66  	@Override
    67  	public Tenant getByTenantId(String tenantId) {
    68  		return getOne(Wrappers.<Tenant>query().lambda().eq(Tenant::getTenantId, tenantId));
@@ -61,12 +63,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    18      </resultMap>
-   19  
-   20  
+   19
+   20
    21      <select id="selectTenantPage" resultMap="tenantResultMap">
    22          select * from blade_tenant where is_deleted = 0
    23      </select>
-   24  
+   24
 ```
 
 

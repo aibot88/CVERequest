@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility",
+          "value": "platform has a missing authorization vulnerability in PUT /plan-subscriptions/{id}, GET /db-instances/, GET /db-instances/*, jdbcUrl/username/password. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in PUT /plan-subscriptions/{id}, GET /db-instances/, GET /db-instances/*, jdbcUrl/username/password. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3304937",
+    "cveId": "CAN-2026-7674606",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall-swarm has a missing authorization vulnerability: Order Detail Unauthorized Read. 可越权读取他人订单详情，包括订单归属、商品明细、收货人、电话、收货地址等非公开信息。",
+          "value": "mall-swarm has a missing authorization vulnerability in GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/**. An authenticated attacker can perform authorization-sensitive operations through GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall-swarm has a missing authorization vulnerability: Order Detail Unauthorized Read. 可越权读取他人订单详情，包括订单归属、商品明细、收货人、电话、收货地址等非公开信息。<p>This issue affects mall-swarm.</p>"
+              "value": "mall-swarm has a missing authorization vulnerability in GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/**. An authenticated attacker can perform authorization-sensitive operations through GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** without the required permission.<p>This issue affects mall-swarm.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3776082",
+    "cveId": "CAN-2026-6307925",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -3,9 +3,9 @@ title: "JSH_ERP issue8: Client-Controlled Tenant Quota and Expiration via `/user
 description: "JSH_ERP has a missing authorization vulnerability in `POST /user/registerUser`. An attacker can self-register a tenant with excessive user quota or an arbitrary future expiration time, bypassing service-side trial and quota controls"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -49,17 +49,17 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   355       * @throws Exception
   356       */
   357      @PostMapping(value = "/registerUser")
-  358      @ApiOperation(value = "注册用户")
+  358      @ApiOperation(value = "[non-English text removed]")
   359      public Object registerUser(@RequestBody UserEx ue,
   360                                 HttpServletRequest request)throws Exception{
   361          JSONObject result = ExceptionConstants.standardSuccess();
   362          ue.setUsername(ue.getLoginName());
   363          userService.validateCaptcha(ue.getCode(), ue.getUuid());
-  364          userService.checkLoginName(ue); //检查登录名
+  364          userService.checkLoginName(ue); //[non-English text removed]
   365          userService.registerUser(ue,manageRoleId,request);
   366          return result;
   367      }
-  368  
+  368
 ```
 
 3. `jshERP-boot/src/main/java/com/jsh/erp/service/UserService.java`
@@ -68,7 +68,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
   640              userBusinessService.insertUserBusiness(ubObj, null);
-  641              //创建租户信息
+  641              //[non-English text removed]
   642              JSONObject tenantObj = new JSONObject();
   643              tenantObj.put("tenantId", ue.getId());
   644              tenantObj.put("loginName",ue.getLoginName());
@@ -78,7 +78,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   648              Tenant tenant = JSONObject.parseObject(tenantObj.toJSONString(), Tenant.class);
   649              tenant.setCreateTime(new Date());
   650              if(tenant.getUserNumLimit()==null) {
-  651                  tenant.setUserNumLimit(userNumLimit); //默认用户限制数量
+  651                  tenant.setUserNumLimit(userNumLimit); //[non-English text removed]
   652              }
   653              if(tenant.getExpireTime()==null) {
 ```
@@ -90,16 +90,16 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   649              tenant.setCreateTime(new Date());
   650              if(tenant.getUserNumLimit()==null) {
-  651                  tenant.setUserNumLimit(userNumLimit); //默认用户限制数量
+  651                  tenant.setUserNumLimit(userNumLimit); //[non-English text removed]
   652              }
   653              if(tenant.getExpireTime()==null) {
-  654                  tenant.setExpireTime(Tools.addDays(new Date(), tryDayLimit)); //租户允许试用的天数
+  654                  tenant.setExpireTime(Tools.addDays(new Date(), tryDayLimit)); //[non-English text removed]
   655              }
   656              tenantMapper.insertSelective(tenant);
-  657              logger.info("===============创建租户信息完成===============");
+  657              logger.info("===============[non-English text removed]===============");
   658          }
   659      }
-  660  
+  660
 ```
 
 5. `jshERP-boot/src/main/java/com/jsh/erp/service/UserService.java`
@@ -109,19 +109,17 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   655              }
   656              tenantMapper.insertSelective(tenant);
-  657              logger.info("===============创建租户信息完成===============");
+  657              logger.info("===============[non-English text removed]===============");
   658          }
   659      }
-  660  
+  660
   661      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
 ```
 
 
 ## 2. Existing checks and why they fail
 
-- Captcha prevents simple automated abuse, but does not authorize quota or expiration values.
-- Login-name uniqueness is unrelated to tenant entitlement.
-- `tenantId` and default role are server-derived, but quota and expiration are client-controlled.
+- Captcha prevents simple automated abuse, but does not authorize quota or expiration values. - Login-name uniqueness is unrelated to tenant entitlement. - `tenantId` and default role are server-derived, but quota and expiration are client-controlled
 
 ## 3. Root Cause Analysis
 

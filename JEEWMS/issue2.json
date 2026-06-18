@@ -10,10 +10,10 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L580",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L585",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L595",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L627",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L639"
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L585",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L595",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L627",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L639"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
           "vendor": "erzhongxmu",
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `updateAuthority` 可改写角色功能权限. 可给角色授予或移除菜单/功能权限，影响用户后续可访问功能和授权状态。",
+          "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `updateAuthority` 可改写角色功能权限. 可给角色授予或移除菜单/功能权限，影响用户后续可访问功能和授权状态。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1149355",
+    "cveId": "CAN-2026-6492878",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

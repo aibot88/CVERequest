@@ -1,11 +1,11 @@
 ---
 title: "RuoYi issue5: Department Hierarchy Rebinding"
-description: "RuoYi has a missing authorization vulnerability: Department Hierarchy Rebinding. 越权创建或移动部门，改变 DataScope 使用的部门层级授权路径。"
+description: "RuoYi has a missing authorization vulnerability in /system/dept/add, /system/dept/edit, /add/{parentId}, /add. An authenticated attacker can perform authorization-sensitive operations through /system/dept/add, /system/dept/edit, /add/{parentId}, /add without the required permission."
 tags:
   - RuoYi
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,15 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-RuoYi has a missing authorization vulnerability: Department Hierarchy Rebinding. 越权创建或移动部门，改变 DataScope 使用的部门层级授权路径。
+RuoYi has a missing authorization vulnerability in /system/dept/add, /system/dept/edit, /add/{parentId}, /add. An authenticated attacker can perform authorization-sensitive operations through /system/dept/add, /system/dept/edit, /add/{parentId}, /add without the required permission.
 
-- Attack precondition: 拥有 `system:dept:add` 或 `system:dept:edit`。
-- Affected authorization property: ``sys_dept.parent_id`, `sys_dept.ancestors`。`
-- Security impact: 越权创建或移动部门，改变 DataScope 使用的部门层级授权路径。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/system/dept/add, /system/dept/edit, /add/{parentId}, /add`
+- Affected authorization property: ``sys_dept.parent_id`, `sys_dept.ancestors``
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /system/dept/add, /system/dept/edit, /add/{parentId}, /add without the required permission.
 
 ### 1.2 Exploit path
 
-POST `/system/dept/add` 或 `/system/dept/edit`，提交不可见父部门 `parentId`。
+The attacker sends crafted requests to /system/dept/add, /system/dept/edit, /add/{parentId}, /add with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -36,14 +37,14 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
    77      {
    78          if (!deptService.checkDeptNameUnique(dept))
    79          {
-   80              return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+   80              return error("[non-English text removed]'" + dept.getDeptName() + "'[non-English text removed],[non-English text removed]");
    81          }
    82          dept.setCreateBy(getLoginName());
    83          return toAjax(deptService.insertDept(dept));
    84      }
-   85  
+   85
    86      /**
-   87       * 修改部门
+   87       * [non-English text removed]
 ```
 
 2. `ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysDeptServiceImpl.java`
@@ -51,26 +52,26 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysDeptServiceImpl.java#L193
 
 ```text
-  190       * @return 结果
+  190       * @return [non-English text removed]
   191       */
   192      @Override
   193      public int insertDept(SysDept dept)
   194      {
   195          SysDept info = deptMapper.selectDeptById(dept.getParentId());
-  196          // 如果父节点不为"正常"状态,则不允许新增子节点
+  196          // [non-English text removed]"[non-English text removed]"[non-English text removed],[non-English text removed]
   197          if (!UserConstants.DEPT_NORMAL.equals(info.getStatus()))
   198          {
-  199              throw new ServiceException("部门停用，不允许新增");
+  199              throw new ServiceException("[non-English text removed],[non-English text removed]");
   200          }
   201          dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
   202          return deptMapper.insertDept(dept);
   203      }
-  204  
+  204
   205      /**
-  206       * 修改保存部门信息
-  207       * 
-  208       * @param dept 部门信息
-  209       * @return 结果
+  206       * [non-English text removed]
+  207       *
+  208       * @param dept [non-English text removed]
+  209       * @return [non-English text removed]
   210       */
   211      @Override
   212      @Transactional
@@ -91,14 +92,14 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   227          {
 ```
 
-3. `ruoyi-system/target/classes/mapper/system/SysDeptMapper.xml`
+3. `ruoyi-system/src/main/resources/mapper/system/SysDeptMapper.xml`
 
-Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysDeptMapper.xml#L89
+Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysDeptMapper.xml#L89
 
 ```text
    86  		select count(*) from sys_dept where status = 0 and del_flag = '0' and find_in_set(#{deptId}, ancestors)
    87  	</select>
-   88  	
+   88
    89  	<insert id="insertDept" parameterType="SysDept">
    90   		insert into sys_dept(
    91   			<if test="deptId != null and deptId != 0">dept_id,</if>
@@ -126,7 +127,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   113   			sysdate()
   114   		)
   115  	</insert>
-  116  	
+  116
   117  	<update id="updateDept" parameterType="SysDept">
   118   		update sys_dept
   119   		<set>
@@ -143,7 +144,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   130   		</set>
   131   		where dept_id = #{deptId}
   132  	</update>
-  133  	
+  133
   134  	<update id="updateDeptChildren" parameterType="java.util.List">
 ```
 
@@ -155,7 +156,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-fram
    97                  scopeCustomIds.add(Convert.toStr(role.getRoleId()));
    98              }
    99          });
-  100  
+  100
   101          for (SysRole role : user.getRoles())
   102          {
   103              String dataScope = role.getDataScope();
@@ -189,7 +190,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-add/edit 保存前对 `parentId` 调用 `deptService.checkDeptDataScope(parentId)`，并阻止跨授权范围移动部门。
+Enforce server-side authorization for /system/dept/add, /system/dept/edit, /add/{parentId}, /add before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

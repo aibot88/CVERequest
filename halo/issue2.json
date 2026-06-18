@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。",
+          "value": "halo has a missing authorization vulnerability in GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name}. An authenticated attacker can perform authorization-sensitive operations through GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。<p>This issue affects halo.</p>"
+              "value": "halo has a missing authorization vulnerability in GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name}. An authenticated attacker can perform authorization-sensitive operations through GET /apis/api.halo.run/v1alpha1/comments/{name}, GET comments/{name} without the required permission.<p>This issue affects halo.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8916916",
+    "cveId": "CAN-2026-8355070",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

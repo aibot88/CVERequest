@@ -3,9 +3,9 @@ title: "PublicCMS issue2: Backend User Superuser / Role Assignment Bypass"
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/sysUser/save`. The attacker can create or upgrade a backend user with roles they should not be able to grant, enabling privilege escalation in the admin console"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -17,6 +17,7 @@ PublicCMS has a missing authorization vulnerability in `POST /admin/sysUser/save
 
 - Attack precondition: The attacker is a logged-in backend administrator with access to user creation or user editing
 - Affected endpoint: ``POST /admin/sysUser/save``
+- Affected authorization property: `sysUser.superuser, sysUser.roles, sysRoleUser.roleId, superuser=true, roleIds, superuser`
 - Security impact: The attacker can create or upgrade a backend user with roles they should not be able to grant, enabling privilege escalation in the admin console
 
 ### 1.2 Exploit path

@@ -1,11 +1,11 @@
 ---
 title: "mall4cloud issue2: Role Permission Edges Write Arbitrary `menu_id` / `menu_permission_id`"
-description: "mall4cloud has a missing authorization vulnerability: Role Permission Edges Write Arbitrary `menu_id` / `menu_permission_id`. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions"
+description: "mall4cloud has a missing authorization vulnerability in POST /role, PUT /role, bizType/tenantId. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions"
 tags:
   - mall4cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,10 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-mall4cloud has a missing authorization vulnerability: Role Permission Edges Write Arbitrary `menu_id` / `menu_permission_id`. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions
+mall4cloud has a missing authorization vulnerability in POST /role, PUT /role, bizType/tenantId. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions
 
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /role, PUT /role, bizType/tenantId`
 - Affected authorization property: ``role_menu.role_id`, `role_menu.menu_id`, `role_menu.menu_permission_id`, `menu.biz_type`, `menu_permission.biz_type``
 - Security impact: A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions
+
+### 1.2 Exploit path
+
+The attacker sends crafted requests to POST /role, PUT /role, bizType/tenantId with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -29,9 +35,7 @@ Evidence location: MenuPermissionMapper.xml
 
 ## 2. Existing checks and why they fail
 
-- Target role ownership is checked on update, but the permission edges being attached to that role are not checked.
-- There is no role hierarchy or “current user can grant this permission” check.
-- There is no mapper-level join to constrain `menu_permission.biz_type` to the current `sysType`.
+- Target role ownership is checked on update, but the permission edges being attached to that role are not checked. - There is no role hierarchy or "current user can grant this permission" check. - There is no mapper-level join to constrain `menu_permission.biz_type` to the current `sysType`
 
 ## 3. Root Cause Analysis
 
@@ -42,6 +46,10 @@ The endpoint accepts user-controlled authorization-sensitive identifiers or fiel
 Root Cause 2: Missing object-scope or grant-bound validation.
 
 The implementation relies on endpoint access, UI filtering, or object existence checks instead of enforcing target ownership, tenant boundary, role ceiling, or grantable-resource constraints at the service layer.
+
+## 4. Recommended fix
+
+Enforce server-side authorization for POST /role, PUT /role, bizType/tenantId before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

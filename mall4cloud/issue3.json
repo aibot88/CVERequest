@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall4cloud has a missing authorization vulnerability: Shop File and File Group Operations Miss `shop_id` Ownership Checks. Cross-shop modification, regrouping, or deletion of uploaded assets and file groups",
+          "value": "mall4cloud has a missing authorization vulnerability in /m/attach_file, /m/attach_file_group. Cross-shop modification, regrouping, or deletion of uploaded assets and file groups",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall4cloud has a missing authorization vulnerability: Shop File and File Group Operations Miss `shop_id` Ownership Checks. Cross-shop modification, regrouping, or deletion of uploaded assets and file groups<p>This issue affects mall4cloud.</p>"
+              "value": "mall4cloud has a missing authorization vulnerability in /m/attach_file, /m/attach_file_group. Cross-shop modification, regrouping, or deletion of uploaded assets and file groups<p>This issue affects mall4cloud.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5043281",
+    "cveId": "CAN-2026-1806601",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

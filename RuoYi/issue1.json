@@ -11,8 +11,8 @@
           "programFiles": [
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysRoleController.java#L95",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysRoleServiceImpl.java#L198",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysRoleMenuMapper.xml#L27",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysMenuMapper.xml#L64"
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysRoleMenuMapper.xml#L27",
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysMenuMapper.xml#L64"
           ],
           "repo": "https://github.com/yangzongzhuan/RuoYi",
           "vendor": "yangzongzhuan",
@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "RuoYi has a missing authorization vulnerability: Role Menu Permission Overwrite. 角色被授予操作者本不具备的菜单/接口权限；若该角色已分配给用户，权限会在 Shiro 重新加载后生效。",
+          "value": "RuoYi has a missing authorization vulnerability in /system/role/add, /system/role/edit, system:role:add/edit. An authenticated attacker can perform authorization-sensitive operations through /system/role/add, /system/role/edit, system:role:add/edit without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "RuoYi has a missing authorization vulnerability: Role Menu Permission Overwrite. 角色被授予操作者本不具备的菜单/接口权限；若该角色已分配给用户，权限会在 Shiro 重新加载后生效。<p>This issue affects RuoYi.</p>"
+              "value": "RuoYi has a missing authorization vulnerability in /system/role/add, /system/role/edit, system:role:add/edit. An authenticated attacker can perform authorization-sensitive operations through /system/role/add, /system/role/edit, system:role:add/edit without the required permission.<p>This issue affects RuoYi.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8731854",
+    "cveId": "CAN-2026-5167694",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

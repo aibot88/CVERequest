@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue6: Repo Template Scope Authorization Bypass"
-description: "surveyking has a missing authorization vulnerability: Repo Template Scope Authorization Bypass. 向他人题库写入题目、删除模板绑定、读取/导出私有题库内容。"
+description: "surveyking has a missing authorization vulnerability in /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id. An authenticated attacker can perform authorization-sensitive operations through /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: Repo Template Scope Authorization Bypass. 向他人题库写入题目、删除模板绑定、读取/导出私有题库内容。
+surveyking has a missing authorization vulnerability in /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id. An authenticated attacker can perform authorization-sensitive operations through /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id without the required permission.
 
-- Attack precondition: 任意已登录用户可调用未加权限的 repo 接口；或拥有 `repo:create` 但非目标 repo owner。
-- Security impact: 向他人题库写入题目、删除模板绑定、读取/导出私有题库内容。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id`
+- Affected authorization property: `repo:create, batchCreate, Template.repoId, assertManagePermission, repoId`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `/api/repo/import`、`/api/repo/unbind`、`/api/repo/pick`、`/api/repo/export` 或 `batchCreate`，指定他人 `repoId/id`。
+The attacker sends crafted requests to /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -58,7 +60,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-所有按 `repoId` 操作模板/导出的接口统一调用 repo owner/partner 权限检查。
+Enforce server-side authorization for /api/repo/import, /api/repo/unbind, /api/repo/pick, /api/repo/export, repoId/id before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

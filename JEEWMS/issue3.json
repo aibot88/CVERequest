@@ -10,9 +10,9 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L875",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L879",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L890",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L897"
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L879",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L890",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L897"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
           "vendor": "erzhongxmu",
@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `updateDataRule` 可改写角色数据规则. 可扩大、清空或替换角色在某功能下的数据权限规则，影响后续数据过滤范围。",
+          "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `updateDataRule` 可改写角色数据规则. 可扩大、清空或替换角色在某功能下的数据权限规则，影响后续数据过滤范围。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3104791",
+    "cveId": "CAN-2026-6417723",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

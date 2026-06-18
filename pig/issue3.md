@@ -3,9 +3,9 @@ title: "pig issue3: Department Tree Import Without Permission Check"
 description: "pig has a missing authorization vulnerability in `POST /dept/import`. An authenticated user can create unauthorized department nodes under sensitive parent departments, corrupting organization structure and any logic depending on department hierarchy"
 tags:
   - pig
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -15,7 +15,9 @@ tags:
 
 pig has a missing authorization vulnerability in `POST /dept/import`. An authenticated user can create unauthorized department nodes under sensitive parent departments, corrupting organization structure and any logic depending on department hierarchy
 
+- Attack precondition: Any authenticated user
 - Affected endpoint: ``POST /dept/import``
+- Affected authorization property: `@HasPermission, parentName, sys_dept.parent_id, SysDept, parentId, sys_dept_add`
 - Security impact: An authenticated user can create unauthorized department nodes under sensitive parent departments, corrupting organization structure and any logic depending on department hierarchy
 
 ### 1.2 Exploit path
@@ -33,9 +35,7 @@ Evidence location: SysDeptServiceImpl.java
 
 ## 2. Existing checks and why they fail
 
-- The service validates whether the parent department name exists.
-- It does not validate whether the current user can create a department under that parent.
-- It does not reuse the authorization requirement of the normal create endpoint.
+- The service validates whether the parent department name exists. - It does not validate whether the current user can create a department under that parent. - It does not reuse the authorization requirement of the normal create endpoint
 
 ## 3. Root Cause Analysis
 

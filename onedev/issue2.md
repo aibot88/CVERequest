@@ -1,11 +1,11 @@
 ---
-title: "onedev issue2: Detector REST issue time tracking 读取泄露"
-description: "onedev has a missing authorization vulnerability: Detector REST issue time tracking 读取泄露. 可读取 work log 或时间变更历史中的 spent/estimated time old/new value，绕过 `AccessTimeTracking`。"
+title: "onedev issue2: Detector REST issue time tracking"
+description: "onedev has a missing authorization vulnerability in GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works. An authenticated attacker can read authorization-sensitive data that should be restricted."
 tags:
   - onedev
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-onedev has a missing authorization vulnerability: Detector REST issue time tracking 读取泄露. 可读取 work log 或时间变更历史中的 spent/estimated time old/new value，绕过 `AccessTimeTracking`。
+onedev has a missing authorization vulnerability in GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works. An authenticated attacker can read authorization-sensitive data that should be restricted.
 
-- Attack precondition: 攻击者能访问 issue，但没有目标项目的 `AccessTimeTracking`；`GET /issue-works/{workId}` 还需要订阅 active，并知道或枚举到 work id。
-- Security impact: 可读取 work log 或时间变更历史中的 spent/estimated time old/new value，绕过 `AccessTimeTracking`。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works`
+- Affected authorization property: `AccessTimeTracking, canAccessIssue, getIssueMap, getChanges, issue.getChanges(), getWork`
+- Security impact: An authenticated attacker can read authorization-sensitive data that should be restricted.
 
 ### 1.2 Exploit path
 
-当前代码中，`GET /issues/{id}`、`GET /issues` 的标量 time 字段已过滤，`GET /issues/{id}/works` 也已加 time-tracking 检查；但 `GET /issues/{id}/changes` 仍直接返回 change data，`GET /issue-works/{workId}` 仍只检查 `canAccessIssue`。
+The attacker sends crafted requests to GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -30,7 +32,7 @@ Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/jav
 
 ```text
   128      }
-  129  
+  129
   130  	@Api(order=200, exampleProvider = "getFieldsExample")
   131  	@Path("/{issueId}/fields")
   132      @GET
@@ -44,11 +46,11 @@ Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/jav
 
 ```text
   168  		Issue issue = issueService.load(issueId);
-  169      	if (!SecurityUtils.canAccessIssue(issue)) 
+  169      	if (!SecurityUtils.canAccessIssue(issue))
   170  			throw new UnauthorizedException();
   171      	return issue.getComments();
   172      }
-  173  
+  173
   174  	@Api(order=425)
 ```
 
@@ -73,9 +75,9 @@ Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/jav
 ```text
   148  				otherActivities.add(new IssueCommentActivity(comment));
   149  		}
-  150  		
-  151  		if (showWorkLog && getIssue().getProject().isTimeTracking() 
-  152  				&& WicketUtils.isSubscriptionActive() 
+  150
+  151  		if (showWorkLog && getIssue().getProject().isTimeTracking()
+  152  				&& WicketUtils.isSubscriptionActive()
   153  				&& canAccessTimeTracking(getIssue().getProject())) {
   154  			for (IssueWork work: getIssue().getWorks())
 ```
@@ -96,7 +98,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-对 `getChanges` 中 time-tracking change data 做过滤，或无权限时拒绝；`IssueWorkResource.getWork` 增加 `SecurityUtils.canAccessTimeTracking(work.getIssue().getProject())`。
+Enforce server-side authorization for GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

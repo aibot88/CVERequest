@@ -25,12 +25,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MCMS has a missing authorization vulnerability: `/ms/cms/category/copyCategory`. unauthorized access to authorization-sensitive state",
+          "value": "MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, POST /ms/cms/generate/list, GET /ms/cms/content/getFromFengMian, GET /ms/cms/content/copy, GET /ms/cms/category/copyCategory, GET /cms/category/get. An authenticated attacker can perform authorization-sensitive operations through POST /ms/cms/category/list, POST /ms/cms/generate/list, GET /ms/cms/content/getFromFengMian, GET /ms/cms/content/copy, GET /ms/cms/category/copyCategory, GET /cms/category/get without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MCMS has a missing authorization vulnerability: `/ms/cms/category/copyCategory`. unauthorized access to authorization-sensitive state<p>This issue affects MCMS.</p>"
+              "value": "MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, POST /ms/cms/generate/list, GET /ms/cms/content/getFromFengMian, GET /ms/cms/content/copy, GET /ms/cms/category/copyCategory, GET /cms/category/get. An authenticated attacker can perform authorization-sensitive operations through POST /ms/cms/category/list, POST /ms/cms/generate/list, GET /ms/cms/content/getFromFengMian, GET /ms/cms/content/copy, GET /ms/cms/category/copyCategory, GET /cms/category/get without the required permission.<p>This issue affects MCMS.</p>"
             }
           ]
         }
@@ -80,7 +80,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7938368",
+    "cveId": "CAN-2026-3249753",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

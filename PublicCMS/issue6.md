@@ -3,9 +3,9 @@ title: "PublicCMS issue6: Department User Role Assignment Bypass"
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/sysDept/saveUser`. A department manager can create or update a backend `superuser` with arbitrary roles, escalating beyond department-scoped administration"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -15,8 +15,9 @@ tags:
 
 PublicCMS has a missing authorization vulnerability in `POST /admin/sysDept/saveUser`. A department manager can create or update a backend `superuser` with arbitrary roles, escalating beyond department-scoped administration
 
-- Attack precondition: The attacker is a logged-in backend user with access to the “my department user add/edit” function and controls a department where `dept.userId == admin.id`
+- Attack precondition: The attacker is a logged-in backend user with access to the "my department user add/edit" function and controls a department where `dept.userId == admin.id`
 - Affected endpoint: ``POST /admin/sysDept/saveUser``
+- Affected authorization property: `sysUser.superuser, sysUser.roles, sysRoleUser.roleId, sysUser.contentPermissions, dept.userId == admin.id, roleIds`
 - Security impact: A department manager can create or update a backend `superuser` with arbitrary roles, escalating beyond department-scoped administration
 
 ### 1.2 Exploit path

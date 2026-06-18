@@ -3,9 +3,9 @@ title: "PublicCMS issue1: Role Authorization Grant Boundary Bypass"
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/sysRole/save`. A lower-privileged backend administrator can create or modify a role to gain broader backend URL access, potentially all backend permissions"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -17,6 +17,7 @@ PublicCMS has a missing authorization vulnerability in `POST /admin/sysRole/save
 
 - Attack precondition: The attacker is a logged-in backend administrator with access to `sysRole/save`, but should not be allowed to grant permissions beyond their own role
 - Affected endpoint: ``POST /admin/sysRole/save``
+- Affected authorization property: `sysRole.ownsAllRight, sysRole.showAllModule, sysRoleModule.moduleId, sysRoleAuthorized.url, ownsAllRight=true, showAllModule=true`
 - Security impact: A lower-privileged backend administrator can create or modify a role to gain broader backend URL access, potentially all backend permissions
 
 ### 1.2 Exploit path

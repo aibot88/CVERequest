@@ -25,12 +25,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall4cloud has a missing authorization vulnerability: Product Update/Delete Misses `spu.shop_id` Ownership Check. A shop user with product management permission can modify or delete another shop's product, including product metadata, category links, details, SKU-related updates, and stock-adjacent fields",
+          "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/spu, DELETE /admin/spu, PUT /admin/spu/update_spu_data. A shop user with product management permission can modify or delete another shop's product, including product metadata, category links, details, SKU-related updates, and stock-adjacent fields",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall4cloud has a missing authorization vulnerability: Product Update/Delete Misses `spu.shop_id` Ownership Check. A shop user with product management permission can modify or delete another shop's product, including product metadata, category links, details, SKU-related updates, and stock-adjacent fields<p>This issue affects mall4cloud.</p>"
+              "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/spu, DELETE /admin/spu, PUT /admin/spu/update_spu_data. A shop user with product management permission can modify or delete another shop's product, including product metadata, category links, details, SKU-related updates, and stock-adjacent fields<p>This issue affects mall4cloud.</p>"
             }
           ]
         }
@@ -80,7 +80,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4021568",
+    "cveId": "CAN-2026-4520145",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

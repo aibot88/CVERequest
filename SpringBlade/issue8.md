@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue8: `POST /data-scope/*` and `POST /api-scope/*`"
-description: "SpringBlade has a missing authorization vulnerability: `POST /data-scope/*` and `POST /api-scope/*`. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope"
+description: "SpringBlade has a missing authorization vulnerability in POST /user/save-user, POST /user/user-auth-info, POST /role/grant, GET /user/detail, GET /user/user-list, GET /tenant/page. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `POST /data-scope/*` and `POST /api-scope/*`. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope
+SpringBlade has a missing authorization vulnerability in POST /user/save-user, POST /user/user-auth-info, POST /role/grant, GET /user/detail, GET /user/user-list, GET /tenant/page. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope
 
 - Attack precondition: admin with access to data/API scope management endpoints
+- Affected endpoint: `POST /user/save-user, POST /user/user-auth-info, POST /role/grant, GET /user/detail, GET /user/user-list, GET /tenant/page`
+- Affected authorization property: `DataScope.menuId, DataScope.scopeColumn, DataScope.scopeValue, ApiScope.menuId, ApiScope.scopePath, @PreAuth(HAS_ROLE_ADMIN)`
 - Security impact: expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope
 
 ### 1.2 Exploit path
@@ -30,12 +32,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    79  	@ApiOperationSupport(order = 3)
-   80  	@Operation(summary = "新增", description = "传入dataScope")
+   80  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]dataScope")
    81  	public R save(@Valid @RequestBody DataScope dataScope) {
    82  		CacheUtil.clear(SYS_CACHE);
    83  		return R.status(dataScopeService.save(dataScope));
    84  	}
-   85  
+   85
 ```
 
 2. `blade-service/blade-system/src/main/java/org/springblade/system/controller/DataScopeController.java`
@@ -44,12 +46,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    90  	@ApiOperationSupport(order = 4)
-   91  	@Operation(summary = "修改", description = "传入dataScope")
+   91  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]dataScope")
    92  	public R update(@Valid @RequestBody DataScope dataScope) {
    93  		CacheUtil.clear(SYS_CACHE);
    94  		return R.status(dataScopeService.updateById(dataScope));
    95  	}
-   96  
+   96
 ```
 
 3. `blade-service/blade-system/src/main/java/org/springblade/system/controller/DataScopeController.java`
@@ -58,12 +60,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   101  	@ApiOperationSupport(order = 5)
-  102  	@Operation(summary = "新增或修改", description = "传入dataScope")
+  102  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]dataScope")
   103  	public R submit(@Valid @RequestBody DataScope dataScope) {
   104  		CacheUtil.clear(SYS_CACHE);
   105  		return R.status(dataScopeService.saveOrUpdate(dataScope));
   106  	}
-  107  
+  107
 ```
 
 4. `blade-service/blade-system/src/main/java/org/springblade/system/controller/ApiScopeController.java`
@@ -72,12 +74,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    78  	@ApiOperationSupport(order = 3)
-   79  	@Operation(summary = "新增", description = "传入dataScope")
+   79  	@Operation(summary = "[non-English text removed]", description = "[non-English text removed]dataScope")
    80  	public R save(@Valid @RequestBody ApiScope dataScope) {
    81  		CacheUtil.clear(SYS_CACHE);
    82  		return R.status(apiScopeService.save(dataScope));
    83  	}
-   84  
+   84
 ```
 
 5. `blade-service-api/blade-scope-api/src/main/java/org/springblade/system/handler/DataScopeModelHandler.java`
@@ -91,7 +93,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
    39  	public DataScopeModel getDataScopeByMapper(String mapperId, String roleId) {
    40  		return DataScopeCache.getDataScopeByMapper(mapperId, roleId);
    41  	}
-   42  
+   42
 ```
 
 6. `blade-service-api/blade-scope-api/src/main/java/org/springblade/system/handler/ApiScopePermissionHandler.java`

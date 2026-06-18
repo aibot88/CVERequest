@@ -1,11 +1,11 @@
 ---
-title: "lilishop issue5: Issue 5"
-description: "lilishop has a missing authorization vulnerability: Issue 5. 可把本店其他 clerk 直接提升为商家端超级管理员；也可能通过跨店铺 roleId/departmentId 引入不属于本店的权限绑定。"
+title: "lilishop issue5: Missing Authorization in PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId}"
+description: "lilishop has a missing authorization vulnerability in PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId}. An authenticated attacker can perform authorization-sensitive operations through PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId} without the required permission."
 tags:
   - lilishop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-lilishop has a missing authorization vulnerability: Issue 5. 可把本店其他 clerk 直接提升为商家端超级管理员；也可能通过跨店铺 roleId/departmentId 引入不属于本店的权限绑定。
+lilishop has a missing authorization vulnerability in PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId}. An authenticated attacker can perform authorization-sensitive operations through PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId} without the required permission.
 
-- Attack precondition: 商家端已登录用户，拥有 `/store/clerk*` 非 GET 操作权限，可编辑本店非店主 clerk。
-- Security impact: 可把本店其他 clerk 直接提升为商家端超级管理员；也可能通过跨店铺 roleId/departmentId 引入不属于本店的权限绑定。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId}`
+- Affected authorization property: `isSuper=true, storeRoleService.list(ids), isSuper, department.storeId == currentUser.storeId, role_id, department_id`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId} without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `PUT /store/clerk/{ownStoreClerkId}`，提交 `isSuper=true`，或提交其他店铺/更高权限角色 ID、其他店铺部门 ID。
+The attacker sends crafted requests to PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId} with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -46,7 +48,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-只有当前 `isSuper` 或店主可授予/撤销 `isSuper`；编辑时复用新增路径的 role 店铺归属校验；部门必须校验 `department.storeId == currentUser.storeId`；可增加“不能授予超过操作者自身权限集合”的上界校验。
+Enforce server-side authorization for PUT /store/clerk/{ownStoreClerkId}, /store/clerk*, isSuper/roleIds/departmentId, /store/roleMenu/{roleId}, /store/departmentRole/{departmentId}, /store/clerk/enable/{clerkId} before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

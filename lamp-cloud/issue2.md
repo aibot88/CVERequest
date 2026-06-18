@@ -3,9 +3,9 @@ title: "lamp-cloud issue2: Unauthorized Role-Employee Binding via `POST /baseRol
 description: "lamp-cloud has a missing authorization vulnerability in `POST /baseRole/roleEmployee`. Batch privilege escalation by assigning sensitive roles to arbitrary users"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,14 +34,14 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/lamp-base-biz/src/main/java/top/tangyh/lamp/base/service/system/impl/BaseRoleServiceImpl.java#L115
 
 ```text
-  112  
+  112
   113      @Override
   114      @Transactional(rollbackFor = Exception.class)
   115      public List<Long> saveRoleEmployee(RoleEmployeeSaveVO saveVO) {
   116          if (saveVO.getFlag() == null) {
   117              saveVO.setFlag(true);
   118          }
-  119  
+  119
   120          baseEmployeeRoleRelManager.remove(Wraps.<BaseEmployeeRoleRel>lbQ().eq(BaseEmployeeRoleRel::getRoleId, saveVO.getRoleId())
   121                  .in(BaseEmployeeRoleRel::getEmployeeId, saveVO.getEmployeeIdList()));
   122          if (saveVO.getFlag()) {
@@ -49,12 +49,12 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
   124                      BaseEmployeeRoleRel.builder().employeeId(employeeId).roleId(saveVO.getRoleId()).build()).toList();
   125              baseEmployeeRoleRelManager.saveBatch(list);
   126          }
-  127  
+  127
   128          CacheKey[] cacheKeys = saveVO.getEmployeeIdList().stream().map(EmployeeRoleCacheKeyBuilder::build).toArray(CacheKey[]::new);
   129          cacheOps.del(cacheKeys);
   130          return findEmployeeIdByRoleId(saveVO.getRoleId());
   131      }
-  132  
+  132
   133      @Override
 ```
 
@@ -64,18 +64,18 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
    40      /**
-   41       * 角色;#base_role
+   41       * [non-English text removed];#base_role
    42       */
-   43      @Schema(description = "角色")
-   44      @NotNull(message = "请选择角色")
+   43      @Schema(description = "[non-English text removed]")
+   44      @NotNull(message = "[non-English text removed]")
    45      private Long roleId;
    46      /**
-   47       * 员工;#base_employee
+   47       * [non-English text removed];#base_employee
    48       */
-   49      @Schema(description = "员工")
-   50      @Size(min = 1, message = "请选择员工")
+   49      @Schema(description = "[non-English text removed]")
+   50      @Size(min = 1, message = "[non-English text removed]")
    51      private List<Long> employeeIdList;
-   52  
+   52
    53  }
 ```
 

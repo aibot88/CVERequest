@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "lilishop has a missing authorization vulnerability: Issue 1. 可读取、删除、替换其他店铺角色的菜单权限绑定，导致跨店铺权限破坏或权限授予。",
+          "value": "lilishop has a missing authorization vulnerability in POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete. An authenticated attacker can perform authorization-sensitive operations through POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "lilishop has a missing authorization vulnerability: Issue 1. 可读取、删除、替换其他店铺角色的菜单权限绑定，导致跨店铺权限破坏或权限授予。<p>This issue affects lilishop.</p>"
+              "value": "lilishop has a missing authorization vulnerability in POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete. An authenticated attacker can perform authorization-sensitive operations through POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete without the required permission.<p>This issue affects lilishop.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8952211",
+    "cveId": "CAN-2026-8388639",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

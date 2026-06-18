@@ -3,9 +3,9 @@ title: "PublicCMS issue5: Content Distribution Source / Target Authorization Byp
 description: "PublicCMS has a missing authorization vulnerability in `POST /admin/cmsContent/distribute`. The attacker can copy content across authorization boundaries and create target content records with authorization-relevant `categoryId/userId/deptId` values"
 tags:
   - PublicCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -17,6 +17,7 @@ PublicCMS has a missing authorization vulnerability in `POST /admin/cmsContent/d
 
 - Attack precondition: The attacker is a logged-in backend administrator with content distribution permission and knows a source content ID plus target category IDs
 - Affected endpoint: ``POST /admin/cmsContent/distribute``
+- Affected authorization property: `cmsContent.userId, cmsContent.deptId, cmsContent.categoryId, id=<sourceContentId>, categoryIds=<targetCategoryIds>, distribute`
 - Security impact: The attacker can copy content across authorization boundaries and create target content records with authorization-relevant `categoryId/userId/deptId` values
 
 ### 1.2 Exploit path

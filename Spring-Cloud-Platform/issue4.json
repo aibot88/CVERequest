@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: service-client 列表接口泄露 client secret. 泄露 client secret。该 secret 被用于客户端校验相关接口，属于敏感凭据泄露。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client. An authenticated attacker can read authorization-sensitive data that should be restricted.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: service-client 列表接口泄露 client secret. 泄露 client secret。该 secret 被用于客户端校验相关接口，属于敏感凭据泄露。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client. An authenticated attacker can read authorization-sensitive data that should be restricted.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3951790",
+    "cveId": "CAN-2026-8361118",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

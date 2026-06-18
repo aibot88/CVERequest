@@ -1,11 +1,11 @@
 ---
 title: "yudao-cloud issue2: User Department Assignment Can Bypass Data Permission Boundaries"
-description: "yudao-cloud has a missing authorization vulnerability: User Department Assignment Can Bypass Data Permission Boundaries. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes"
+description: "yudao-cloud has a missing authorization vulnerability. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes"
 tags:
   - yudao-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,10 @@ tags:
 
 ### 1.1 Summary
 
-yudao-cloud has a missing authorization vulnerability: User Department Assignment Can Bypass Data Permission Boundaries. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using "current department" or "current department and children" scopes
+yudao-cloud has a missing authorization vulnerability. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using "current department" or "current department and children" scopes
 
 - Attack precondition: Attacker has user create/update/import permissions such as `system:user:create`, `system:user:update`, or user import capability, but should not be allowed to place users into arbitrary departments
+- Affected authorization property: `system:user:create, system:user:update, deptId, postIds, AdminUserDO.deptId, UserSaveReqVO`
 - Security impact: `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using "current department" or "current department and children" scopes
 
 ### 1.2 Exploit path

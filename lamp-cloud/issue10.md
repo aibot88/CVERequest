@@ -3,9 +3,9 @@ title: "lamp-cloud issue10: Unauthorized User Account State and Identity Disclos
 description: "lamp-cloud has a missing authorization vulnerability in `GET /anyone/getUserInfoById`. Disclosure of another user's account state and identity-related fields. `state` is authorization/authentication relevant because disabled users are rejected during login/switch checks"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -36,31 +36,31 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/l
 ```text
    33      private final DefApplicationService defApplicationService;
    34      private final AppendixService appendixService;
-   35  
+   35
    36      public DefUserInfoResultVO getUserById(Long id) {
-   37          // 查默认库
+   37          // [non-English text removed]
    38          DefUser defUser = defUserService.getByIdCache(id);
    39          if (defUser == null) {
    40              return null;
    41          }
-   42  
-   43          // 用户信息
+   42
+   43          // [non-English text removed]
    44          DefUserInfoResultVO resultVO = new DefUserInfoResultVO();
    45          BeanUtil.copyProperties(defUser, resultVO);
-   46  
-   47          // 用户头像
+   46
+   47          // [non-English text removed]
    48          AppendixResultVO appendix = appendixService.getByBiz(defUser.getId(), AppendixType.System.DEF__USER__AVATAR);
    49          if (appendix != null) {
    50              resultVO.setAvatarId(appendix.getId());
    51          }
-   52  
+   52
    53          Long employeeId = ContextUtil.getEmployeeId();
    54          resultVO.setEmployeeId(employeeId);
-   55  
-   56          //查 租户库
+   55
+   56          //[non-English text removed] [non-English text removed]
    57          BaseEmployee employee = baseEmployeeService.getById(employeeId);
    58          resultVO.setBaseEmployee(BeanUtil.toBean(employee, BaseEmployeeResultVO.class));
-   59  
+   59
    60          DefApplication defApplication = defApplicationService.getDefApp(id);
    61          resultVO.setDefApplication(BeanUtil.toBean(defApplication, DefApplicationResultVO.class));
    62          return resultVO;
@@ -75,11 +75,11 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/l
 ```text
   445              throw UnauthorizedException.wrap(ExceptionCode.JWT_TOKEN_EXPIRED);
   446          }
-  447  
+  447
   448          if (!Convert.toBool(defUser.getState(), true)) {
   449              throw UnauthorizedException.wrap(ExceptionCode.JWT_USER_DISABLE);
   450          }
-  451  
+  451
   452          BaseEmployee employee = baseEmployeeService.getEmployeeByUser(userId);
 ```
 

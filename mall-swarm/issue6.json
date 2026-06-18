@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall-swarm has a missing authorization vulnerability: Return Apply Unauthorized Creation. 可为他人订单/商品创建退货申请，污染售后流程，并可能影响后台处理和退款/退货状态。",
+          "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/returnApply/create, POST /returnApply/create, orderId/productId/orderSn/memberUsername, order_id/product_id/member_username, /mall-portal/**, orderId/productId/memberUsername. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall-swarm has a missing authorization vulnerability: Return Apply Unauthorized Creation. 可为他人订单/商品创建退货申请，污染售后流程，并可能影响后台处理和退款/退货状态。<p>This issue affects mall-swarm.</p>"
+              "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/returnApply/create, POST /returnApply/create, orderId/productId/orderSn/memberUsername, order_id/product_id/member_username, /mall-portal/**, orderId/productId/memberUsername. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.<p>This issue affects mall-swarm.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9035754",
+    "cveId": "CAN-2026-7746438",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

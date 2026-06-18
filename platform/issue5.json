@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Tenant DB Binding Can Be Read or Modified Without Authorization. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection",
+          "value": "platform has a missing authorization vulnerability in GET /tenants/{id}/db-ref, POST /tenants/{id}/db-binding. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Tenant DB Binding Can Be Read or Modified Without Authorization. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in GET /tenants/{id}/db-ref, POST /tenants/{id}/db-binding. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3121632",
+    "cveId": "CAN-2026-1003919",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

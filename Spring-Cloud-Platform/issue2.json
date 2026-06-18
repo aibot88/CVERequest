@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色按钮/API 权限关系可被越权增删. 攻击者可给角色增加或移除按钮/API 权限，影响后续接口级授权。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/element/add, PUT /api/admin/group/{id}/authority/element/remove, POST /admin/group/{, PUT /group/{id}/authority/element/add, PUT /group/{id}/authority/element/remove, POST /admin/group/{*}/authority/element. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/element/add, PUT /api/admin/group/{id}/authority/element/remove, POST /admin/group/{, PUT /group/{id}/authority/element/add, PUT /group/{id}/authority/element/remove, POST /admin/group/{*}/authority/element without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色按钮/API 权限关系可被越权增删. 攻击者可给角色增加或移除按钮/API 权限，影响后续接口级授权。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/element/add, PUT /api/admin/group/{id}/authority/element/remove, POST /admin/group/{, PUT /group/{id}/authority/element/add, PUT /group/{id}/authority/element/remove, POST /admin/group/{*}/authority/element. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/element/add, PUT /api/admin/group/{id}/authority/element/remove, POST /admin/group/{, PUT /group/{id}/authority/element/add, PUT /group/{id}/authority/element/remove, POST /admin/group/{*}/authority/element without the required permission.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3360949",
+    "cveId": "CAN-2026-1319427",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

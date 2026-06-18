@@ -11,7 +11,7 @@
           "programFiles": [
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysRoleController.java#L165",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysRoleServiceImpl.java#L215",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysRoleMapper.xml#L95",
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysRoleMapper.xml#L95",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-framework/src/main/java/com/ruoyi/framework/aspectj/DataScopeAspect.java#L79",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/deptService.c"
           ],
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "RuoYi has a missing authorization vulnerability: Role Data Scope Escalation. 扩大角色数据权限，使拥有该角色的用户后续通过 DataScope 查询到未授权部门数据。",
+          "value": "RuoYi has a missing authorization vulnerability in /system/role/authDataScope. An authenticated attacker can perform authorization-sensitive operations through /system/role/authDataScope without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "RuoYi has a missing authorization vulnerability: Role Data Scope Escalation. 扩大角色数据权限，使拥有该角色的用户后续通过 DataScope 查询到未授权部门数据。<p>This issue affects RuoYi.</p>"
+              "value": "RuoYi has a missing authorization vulnerability in /system/role/authDataScope. An authenticated attacker can perform authorization-sensitive operations through /system/role/authDataScope without the required permission.<p>This issue affects RuoYi.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8628383",
+    "cveId": "CAN-2026-7308648",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

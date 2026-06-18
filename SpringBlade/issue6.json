@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `GET /menu/role-tree-keys`. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships",
+          "value": "SpringBlade has a missing authorization vulnerability in /menu/role-tree-keys?roleIds=, /menu/role-tree-keys. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `GET /menu/role-tree-keys`. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in /menu/role-tree-keys?roleIds=, /menu/role-tree-keys. discloses role-to-permission bindings and authorization structure, which are sensitive authorization relationships<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7531168",
+    "cveId": "CAN-2026-5282898",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

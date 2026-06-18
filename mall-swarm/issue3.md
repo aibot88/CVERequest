@@ -1,11 +1,11 @@
 ---
 title: "mall-swarm issue3: Cancel Other User's Order"
-description: "mall-swarm has a missing authorization vulnerability: Cancel Other User's Order. 可取消他人未付款订单，影响库存锁定、优惠券使用状态和积分返还。"
+description: "mall-swarm has a missing authorization vulnerability in POST /mall-portal/order/cancelUserOrder?orderId=..., POST /order/cancelUserOrder, POST /mall-portal/order/cancelUserOrder?orderId=, id/status/deleteStatus. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers."
 tags:
   - mall-swarm
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-mall-swarm has a missing authorization vulnerability: Cancel Other User's Order. 可取消他人未付款订单，影响库存锁定、优惠券使用状态和积分返还。
+mall-swarm has a missing authorization vulnerability in POST /mall-portal/order/cancelUserOrder?orderId=..., POST /order/cancelUserOrder, POST /mall-portal/order/cancelUserOrder?orderId=, id/status/deleteStatus. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
-- Attack precondition: 任意已登录商城会员，知道他人未付款订单 ID。
-- Security impact: 可取消他人未付款订单，影响库存锁定、优惠券使用状态和积分返还。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /mall-portal/order/cancelUserOrder?orderId=..., POST /order/cancelUserOrder, POST /mall-portal/order/cancelUserOrder?orderId=, id/status/deleteStatus`
+- Affected authorization property: `OmsPortalOrderServiceImpl.cancelOrder(orderId), status=4, orderId, memberId, cancelOrder, id == orderId`
+- Security impact: An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
 ### 1.2 Exploit path
 
-`POST /mall-portal/order/cancelUserOrder?orderId=...` -> `OmsPortalOrderServiceImpl.cancelOrder(orderId)` -> 按 `id/status/deleteStatus` 查询订单 -> 设置 `status=4` -> 释放库存并恢复优惠券/积分。
+The attacker sends crafted requests to POST /mall-portal/order/cancelUserOrder?orderId=..., POST /order/cancelUserOrder, POST /mall-portal/order/cancelUserOrder?orderId=, id/status/deleteStatus with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -46,7 +48,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-用户取消订单时必须按 `orderId + currentMember.id + status=0` 查询并更新。自动超时取消应走内部任务/消息路径，不暴露为任意会员可指定订单的接口。
+Enforce server-side authorization for POST /mall-portal/order/cancelUserOrder?orderId=..., POST /order/cancelUserOrder, POST /mall-portal/order/cancelUserOrder?orderId=, id/status/deleteStatus before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

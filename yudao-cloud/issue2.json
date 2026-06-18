@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "yudao-cloud has a missing authorization vulnerability: User Department Assignment Can Bypass Data Permission Boundaries. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes",
+          "value": "yudao-cloud has a missing authorization vulnerability. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "yudao-cloud has a missing authorization vulnerability: User Department Assignment Can Bypass Data Permission Boundaries. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes<p>This issue affects yudao-cloud.</p>"
+              "value": "yudao-cloud has a missing authorization vulnerability. `AdminUserDO.deptId` is used by the department data permission model. Changing a user's department can alter later data permission calculation for roles using \"current department\" or \"current department and children\" scopes<p>This issue affects yudao-cloud.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4802146",
+    "cveId": "CAN-2026-2112786",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

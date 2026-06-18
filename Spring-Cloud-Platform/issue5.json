@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 未授权新增菜单污染全局权限定义. 攻击者可未授权写入全局权限定义来源。`PermissionService.getAllPermission()` 会把 `base_menu` 中所有菜单转换为全局 `PermissionInfo`，影响系统对资源权限的定义和匹配。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}. An authenticated attacker can perform authorization-sensitive operations through POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 未授权新增菜单污染全局权限定义. 攻击者可未授权写入全局权限定义来源。`PermissionService.getAllPermission()` 会把 `base_menu` 中所有菜单转换为全局 `PermissionInfo`，影响系统对资源权限的定义和匹配。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*}. An authenticated attacker can perform authorization-sensitive operations through POST /api/admin/menu, POST /admin/menu/{, POST /admin/menu, POST /admin/menu/{*} without the required permission.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9797297",
+    "cveId": "CAN-2026-9515236",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

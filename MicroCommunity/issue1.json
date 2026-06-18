@@ -38,12 +38,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MicroCommunity has a missing authorization vulnerability: Confirmed Vulnerability. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system",
+          "value": "MicroCommunity has a missing authorization vulnerability in POST /app/role.saveRoleStaff, POST /app/add.privilege.PrivilegeGroup, POST /app/role.saveStaffCommunity, POST /app/owner.saveOwnerMember, POST /app/owner.editOwnerMember, POST /app/ownerSettled.saveOwnerSettledApply. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MicroCommunity has a missing authorization vulnerability: Confirmed Vulnerability. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system<p>This issue affects MicroCommunity.</p>"
+              "value": "MicroCommunity has a missing authorization vulnerability in POST /app/role.saveRoleStaff, POST /app/add.privilege.PrivilegeGroup, POST /app/role.saveStaffCommunity, POST /app/owner.saveOwnerMember, POST /app/owner.editOwnerMember, POST /app/ownerSettled.saveOwnerSettledApply. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system<p>This issue affects MicroCommunity.</p>"
             }
           ]
         }
@@ -93,7 +93,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3586899",
+    "cveId": "CAN-2026-7372805",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

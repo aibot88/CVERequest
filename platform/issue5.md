@@ -1,11 +1,11 @@
 ---
 title: "platform issue5: Tenant DB Binding Can Be Read or Modified Without Authorization"
-description: "platform has a missing authorization vulnerability: Tenant DB Binding Can Be Read or Modified Without Authorization. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection"
+description: "platform has a missing authorization vulnerability in GET /tenants/{id}/db-ref, POST /tenants/{id}/db-binding. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Tenant DB Binding Can Be Read or Modified Without Authorization. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection
+platform has a missing authorization vulnerability in GET /tenants/{id}/db-ref, POST /tenants/{id}/db-binding. Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection
 
 - Attack precondition: The attacker is authenticated and knows tenant or DB instance IDs
+- Affected endpoint: `GET /tenants/{id}/db-ref, POST /tenants/{id}/db-binding`
+- Affected authorization property: `tenant:db-config, dbBinding, tenantId, id, @SaCheckPermission, TenantDbBinding`
 - Security impact: Reads or tampers with tenant-to-database binding, affecting tenant isolation and data-source selection
 
 ### 1.2 Exploit path

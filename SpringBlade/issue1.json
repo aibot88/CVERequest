@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `POST /user/save-user`. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database",
+          "value": "SpringBlade has a missing authorization vulnerability in POST /user/save-user, /user/save-user. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `POST /user/save-user`. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in POST /user/save-user, /user/save-user. creates a user with attacker-controlled authorization bindings. Later login/token generation trusts `tenantId`, `roleId`, and `deptId` from the database<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5822191",
+    "cveId": "CAN-2026-9277316",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

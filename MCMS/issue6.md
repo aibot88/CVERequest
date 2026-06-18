@@ -1,11 +1,11 @@
 ---
 title: "MCMS issue6: Public category get bypasses public visibility filters"
-description: "MCMS has a missing authorization vulnerability: Public category get bypasses public visibility filters. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out"
+description: "MCMS has a missing authorization vulnerability in GET /cms/category/get?id=..., GET /cms/category/get?id=, /cms/category/get, /ms/**. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out"
 tags:
   - MCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-MCMS has a missing authorization vulnerability: Public category get bypasses public visibility filters. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out
+MCMS has a missing authorization vulnerability in GET /cms/category/get?id=..., GET /cms/category/get?id=, /cms/category/get, /ms/**. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out
 
 - Attack precondition: Unauthenticated public user knows or guesses a category id
+- Affected endpoint: `GET /cms/category/get?id=..., GET /cms/category/get?id=, /cms/category/get, /ms/**`
+- Affected authorization property: `categoryBiz.getById(...), CategoryEntity, category_display = 'enable', is_child = 'cms', categoryBiz.getById(category.getId()), cms_category.category_display = 'enable'`
 - Security impact: Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out
 
 ### 1.2 Exploit path

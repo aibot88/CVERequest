@@ -1,11 +1,11 @@
 ---
 title: "platform issue2: Data Permission Model Readable Without Authorization"
-description: "platform has a missing authorization vulnerability: Data Permission Model Readable Without Authorization. Leaks data authorization configuration, including `dataType`, `scopeType`, and `dataIds`"
+description: "platform has a missing authorization vulnerability in GET /data-permissions/{ownerType}/{ownerId}, ownerType/ownerId. Leaks data authorization configuration, including `dataType`, `scopeType`, and `dataIds`"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Data Permission Model Readable Without Authorization. Leaks data authorization configuration, including `dataType`, `scopeType`, and `dataIds`
+platform has a missing authorization vulnerability in GET /data-permissions/{ownerType}/{ownerId}, ownerType/ownerId. Leaks data authorization configuration, including `dataType`, `scopeType`, and `dataIds`
 
 - Attack precondition: The attacker is authenticated and knows or can guess `ownerType/ownerId`
+- Affected endpoint: `GET /data-permissions/{ownerType}/{ownerId}, ownerType/ownerId`
+- Affected authorization property: `dataType, scopeType, dataIds, DataPermissionRef, sys:data-permission:read`
 - Security impact: Leaks data authorization configuration, including `dataType`, `scopeType`, and `dataIds`
 
 ### 1.2 Exploit path

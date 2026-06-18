@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue4: `GET /user/detail` and `GET /user/user-list`"
-description: "SpringBlade has a missing authorization vulnerability: `GET /user/detail` and `GET /user/user-list`. cross-tenant exposure of user authorization bindings and organizational relationships"
+description: "SpringBlade has a missing authorization vulnerability in /user/detail, /user/user-list, /user/list. cross-tenant exposure of user authorization bindings and organizational relationships"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `GET /user/detail` and `GET /user/user-list`. cross-tenant exposure of user authorization bindings and organizational relationships
+SpringBlade has a missing authorization vulnerability in /user/detail, /user/user-list, /user/list. cross-tenant exposure of user authorization bindings and organizational relationships
 
 - Attack precondition: tenant admin with `HAS_ROLE_ADMIN`
+- Affected endpoint: `/user/detail, /user/user-list, /user/list`
+- Affected authorization property: `HAS_ROLE_ADMIN, user.tenantId, user.roleId, user.deptId, user.postId, roleName`
 - Security impact: cross-tenant exposure of user authorization bindings and organizational relationships
 
 ### 1.2 Exploit path
@@ -31,9 +33,9 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
    77  	private IUserService userService;
    78  	private BladeRedis bladeRedis;
-   79  
+   79
    80  	/**
-   81  	 * 查询单条
+   81  	 * [non-English text removed]
    82  	 */
    83  	@ApiOperationSupport(order = 1)
 ```
@@ -44,9 +46,9 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   196  	}
-  197  
+  197
   198  	/**
-  199  	 * 用户列表
+  199  	 * [non-English text removed]
   200  	 *
   201  	 * @param user
   202  	 * @return
@@ -71,12 +73,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/wrapper/UserWrapper.java#L43
 
 ```text
-   40  
+   40
    41  	static {
    42  		userService = SpringUtil.getBean(IUserService.class);
    43  		dictClient = SpringUtil.getBean(IDictClient.class);
    44  	}
-   45  
+   45
    46  	public static UserWrapper build() {
 ```
 

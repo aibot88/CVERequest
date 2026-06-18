@@ -1,11 +1,11 @@
 ---
-title: "Spring-Cloud-Platform issue1: 角色菜单权限关系可被越权改写"
-description: "Spring-Cloud-Platform has a missing authorization vulnerability: 角色菜单权限关系可被越权改写. 低权限用户可以给任意角色授予菜单权限，污染后续 RBAC 权限派生结果。"
+title: "Spring-Cloud-Platform issue1: Missing Authorization in PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu"
+description: "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu without the required permission."
 tags:
   - Spring-Cloud-Platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,13 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-Spring-Cloud-Platform has a missing authorization vulnerability: 角色菜单权限关系可被越权改写. 低权限用户可以给任意角色授予菜单权限，污染后续 RBAC 权限派生结果。
+Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu without the required permission.
 
-- Security impact: 低权限用户可以给任意角色授予菜单权限，污染后续 RBAC 权限派生结果。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu`
+- Affected authorization property: `groupId, menuId, PermissionService, base_resource_authority, check_permission, isAuth=true`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu without the required permission.
 
 ### 1.2 Exploit path
 
-`PUT /api/admin/group/{id}/authority/menu?menuTrees=...` 经网关进入权限检查。网关使用真实请求 method/path 查询权限，但初始化权限字典中菜单授权项是 `POST /admin/group/{*}/authority/menu`，真实接口是 `PUT /group/{id}/authority/menu`。未命中权限资源后，`PermissionService` 将其视为“不受控资源”并放行。随后业务层删除目标角色旧菜单授权并写入新的 `base_resource_authority` 记录。
+The attacker sends crafted requests to PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -42,10 +45,6 @@ Evidence location: PermissionService.java
 
 Evidence location: init.sql
 
-## 2. Existing checks and why they fail
-
-JWT 只证明用户已登录；网关权限检查因 method/path 错配 fail-open；业务层没有检查当前用户是否可管理目标角色，也没有检查授予权限是否超过当前用户权限上界。
-
 ## 3. Root Cause Analysis
 
 Root Cause 1: Missing server-side authorization on the vulnerable operation.
@@ -58,7 +57,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-修正权限字典为真实 `PUT /admin/group/{*}/authority/menu`；管理类资源未匹配时默认拒绝；写入前校验当前用户可管理目标 group 且可授予每个 menu。
+Enforce server-side authorization for PUT /api/admin/group/{id}/authority/menu?menuTrees=..., POST /admin/group/{, PUT /group/{id}/authority/menu, PUT /admin/group/{, PUT /api/admin/group/{id}/authority/menu?menuTrees=, POST /admin/group/{*}/authority/menu before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

@@ -1,11 +1,11 @@
 ---
 title: "RuoYi issue4: Unauthorized Role Assignment Deletion"
-description: "RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment Deletion. 越权撤销目标用户角色，导致权限被移除。"
+description: "RuoYi has a missing authorization vulnerability in /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s). An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s) without the required permission."
 tags:
   - RuoYi
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,15 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment Deletion. 越权撤销目标用户角色，导致权限被移除。
+RuoYi has a missing authorization vulnerability in /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s). An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s) without the required permission.
 
-- Attack precondition: 拥有 `system:role:edit`。
-- Affected authorization property: ``sys_user_role.user_id`, `sys_user_role.role_id`。`
-- Security impact: 越权撤销目标用户角色，导致权限被移除。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s)`
+- Affected authorization property: ``sys_user_role.user_id`, `sys_user_role.role_id``
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s) without the required permission.
 
 ### 1.2 Exploit path
 
-POST `/system/role/authUser/cancel` 或 `/system/role/authUser/cancelAll`，提交任意 `roleId/userId(s)`。
+The attacker sends crafted requests to /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s) with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -30,28 +31,28 @@ POST `/system/role/authUser/cancel` 或 `/system/role/authUser/cancelAll`，提�
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysRoleController.java#L262
 
 ```text
-  259      @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  259      @Log(title = "[non-English text removed]", businessType = BusinessType.GRANT)
   260      @PostMapping("/authUser/cancel")
   261      @ResponseBody
   262      public AjaxResult cancelAuthUser(SysUserRole userRole)
   263      {
   264          return toAjax(roleService.deleteAuthUser(userRole));
   265      }
-  266  
+  266
   267      /**
-  268       * 批量取消授权
+  268       * [non-English text removed]
   269       */
   270      @RequiresPermissions("system:role:edit")
-  271      @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  271      @Log(title = "[non-English text removed]", businessType = BusinessType.GRANT)
   272      @PostMapping("/authUser/cancelAll")
   273      @ResponseBody
   274      public AjaxResult cancelAuthUserAll(Long roleId, String userIds)
   275      {
   276          return toAjax(roleService.deleteAuthUsers(roleId, userIds));
   277      }
-  278  
+  278
   279      /**
-  280       * 选择用户
+  280       * [non-English text removed]
   281       */
   282      @RequiresPermissions("system:role:list")
   283      @GetMapping("/authUser/selectUser/{roleId}")
@@ -65,46 +66,46 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   374      {
   375          return roleMapper.updateRole(role);
   376      }
-  377  
+  377
   378      /**
-  379       * 取消授权用户角色
-  380       * 
-  381       * @param userRole 用户和角色关联信息
-  382       * @return 结果
+  379       * [non-English text removed]
+  380       *
+  381       * @param userRole [non-English text removed]
+  382       * @return [non-English text removed]
   383       */
   384      @Override
   385      public int deleteAuthUser(SysUserRole userRole)
   386      {
   387          return userRoleMapper.deleteUserRoleInfo(userRole);
   388      }
-  389  
+  389
   390      /**
-  391       * 批量取消授权用户角色
-  392       * 
-  393       * @param roleId 角色ID
-  394       * @param userIds 需要删除的用户数据ID
-  395       * @return 结果
+  391       * [non-English text removed]
+  392       *
+  393       * @param roleId [non-English text removed]ID
+  394       * @param userIds [non-English text removed]ID
+  395       * @return [non-English text removed]
 ```
 
-3. `ruoyi-system/target/classes/mapper/system/SysUserRoleMapper.xml`
+3. `ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml`
 
-Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysUserRoleMapper.xml#L38
+Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml#L38
 
 ```text
    35  		</foreach>
    36  	</insert>
-   37  	
+   37
    38  	<delete id="deleteUserRoleInfo" parameterType="SysUserRole">
    39  		delete from sys_user_role where user_id=#{userId} and role_id=#{roleId}
    40  	</delete>
-   41  	
+   41
    42  	<delete id="deleteUserRoleInfos">
    43  	    delete from sys_user_role where role_id=#{roleId} and user_id in
    44   	    <foreach collection="userIds" item="userId" open="(" separator="," close=")">
    45   	        #{userId}
-   46              </foreach> 
+   46              </foreach>
    47  	</delete>
-   48  </mapper> 
+   48  </mapper>
 ```
 
 4. `roleService.c`
@@ -126,7 +127,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-删除前调用 `roleService.checkRoleDataScope(roleId)` 和每个 `userService.checkUserDataScope(userId)`；操作后清理授权缓存。
+Enforce server-side authorization for /system/role/authUser/cancel, /system/role/authUser/cancelAll, roleId/userId(s) before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

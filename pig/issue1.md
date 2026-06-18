@@ -3,9 +3,9 @@ title: "pig issue1: User Authorization Binding Write Without Grant Boundary"
 description: "pig has a missing authorization vulnerability in - `POST /user`. A non-superadmin user with limited user-management/import capability can create or modify users with roles or organizational bindings beyond the attacker's own authority, potentially escalating to administrator privileges"
 tags:
   - pig
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -15,7 +15,9 @@ tags:
 
 pig has a missing authorization vulnerability in - `POST /user`. A non-superadmin user with limited user-management/import capability can create or modify users with roles or organizational bindings beyond the attacker's own authority, potentially escalating to administrator privileges
 
+- Attack precondition: Any authenticated user
 - Affected endpoint: `- `POST /user``
+- Affected authorization property: `sys_user_role.user_id, sys_user_role.role_id, sys_user_dept.user_id, sys_user_dept.dept_id, sys_user_post.user_id, sys_user_post.post_id`
 - Security impact: A non-superadmin user with limited user-management/import capability can create or modify users with roles or organizational bindings beyond the attacker's own authority, potentially escalating to administrator privileges
 
 ### 1.2 Exploit path
@@ -36,9 +38,7 @@ Evidence location: PigUserDetailsService.java
 
 ## 2. Existing checks and why they fail
 
-- Entry checks (`sys_user_add`, `sys_user_edit`, `sys_user_export`) protect the action, not the authorization boundary of assigned roles/departments/posts.
-- The import path validates that role/dept/post names exist, but not whether the current user can grant them.
-- No role hierarchy, grantable-role whitelist, department scope check, or self-escalation guard is enforced.
+- Entry checks (`sys_user_add`, `sys_user_edit`, `sys_user_export`) protect the action, not the authorization boundary of assigned roles/departments/posts. - The import path validates that role/dept/post names exist, but not whether the current user can grant them. - No role hierarchy, grantable-role whitelist, department scope check, or self-escalation guard is enforced
 
 ## 3. Root Cause Analysis
 

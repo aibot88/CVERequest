@@ -1,11 +1,11 @@
 ---
 title: "yudao-cloud issue5: CRM Customer Import Can Assign Arbitrary Owner and Derive OWNER Permission"
-description: "yudao-cloud has a missing authorization vulnerability: CRM Customer Import Can Assign Arbitrary Owner and Derive OWNER Permission. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary"
+description: "yudao-cloud has a missing authorization vulnerability in POST /crm/customer/import, crm_permission.userId/level=OWNER. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary"
 tags:
   - yudao-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-yudao-cloud has a missing authorization vulnerability: CRM Customer Import Can Assign Arbitrary Owner and Derive OWNER Permission. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary
+yudao-cloud has a missing authorization vulnerability in POST /crm/customer/import, crm_permission.userId/level=OWNER. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary
 
 - Attack precondition: Attacker has `crm:customer:import` but should not have arbitrary customer distribution authority
+- Affected endpoint: `POST /crm/customer/import, crm_permission.userId/level=OWNER`
+- Affected authorization property: `crm:customer:import, ownerUserId, crm_permission, crm_customer.owner_user_id, crm:customer:distribute, CrmCustomerController.importExcel()`
 - Security impact: The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary
 
 ### 1.2 Exploit path

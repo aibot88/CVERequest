@@ -1,11 +1,11 @@
 ---
 title: "platform issue11: User orgId / positionId Can Be Written Without Manageable-Org Checks"
-description: "platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility"
+description: "platform has a missing authorization vulnerability in PUT /plan-subscriptions/{id}, GET /db-instances/, GET /db-instances/*, jdbcUrl/username/password. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility
+platform has a missing authorization vulnerability in PUT /plan-subscriptions/{id}, GET /db-instances/, GET /db-instances/*, jdbcUrl/username/password. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility
 
 - Attack precondition: The attacker has `sys:user:add` or `sys:user:edit` but should only manage a limited organization scope
+- Affected endpoint: `PUT /plan-subscriptions/{id}, GET /db-instances/, GET /db-instances/*, jdbcUrl/username/password`
+- Affected authorization property: `sys:user:add, sys:user:edit, orgId, positionId, User, tenantId`
 - Security impact: `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility
 
 ### 1.2 Exploit path
@@ -40,21 +42,21 @@ Evidence location: https://gitee.com/fuyang_lipengjun/platform/blob/master/platf
    87      @RequiresPermissions("user:delete")
    88      public R delete(@RequestBody Integer[] ids) {
    89          userService.deleteBatch(ids);
-   90  
+   90
    91          return R.ok();
    92      }
-   93  
+   93
    94      /**
-   95       * 查看所有列表
+   95       * [non-English text removed]
    96       */
    97      @RequestMapping("/queryAll")
    98      public R queryAll(@RequestParam Map<String, Object> params) {
-   99  
+   99
   100          List<UserEntity> userList = userService.queryList(params);
-  101  
+  101
   102          return R.ok().put("list", userList);
   103      }
-  104  
+  104
 ```
 
 4. `platform-admin/src/main/java/com/platform/service/impl/UserServiceImpl.java`

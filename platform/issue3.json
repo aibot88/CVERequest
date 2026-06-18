@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives",
+          "value": "platform has a missing authorization vulnerability in POST /plan-definitions, PUT /plan-definitions/{id}, PUT /plan-definitions/{id}/permissions, itemIdList/resIdList. Alters which platform resources a subscribed tenant receives",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in POST /plan-definitions, PUT /plan-definitions/{id}, PUT /plan-definitions/{id}/permissions, itemIdList/resIdList. Alters which platform resources a subscribed tenant receives<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1144655",
+    "cveId": "CAN-2026-1522672",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

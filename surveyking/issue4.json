@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: Workflow Approval Field Permission Bypass. 绕过字段级编辑权限，修改答卷中本不允许当前审批节点修改的字段。",
+          "value": "surveyking has a missing authorization vulnerability in POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: Workflow Approval Field Permission Bypass. 绕过字段级编辑权限，修改答卷中本不允许当前审批节点修改的字段。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1380917",
+    "cveId": "CAN-2026-2458431",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

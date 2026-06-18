@@ -27,12 +27,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "DSpace has a missing authorization vulnerability: Registration Token Path Allows Arbitrary netid Binding. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier",
+          "value": "DSpace has a missing authorization vulnerability in POST /api/eperson/epersons?token=, POST /api/eperson/epersons?token=<token>. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "DSpace has a missing authorization vulnerability: Registration Token Path Allows Arbitrary netid Binding. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier<p>This issue affects DSpace.</p>"
+              "value": "DSpace has a missing authorization vulnerability in POST /api/eperson/epersons?token=, POST /api/eperson/epersons?token=<token>. Unauthorized write to `eperson.netid`, an authentication binding property used by external authentication integrations. This can pre-bind an account to an arbitrary unused external identity identifier<p>This issue affects DSpace.</p>"
             }
           ]
         }
@@ -82,7 +82,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4019497",
+    "cveId": "CAN-2026-8672519",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

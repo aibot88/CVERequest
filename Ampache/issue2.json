@@ -27,12 +27,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Ampache has a missing authorization vulnerability: API Shares List. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk",
+          "value": "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Ampache has a missing authorization vulnerability: API Shares List. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk<p>This issue affects Ampache.</p>"
+              "value": "Ampache has a missing authorization vulnerability in POST /server/{json. The attacker can enumerate and retrieve other users' share `secret` and `public_url` values in bulk<p>This issue affects Ampache.</p>"
             }
           ]
         }
@@ -82,7 +82,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2684755",
+    "cveId": "CAN-2026-4191633",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

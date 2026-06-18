@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MCMS has a missing authorization vulnerability: Content copy uses `cms:content:save` to read and clone source content. A save-only user can read and duplicate source article data they are not authorized to view",
+          "value": "MCMS has a missing authorization vulnerability in GET /ms/cms/content/copy?id=, GET /ms/cms/content/copy?id=<sourceId>. A save-only user can read and duplicate source article data they are not authorized to view",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MCMS has a missing authorization vulnerability: Content copy uses `cms:content:save` to read and clone source content. A save-only user can read and duplicate source article data they are not authorized to view<p>This issue affects MCMS.</p>"
+              "value": "MCMS has a missing authorization vulnerability in GET /ms/cms/content/copy?id=, GET /ms/cms/content/copy?id=<sourceId>. A save-only user can read and duplicate source article data they are not authorized to view<p>This issue affects MCMS.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7737967",
+    "cveId": "CAN-2026-4603482",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

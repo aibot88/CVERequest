@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue3: Workflow Configuration Read Authorization Bypass"
-description: "surveyking has a missing authorization vulnerability: Workflow Configuration Read Authorization Bypass. 泄露工作流配置，包括审批身份 `identity`、字段权限 `fieldPermission` 和 `bpmnXml`。"
+description: "surveyking has a missing authorization vulnerability in GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId=. An authenticated attacker can perform authorization-sensitive operations through GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: Workflow Configuration Read Authorization Bypass. 泄露工作流配置，包括审批身份 `identity`、字段权限 `fieldPermission` 和 `bpmnXml`。
+surveyking has a missing authorization vulnerability in GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId=. An authenticated attacker can perform authorization-sensitive operations through GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= without the required permission.
 
-- Attack precondition: 任意已登录用户，知道目标 `projectId`。
-- Security impact: 泄露工作流配置，包括审批身份 `identity`、字段权限 `fieldPermission` 和 `bpmnXml`。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId=`
+- Affected authorization property: `projectId, identity, fieldPermission, bpmnXml, getFlow, @EnableDataPerm`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `GET /api/workflow/getFlow?projectId=...`。
+The attacker sends crafted requests to GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -49,7 +51,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-对 `getFlow` 加项目读权限校验；非管理者不要返回完整 workflow 授权配置。
+Enforce server-side authorization for GET /api/workflow/getFlow?projectId=..., GET /api/workflow/getFlow?projectId= before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

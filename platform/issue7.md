@@ -1,11 +1,11 @@
 ---
 title: "platform issue7: OAuth Registered Client Can Be Read or Modified Without Authorization"
-description: "platform has a missing authorization vulnerability: OAuth Registered Client Can Be Read or Modified Without Authorization. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings"
+description: "platform has a missing authorization vulnerability in GET /registered-client/list, GET /registered-client/page, POST /registered-client, PUT /registered-client/{id}, DELETE /registered-client/{id}. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: OAuth Registered Client Can Be Read or Modified Without Authorization. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings
+platform has a missing authorization vulnerability in GET /registered-client/list, GET /registered-client/page, POST /registered-client, PUT /registered-client/{id}, DELETE /registered-client/{id}. Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings
 
 - Attack precondition: The attacker is authenticated
+- Affected endpoint: `GET /registered-client/list, GET /registered-client/page, POST /registered-client, PUT /registered-client/{id}, DELETE /registered-client/{id}`
+- Affected authorization property: `clientSecret, clientId + clientSecret + status, @SaCheckPermission, clientId, status`
 - Security impact: Leaks OAuth client secrets and allows tampering with authentication clients, grant types, scopes, status, and token settings
 
 ### 1.2 Exploit path

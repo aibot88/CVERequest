@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall4cloud has a missing authorization vulnerability: Category Update/Delete Misses `category.shop_id` Ownership Check. A shop user with category management permission can modify or delete another shop's category, affecting classification and product organization",
+          "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/category, DELETE /admin/category. A shop user with category management permission can modify or delete another shop's category, affecting classification and product organization",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall4cloud has a missing authorization vulnerability: Category Update/Delete Misses `category.shop_id` Ownership Check. A shop user with category management permission can modify or delete another shop's category, affecting classification and product organization<p>This issue affects mall4cloud.</p>"
+              "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/category, DELETE /admin/category. A shop user with category management permission can modify or delete another shop's category, affecting classification and product organization<p>This issue affects mall4cloud.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9226779",
+    "cveId": "CAN-2026-3023721",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

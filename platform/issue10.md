@@ -1,11 +1,11 @@
 ---
 title: "platform issue10: Role User Assignment Lacks Target Role and User Scope Checks"
-description: "platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login"
+description: "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-users. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login
+platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-users. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login
 
 - Attack precondition: The attacker has `sys:role:assign-users`
+- Affected endpoint: `PUT /roles/{roleId}/assign-users`
+- Affected authorization property: `sys:role:assign-users, assignUser, readonly, superRole, sys_user_role`
 - Security impact: Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login
 
 ### 1.2 Exploit path

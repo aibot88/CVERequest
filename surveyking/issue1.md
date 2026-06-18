@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue1: Project Partner Management Authorization Bypass"
-description: "surveyking has a missing authorization vulnerability: Project Partner Management Authorization Bypass. 普通项目参与者可提升自己/他人为 OWNER/COLLABORATOR，或破坏项目成员绑定。"
+description: "surveyking has a missing authorization vulnerability in /api/project/partner/create, /api/project/partner/delete, type/userId/projectId. An authenticated attacker can perform authorization-sensitive operations through /api/project/partner/create, /api/project/partner/delete, type/userId/projectId without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: Project Partner Management Authorization Bypass. 普通项目参与者可提升自己/他人为 OWNER/COLLABORATOR，或破坏项目成员绑定。
+surveyking has a missing authorization vulnerability in /api/project/partner/create, /api/project/partner/delete, type/userId/projectId. An authenticated attacker can perform authorization-sensitive operations through /api/project/partner/create, /api/project/partner/delete, type/userId/projectId without the required permission.
 
-- Attack precondition: 已登录系统用户在目标项目存在任意 `t_project_partner.user_id` 记录，例如 type=3 系统答卷人。
-- Security impact: 普通项目参与者可提升自己/他人为 OWNER/COLLABORATOR，或破坏项目成员绑定。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/api/project/partner/create, /api/project/partner/delete, type/userId/projectId`
+- Affected authorization property: `t_project_partner.user_id, type=1, type=2, userIds, @EnableDataPerm`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /api/project/partner/create, /api/project/partner/delete, type/userId/projectId without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `/api/project/partner/create`，传入 `type=1` 或 `type=2` 和任意 `userIds`；或调用 `/api/project/partner/delete` 删除成员关系。
+The attacker sends crafted requests to /api/project/partner/create, /api/project/partner/delete, type/userId/projectId with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -52,7 +54,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-成员管理接口要求 OWNER 或专门管理权限；禁止非 OWNER 写入 type=1/2。
+Enforce server-side authorization for /api/project/partner/create, /api/project/partner/delete, type/userId/projectId before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

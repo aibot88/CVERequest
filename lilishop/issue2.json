@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "lilishop has a missing authorization vulnerability: Issue 2. 可读取或替换其他店铺部门继承的角色，影响该部门店员后续权限。",
+          "value": "lilishop has a missing authorization vulnerability in PUT /store/departmentRole/{victimDepartmentId}, /store/departmentRole*, departmentId/roleId, StoreDepartmentServiceImpl.update/deleteByIds, listByDepartmentId/updateByDepartmentId. An authenticated attacker can perform authorization-sensitive operations through PUT /store/departmentRole/{victimDepartmentId}, /store/departmentRole*, departmentId/roleId, StoreDepartmentServiceImpl.update/deleteByIds, listByDepartmentId/updateByDepartmentId without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "lilishop has a missing authorization vulnerability: Issue 2. 可读取或替换其他店铺部门继承的角色，影响该部门店员后续权限。<p>This issue affects lilishop.</p>"
+              "value": "lilishop has a missing authorization vulnerability in PUT /store/departmentRole/{victimDepartmentId}, /store/departmentRole*, departmentId/roleId, StoreDepartmentServiceImpl.update/deleteByIds, listByDepartmentId/updateByDepartmentId. An authenticated attacker can perform authorization-sensitive operations through PUT /store/departmentRole/{victimDepartmentId}, /store/departmentRole*, departmentId/roleId, StoreDepartmentServiceImpl.update/deleteByIds, listByDepartmentId/updateByDepartmentId without the required permission.<p>This issue affects lilishop.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5456580",
+    "cveId": "CAN-2026-2931882",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

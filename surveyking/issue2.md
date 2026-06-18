@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue2: Workflow Save/Deploy Authorization Bypass"
-description: "surveyking has a missing authorization vulnerability: Workflow Save/Deploy Authorization Bypass. 篡改项目工作流审批人、字段可见/可编辑权限、流程定义，影响后续发起与审批授权。"
+description: "surveyking has a missing authorization vulnerability in POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: Workflow Save/Deploy Authorization Bypass. 篡改项目工作流审批人、字段可见/可编辑权限、流程定义，影响后续发起与审批授权。
+surveyking has a missing authorization vulnerability in POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy without the required permission.
 
-- Attack precondition: 任意已登录用户，知道或猜到目标 `projectId`。
-- Security impact: 篡改项目工作流审批人、字段可见/可编辑权限、流程定义，影响后续发起与审批授权。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy`
+- Affected authorization property: `projectId, identity, fieldPermission, @PreAuthorize, @EnableDataPerm`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `POST /api/workflow/saveFlow` 写入目标项目的 `bpmnXml/nodes.identity/nodes.fieldPermission`，再调用 `POST /api/workflow/deploy` 发布。
+The attacker sends crafted requests to POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -55,7 +57,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-对 `saveFlow/deploy` 增加项目 owner/协作者管理权限校验，并限制可写 workflow 字段。
+Enforce server-side authorization for POST /api/workflow/saveFlow, POST /api/workflow/deploy, bpmnXml/nodes.identity/nodes.fieldPermission, /api/**, saveFlow/deploy before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

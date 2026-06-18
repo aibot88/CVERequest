@@ -33,12 +33,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: cms/article/save 栏目重绑定. 攻击者可把文章创建或迁移到无权管理的栏目，绕过栏目级内容管理边界。",
+          "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/cms/article/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/cms/article/save without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: cms/article/save 栏目重绑定. 攻击者可把文章创建或迁移到无权管理的栏目，绕过栏目级内容管理边界。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/cms/article/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/cms/article/save without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -88,7 +88,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1202241",
+    "cveId": "CAN-2026-7903448",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

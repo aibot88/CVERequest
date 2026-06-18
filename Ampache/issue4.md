@@ -1,11 +1,11 @@
 ---
 title: "Ampache issue4: Web Share Create / External Share Arbitrary Target"
-description: "Ampache has a missing authorization vulnerability: Web Share Create / External Share Arbitrary Target. The attacker can create a public share for an object they cannot otherwise access"
+description: "Ampache has a missing authorization vulnerability in GET /share.php?action=show_create&type={type}&id={id}, POST /share.php?action=create, GET /share.php?action=external_share&plugin={plugin}&type={type}&id={id}. The attacker can create a public share for an object they cannot otherwise access"
 tags:
   - Ampache
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-Ampache has a missing authorization vulnerability: Web Share Create / External Share Arbitrary Target. The attacker can create a public share for an object they cannot otherwise access
+Ampache has a missing authorization vulnerability in GET /share.php?action=show_create&type={type}&id={id}, POST /share.php?action=create, GET /share.php?action=external_share&plugin={plugin}&type={type}&id={id}. The attacker can create a public share for an object they cannot otherwise access
 
 - Attack precondition: - For `create`: a logged-in web user can obtain a valid `add_share` form token
+- Affected endpoint: `GET /share.php?action=show_create&type={type}&id={id}, POST /share.php?action=create, GET /share.php?action=external_share&plugin={plugin}&type={type}&id={id}`
+- Affected authorization property: `create, external_share, add_share, type, id, share`
 - Security impact: The attacker can create a public share for an object they cannot otherwise access
 
 ### 1.2 Exploit path

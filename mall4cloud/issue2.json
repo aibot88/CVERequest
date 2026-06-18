@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall4cloud has a missing authorization vulnerability: Role Permission Edges Write Arbitrary `menu_id` / `menu_permission_id`. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions",
+          "value": "mall4cloud has a missing authorization vulnerability in POST /role, PUT /role, bizType/tenantId. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall4cloud has a missing authorization vulnerability: Role Permission Edges Write Arbitrary `menu_id` / `menu_permission_id`. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions<p>This issue affects mall4cloud.</p>"
+              "value": "mall4cloud has a missing authorization vulnerability in POST /role, PUT /role, bizType/tenantId. A role manager can create or update a role to include unauthorized menu or API permission edges. Once assigned, those edges affect RBAC authorization decisions<p>This issue affects mall4cloud.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7301198",
+    "cveId": "CAN-2026-6866867",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

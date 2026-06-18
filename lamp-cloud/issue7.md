@@ -3,9 +3,9 @@ title: "lamp-cloud issue7: Unauthorized Permission Disclosure via `GET /anyone/f
 description: "lamp-cloud has a missing authorization vulnerability in `GET /anyone/findVisibleResource`. Disclosure of another employee's resource permission codes"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,27 +34,27 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/l
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/lamp-oauth-biz/src/main/java/top/tangyh/lamp/oauth/biz/ResourceBiz.java#L67
 
 ```text
-   64       * @param applicationId 应用id
-   65       * @return 资源树
+   64       * @param applicationId [non-English text removed]id
+   65       * @return [non-English text removed]
    66       */
    67      public List<String> findVisibleResource(Long employeeId, Long applicationId) {
    68          List<DefResource> list;
    69          boolean isAdmin = baseRoleService.checkRole(employeeId, RoleConstant.TENANT_ADMIN);
    70          List<String> resourceCodes = Collections.emptyList();
    71          if (isAdmin) {
-   72              // 管理员 拥有所有权限，查询指定应用，指定类型的 所有资源
+   72              // [non-English text removed] [non-English text removed],[non-English text removed],[non-English text removed] [non-English text removed]
    73              list = defResourceService.findResourceListByApplicationId(applicationId != null ? Collections.singletonList(applicationId) : Collections.emptyList(), resourceCodes);
    74          } else {
    75              List<Long> resourceIdList = baseRoleService.findResourceIdByEmployeeId(applicationId, employeeId);
    76              if (resourceIdList.isEmpty()) {
    77                  return Collections.emptyList();
    78              }
-   79  
+   79
    80              list = defResourceService.findByIdsAndType(resourceIdList, resourceCodes);
    81          }
    82          return CollHelper.split(list, DefResource::getCode, StrPool.SEMICOLON);
    83      }
-   84  
+   84
    85      public List<VueRouter> findAllVisibleRouter(Long employeeId, String subGroup, ClientTypeEnum type) {
 ```
 
@@ -64,17 +64,17 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
   178      }
-  179  
+  179
   180      @Override
   181      public List<Long> findResourceIdByEmployeeId(Long applicationId, Long employeeId) {
   182          return superManager.findResourceIdByEmployeeId(applicationId, employeeId);
   183      }
-  184  
+  184
   185      @Override
   186      public boolean checkRole(Long employeeId, String... codes) {
   187          return superManager.checkRole(employeeId, codes);
   188      }
-  189  
+  189
   190      @Override
   191      public List<String> findRoleCodeByEmployeeId(Long employeeId) {
   192          List<BaseRole> list = superManager.findRoleByEmployeeId(employeeId);

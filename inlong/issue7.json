@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: D-5: Group auth/filter/blacklist mutation via manager-filled master token. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries",
+          "value": "inlong has a missing authorization vulnerability in /v1/group, /v1/group/blackGroup. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: D-5: Group auth/filter/blacklist mutation via manager-filled master token. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in /v1/group, /v1/group/blackGroup. Unauthorized modification of consumer group authorization, filter conditions, flow-control rules, rebalancing, and blacklist entries<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4136205",
+    "cveId": "CAN-2026-5793757",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

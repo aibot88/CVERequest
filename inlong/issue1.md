@@ -1,11 +1,11 @@
 ---
 title: "inlong issue1: C-1: Cross-tenant tenant-role assignment"
-description: "inlong has a missing authorization vulnerability: C-1: Cross-tenant tenant-role assignment. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries"
+description: "inlong has a missing authorization vulnerability in /api/role/tenant/save, /api/role/tenant/update, /api/role/tenant/delete. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: C-1: Cross-tenant tenant-role assignment. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries
+inlong has a missing authorization vulnerability in /api/role/tenant/save, /api/role/tenant/update, /api/role/tenant/delete. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries
 
 - Attack precondition: The attacker is authenticated and has `TENANT_ADMIN` in any tenant, or has another role that can reach the tenant-role write endpoints
+- Affected endpoint: `/api/role/tenant/save, /api/role/tenant/update, /api/role/tenant/delete`
+- Affected authorization property: `TENANT_ADMIN, tenant, username, roleCode, INLONG_ADMIN, tenant_user_role`
 - Security impact: The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries
 
 ### 1.2 Exploit path

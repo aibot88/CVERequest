@@ -3,9 +3,9 @@ title: "JSH_ERP issue3: Unauthorized Write of Authorization Relationships via `/
 description: "JSH_ERP has a missing authorization vulnerability in `POST /userBusiness/add`, `PUT /userBusiness/update`, `DELETE /userBusiness/delete`, `DELETE /userBusiness/deleteBatch`, `POST /userBusiness/updateBtnStr`, `POST /userBusiness/updateOneValueByKeyIdAndType`. A low-privileged user can modify role assignments, menu/function mappings, button permissions, warehouse access, or customer access. This can directly change authorization state and expand the attacker's effective permissions"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -33,39 +33,39 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
    47          }
    48      }
-   49  
+   49
    50      @PostMapping(value = "/add")
-   51      @ApiOperation(value = "新增")
+   51      @ApiOperation(value = "[non-English text removed]")
    52      public String addResource(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception {
    53          Map<String, Object> objectMap = new HashMap<>();
    54          int insert = userBusinessService.insertUserBusiness(obj, request);
    55          return returnStr(objectMap, insert);
    56      }
-   57  
+   57
    58      @PutMapping(value = "/update")
-   59      @ApiOperation(value = "修改")
+   59      @ApiOperation(value = "[non-English text removed]")
    60      public String updateResource(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception {
    61          Map<String, Object> objectMap = new HashMap<>();
    62          int update = userBusinessService.updateUserBusiness(obj, request);
    63          return returnStr(objectMap, update);
    64      }
-   65  
+   65
    66      @DeleteMapping(value = "/delete")
-   67      @ApiOperation(value = "删除")
+   67      @ApiOperation(value = "[non-English text removed]")
    68      public String deleteResource(@RequestParam("id") Long id, HttpServletRequest request)throws Exception {
    69          Map<String, Object> objectMap = new HashMap<>();
    70          int delete = userBusinessService.deleteUserBusiness(id, request);
    71          return returnStr(objectMap, delete);
    72      }
-   73  
+   73
    74      @DeleteMapping(value = "/deleteBatch")
-   75      @ApiOperation(value = "批量删除")
+   75      @ApiOperation(value = "[non-English text removed]")
    76      public String batchDeleteResource(@RequestParam("ids") String ids, HttpServletRequest request)throws Exception {
    77          Map<String, Object> objectMap = new HashMap<>();
    78          int delete = userBusinessService.batchDeleteUserBusiness(ids, request);
    79          return returnStr(objectMap, delete);
    80      }
-   81  
+   81
    82      @GetMapping(value = "/checkIsNameExist")
 ```
 
@@ -75,7 +75,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
    59      }
-   60  
+   60
    61      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
    62      public int insertUserBusiness(JSONObject obj, HttpServletRequest request) throws Exception {
    63          UserBusiness userBusiness = JSONObject.parseObject(obj.toJSONString(), UserBusiness.class);
@@ -86,7 +86,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
    68              newValue = newValue.replaceAll("\\[0\\]","").replaceAll("\\[\\]","");
    69              userBusiness.setValue(newValue);
    70              result=userBusinessMapper.insertSelective(userBusiness);
-   71              logService.insertLog("关联关系", BusinessConstants.LOG_OPERATION_TYPE_ADD, request);
+   71              logService.insertLog("[non-English text removed]", BusinessConstants.LOG_OPERATION_TYPE_ADD, request);
    72          }catch(Exception e){
    73              JshException.writeFail(logger, e);
 ```
@@ -97,7 +97,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
    76      }
-   77  
+   77
    78      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
    79      public int updateUserBusiness(JSONObject obj, HttpServletRequest request) throws Exception {
    80          UserBusiness userBusiness = JSONObject.parseObject(obj.toJSONString(), UserBusiness.class);
@@ -108,7 +108,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
    85              newValue = newValue.replaceAll("\\[0\\]","").replaceAll("\\[\\]","");
    86              userBusiness.setValue(newValue);
    87              result=userBusinessMapper.updateByPrimaryKeySelective(userBusiness);
-   88              logService.insertLog("关联关系", BusinessConstants.LOG_OPERATION_TYPE_EDIT, request);
+   88              logService.insertLog("[non-English text removed]", BusinessConstants.LOG_OPERATION_TYPE_EDIT, request);
    89          }catch(Exception e){
    90              JshException.writeFail(logger, e);
 ```
@@ -119,11 +119,11 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
   159      }
-  160  
+  160
   161      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
   162      public int updateBtnStr(String keyId, String type, String btnStr) throws Exception{
-  163          logService.insertLog("关联关系",
-  164                  new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append("角色的按钮权限").toString(),
+  163          logService.insertLog("[non-English text removed]",
+  164                  new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append("[non-English text removed]").toString(),
   165                  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
   166          UserBusiness userBusiness = new UserBusiness();
   167          userBusiness.setBtnStr(btnStr);
@@ -144,7 +144,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   180          return userBusinessMapperEx.getUBKeyIdByTypeAndOneValue(type, oneValue);
   181      }
-  182  
+  182
   183      public int updateOneValueByKeyIdAndType(String type, JSONArray keyIdArr, String oneValue) {
   184          int res = 0;
   185          try {
@@ -158,9 +158,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   193                      String valueStr = ubList.get(0).getValue();
   194                      Boolean flag = valueStr.contains("[" + oneValue + "]");
   195                      if(flag) {
-  196                          //存在则忽略
+  196                          //[non-English text removed]
   197                      } else {
-  198                          //不存在则追加并更新
+  198                          //[non-English text removed]
   199                          valueStr = valueStr + "[" + oneValue + "]";
   200                          UserBusiness userBusiness = new UserBusiness();
   201                          userBusiness.setId(ubList.get(0).getId());
@@ -168,7 +168,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   203                          userBusinessMapper.updateByPrimaryKeySelective(userBusiness);
   204                      }
   205                  } else {
-  206                      //新增数据
+  206                      //[non-English text removed]
   207                      UserBusiness userBusiness = new UserBusiness();
   208                      userBusiness.setType(type);
   209                      userBusiness.setKeyId(keyId);
@@ -176,21 +176,21 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   211                      userBusinessMapper.insertSelective(userBusiness);
   212                  }
   213              }
-  214              //检查被移除的keyId
+  214              //[non-English text removed]keyId
   215              for(UserBusiness item: oldUbList) {
   216                  String oldValue = item.getValue();
   217                  String oldkeyId = item.getKeyId();
   218                  if(keyIdMap.get(oldkeyId) == null) {
-  219                      //处理被删除的keyId
+  219                      //[non-English text removed]keyId
   220                      String valueStr = "[" + oneValue + "]";
   221                      if(oldValue.equals(valueStr)) {
-  222                          //说明value里面只有一条数据，需要进行逻辑删除
+  222                          //[non-English text removed]value[non-English text removed],[non-English text removed]
   223                          UserBusiness userBusiness = new UserBusiness();
   224                          userBusiness.setId(item.getId());
   225                          userBusiness.setDeleteFlag("1");
   226                          userBusinessMapper.updateByPrimaryKeySelective(userBusiness);
   227                      } else {
-  228                          //多条进行替换后再更新
+  228                          //[non-English text removed]
   229                          String newValue = oldValue.replace(valueStr, "");
   230                          UserBusiness userBusiness = new UserBusiness();
   231                          userBusiness.setId(item.getId());
@@ -215,9 +215,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   831          }
   832          return role;
   833      }
-  834  
+  834
   835      /**
-  836       * 获取用户id
+  836       * [non-English text removed]id
   837       * @param request
   838       * @return
   839       */
@@ -229,9 +229,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   845          }
   846          return userId;
   847      }
-  848  
+  848
   849      /**
-  850       * 用户的按钮权限
+  850       * [non-English text removed]
   851       * @param userId
 ```
 
@@ -240,13 +240,13 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/service/DepotService.java#L317
 
 ```text
-  314  
+  314
   315      public JSONArray findDepotByCurrentUser() throws Exception {
   316          JSONArray arr = new JSONArray();
   317          String type = "UserDepot";
   318          Long userId = userService.getCurrentUser().getId();
   319          List<Depot> dataList = findUserDepot();
-  320          //开始拼接json数据
+  320          //[non-English text removed]json[non-English text removed]
   321          if (null != dataList) {
   322              boolean depotFlag = systemConfigService.getDepotFlag();
   323              if(depotFlag) {
@@ -272,9 +272,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ## 2. Existing checks and why they fail
 
-- No authorization check ensures the caller can manage the target user, role, warehouse, customer, or function.
-- No role ceiling or function ceiling is enforced in these write endpoints.
-- No field whitelist prevents writing permission-sensitive columns.
+- No authorization check ensures the caller can manage the target user, role, warehouse, customer, or function. - No role ceiling or function ceiling is enforced in these write endpoints. - No field whitelist prevents writing permission-sensitive columns
 
 ## 3. Root Cause Analysis
 

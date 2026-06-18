@@ -1,11 +1,11 @@
 ---
 title: "platform issue3: Plan Definition Resource Authorization Can Be Modified Without Permission"
-description: "platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives"
+description: "platform has a missing authorization vulnerability in POST /plan-definitions, PUT /plan-definitions/{id}, PUT /plan-definitions/{id}/permissions, itemIdList/resIdList. Alters which platform resources a subscribed tenant receives"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives
+platform has a missing authorization vulnerability in POST /plan-definitions, PUT /plan-definitions/{id}, PUT /plan-definitions/{id}/permissions, itemIdList/resIdList. Alters which platform resources a subscribed tenant receives
 
 - Attack precondition: The attacker is authenticated and knows resource IDs and a plan ID, or can create/modify a plan
+- Affected endpoint: `POST /plan-definitions, PUT /plan-definitions/{id}, PUT /plan-definitions/{id}/permissions, itemIdList/resIdList`
+- Affected authorization property: `@SaCheckPermission, PlanDefinitionRes, resIdList`
 - Security impact: Alters which platform resources a subscribed tenant receives
 
 ### 1.2 Exploit path

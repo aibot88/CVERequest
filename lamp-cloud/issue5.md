@@ -3,9 +3,9 @@ title: "lamp-cloud issue5: Unauthorized Password Reset via `PUT /defUser/resetPa
 description: "lamp-cloud has a missing authorization vulnerability in `PUT /defUser/resetPassword`. Account takeover, including possible takeover of high-privilege accounts"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,20 +35,20 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-system/
 
 ```text
   187          } else {
-  188              ArgumentAssert.notEmpty(data.getConfirmPassword(), "请输入确认密码");
-  189              ArgumentAssert.notEmpty(data.getPassword(), "请输入密码");
-  190              ArgumentAssert.equals(data.getConfirmPassword(), data.getPassword(), "密码和确认密码不一致");
+  188              ArgumentAssert.notEmpty(data.getConfirmPassword(), "[non-English text removed]");
+  189              ArgumentAssert.notEmpty(data.getPassword(), "[non-English text removed]");
+  190              ArgumentAssert.equals(data.getConfirmPassword(), data.getPassword(), "[non-English text removed]");
   191          }
   192          DefUser user = superManager.getById(data.getId());
-  193          ArgumentAssert.notNull(user, "您要重置密码的用户不存在");
-  194  
+  193          ArgumentAssert.notNull(user, "[non-English text removed]");
+  194
   195          return updateUserPassword(user.getId(), data.getPassword(), user.getSalt());
   196      }
-  197  
+  197
   198      @Override
   199      @Transactional(rollbackFor = Exception.class)
   200      public Boolean updateState(Long id, Boolean state) {
-  201          // 演示环境专用标识，用于WriteInterceptor拦截器判断演示环境需要禁止用户执行sql，若您无需搭建演示环境，可以删除下面一行代码
+  201          // [non-English text removed],[non-English text removed]WriteInterceptor[non-English text removed]sql,[non-English text removed],[non-English text removed]
   202          ContextUtil.setStop();
   203          return superManager.updateById(DefUser.builder().state(state).id(id).build());
   204      }
@@ -59,31 +59,31 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-system/
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-system/lamp-system-entity/src/main/java/top/tangyh/lamp/system/vo/update/tenant/DefUserPasswordResetVO.java#L39
 
 ```text
-   36  
+   36
    37      private static final long serialVersionUID = 1L;
-   38  
-   39      @Schema(description = "主键")
-   40      @NotNull(message = "id不能为空")
+   38
+   39      @Schema(description = "[non-English text removed]")
+   40      @NotNull(message = "id[non-English text removed]")
    41      private Long id;
-   42  
-   43      @Schema(description = "是否使用系统内置密码")
-   44      @NotNull(message = "请选择是否使用系统内置密码")
+   42
+   43      @Schema(description = "[non-English text removed]")
+   44      @NotNull(message = "[non-English text removed]")
    45      private Boolean isUseSystemPassword;
    46      /**
-   47       * 密码
+   47       * [non-English text removed]
    48       */
-   49      @Schema(description = "密码")
-   50      @Size(min = 6, max = 20, message = "密码长度不能小于{min}且超过{max}个字符")
-   51      @NotEmptyPattern(regexp = REGEX_PASSWORD, message = "至少包含字母、数字、特殊字符")
+   49      @Schema(description = "[non-English text removed]")
+   50      @Size(min = 6, max = 20, message = "[non-English text removed]{min}[non-English text removed]{max}[non-English text removed]")
+   51      @NotEmptyPattern(regexp = REGEX_PASSWORD, message = "[non-English text removed],[non-English text removed],[non-English text removed]")
    52      private String password;
-   53  
+   53
    54      /**
-   55       * 密码
+   55       * [non-English text removed]
    56       */
-   57      @Schema(description = "确认密码")
-   58      @Size(min = 6, max = 20, message = "密码长度不能小于{min}且超过{max}个字符")
+   57      @Schema(description = "[non-English text removed]")
+   58      @Size(min = 6, max = 20, message = "[non-English text removed]{min}[non-English text removed]{max}[non-English text removed]")
    59      private String confirmPassword;
-   60  
+   60
    61  }
 ```
 

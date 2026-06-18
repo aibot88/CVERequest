@@ -25,12 +25,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Ampache has a missing authorization vulnerability: Playlist Source Object Authorization Bypass. The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`",
+          "value": "Ampache has a missing authorization vulnerability in RecordPlay8Method / Scrobble8Method -> Song::set_played(). The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Ampache has a missing authorization vulnerability: Playlist Source Object Authorization Bypass. The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`<p>This issue affects Ampache.</p>"
+              "value": "Ampache has a missing authorization vulnerability in RecordPlay8Method / Scrobble8Method -> Song::set_played(). The attacker can bind unauthorized source content into their own playlist. That playlist can later be read, played, or shared through flows that trust `playlist_data`<p>This issue affects Ampache.</p>"
             }
           ]
         }
@@ -80,7 +80,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3592246",
+    "cveId": "CAN-2026-8507538",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

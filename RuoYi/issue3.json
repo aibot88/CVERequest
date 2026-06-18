@@ -11,7 +11,7 @@
           "programFiles": [
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysRoleController.java#L310",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysRoleServiceImpl.java#L403",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysUserRoleMapper.xml#L31",
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml#L31",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysUserServiceImpl.java#L456",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/userService.c"
           ],
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment To Users. 给不可见用户授予角色，改变其 RBAC membership 和后续权限集合。",
+          "value": "RuoYi has a missing authorization vulnerability in /system/role/authUser/selectAll, allocatedList/unallocatedList. An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/selectAll, allocatedList/unallocatedList without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment To Users. 给不可见用户授予角色，改变其 RBAC membership 和后续权限集合。<p>This issue affects RuoYi.</p>"
+              "value": "RuoYi has a missing authorization vulnerability in /system/role/authUser/selectAll, allocatedList/unallocatedList. An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/selectAll, allocatedList/unallocatedList without the required permission.<p>This issue affects RuoYi.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-6761573",
+    "cveId": "CAN-2026-1153791",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

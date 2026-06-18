@@ -1,11 +1,11 @@
 ---
 title: "yudao-cloud issue3: CRM Permission List Exposes Object Permission Bindings Without Object Authorization"
-description: "yudao-cloud has a missing authorization vulnerability: CRM Permission List Exposes Object Permission Bindings Without Object Authorization. The endpoint leaks CRM ReBAC state: `crm_permission.id`, `userId`, `bizType`, `bizId`, and `level`. These fields are not merely display information; they drive subsequent `@CrmPermission` read/write/owner authorization"
+description: "yudao-cloud has a missing authorization vulnerability in GET /crm/permission/list?bizType=...&bizId=..., GET /crm/permission/list?bizType=...&bizId=, crm_permission.userId/level. The endpoint leaks CRM ReBAC state: `crm_permission.id`, `userId`, `bizType`, `bizId`, and `level`. These fields are not merely display information; they drive subsequent `@CrmPermission` read/write/owner authorization"
 tags:
   - yudao-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-yudao-cloud has a missing authorization vulnerability: CRM Permission List Exposes Object Permission Bindings Without Object Authorization. The endpoint leaks CRM ReBAC state: `crm_permission.id`, `userId`, `bizType`, `bizId`, and `level`. These fields are not merely display information; they drive subsequent `@CrmPermission` read/write/owner authorization
+yudao-cloud has a missing authorization vulnerability in GET /crm/permission/list?bizType=...&bizId=..., GET /crm/permission/list?bizType=...&bizId=, crm_permission.userId/level. The endpoint leaks CRM ReBAC state: `crm_permission.id`, `userId`, `bizType`, `bizId`, and `level`. These fields are not merely display information; they drive subsequent `@CrmPermission` read/write/owner authorization
 
 - Attack precondition: Attacker is an authenticated backend user and knows or can guess a CRM object's `bizType` and `bizId`
+- Affected endpoint: `GET /crm/permission/list?bizType=...&bizId=..., GET /crm/permission/list?bizType=...&bizId=, crm_permission.userId/level`
+- Affected authorization property: `bizType, bizId, crm_permission.id, userId, level, @CrmPermission`
 - Security impact: The endpoint leaks CRM ReBAC state: `crm_permission.id`, `userId`, `bizType`, `bizId`, and `level`. These fields are not merely display information; they drive subsequent `@CrmPermission` read/write/owner authorization
 
 ### 1.2 Exploit path

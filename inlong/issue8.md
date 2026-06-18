@@ -1,11 +1,11 @@
 ---
 title: "inlong issue8: D-6: Region and broker-region relation mutation without authorization"
-description: "inlong has a missing authorization vulnerability: D-6: Region and broker-region relation mutation without authorization. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership"
+description: "inlong has a missing authorization vulnerability in /v1/region. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-6: Region and broker-region relation mutation without authorization. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership
+inlong has a missing authorization vulnerability in /v1/region. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership
 
 - Attack precondition: The attacker can access `/v1/region`
+- Affected endpoint: `/v1/region`
+- Affected authorization property: `method=add, method=modify, method=delete, clusterId, regionId`
 - Security impact: Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership
 
 ### 1.2 Exploit path

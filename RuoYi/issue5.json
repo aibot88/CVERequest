@@ -11,7 +11,7 @@
           "programFiles": [
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysDeptController.java#L77",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysDeptServiceImpl.java#L193",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysDeptMapper.xml#L89",
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysDeptMapper.xml#L89",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-framework/src/main/java/com/ruoyi/framework/aspectj/DataScopeAspect.java#L100",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/deptService.c"
           ],
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "RuoYi has a missing authorization vulnerability: Department Hierarchy Rebinding. 越权创建或移动部门，改变 DataScope 使用的部门层级授权路径。",
+          "value": "RuoYi has a missing authorization vulnerability in /system/dept/add, /system/dept/edit, /add/{parentId}, /add. An authenticated attacker can perform authorization-sensitive operations through /system/dept/add, /system/dept/edit, /add/{parentId}, /add without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "RuoYi has a missing authorization vulnerability: Department Hierarchy Rebinding. 越权创建或移动部门，改变 DataScope 使用的部门层级授权路径。<p>This issue affects RuoYi.</p>"
+              "value": "RuoYi has a missing authorization vulnerability in /system/dept/add, /system/dept/edit, /add/{parentId}, /add. An authenticated attacker can perform authorization-sensitive operations through /system/dept/add, /system/dept/edit, /add/{parentId}, /add without the required permission.<p>This issue affects RuoYi.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9653724",
+    "cveId": "CAN-2026-6568628",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

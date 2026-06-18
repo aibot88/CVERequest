@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Plan Subscription Can Be Created, Listed, or Deleted Without Authorization. Adds or removes tenant subscriptions, changing tenant-visible resources",
+          "value": "platform has a missing authorization vulnerability in GET /plan-subscriptions/page, POST /plan-subscriptions, DELETE /plan-subscriptions/{id}. Adds or removes tenant subscriptions, changing tenant-visible resources",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Plan Subscription Can Be Created, Listed, or Deleted Without Authorization. Adds or removes tenant subscriptions, changing tenant-visible resources<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in GET /plan-subscriptions/page, POST /plan-subscriptions, DELETE /plan-subscriptions/{id}. Adds or removes tenant subscriptions, changing tenant-visible resources<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4285573",
+    "cveId": "CAN-2026-3010516",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

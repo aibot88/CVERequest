@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "onedev has a missing authorization vulnerability: Detector REST issue time tracking 读取泄露. 可读取 work log 或时间变更历史中的 spent/estimated time old/new value，绕过 `AccessTimeTracking`。",
+          "value": "onedev has a missing authorization vulnerability in GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works. An authenticated attacker can read authorization-sensitive data that should be restricted.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "onedev has a missing authorization vulnerability: Detector REST issue time tracking 读取泄露. 可读取 work log 或时间变更历史中的 spent/estimated time old/new value，绕过 `AccessTimeTracking`。<p>This issue affects onedev.</p>"
+              "value": "onedev has a missing authorization vulnerability in GET /issue-works/{workId}, GET /issues/{id}, GET /issues, GET /issues/{id}/works, GET /issues/{id}/changes, /{id}/works. An authenticated attacker can read authorization-sensitive data that should be restricted.<p>This issue affects onedev.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2984481",
+    "cveId": "CAN-2026-4107392",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

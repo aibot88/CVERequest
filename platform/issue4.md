@@ -1,11 +1,11 @@
 ---
 title: "platform issue4: Plan Subscription Can Be Created, Listed, or Deleted Without Authorization"
-description: "platform has a missing authorization vulnerability: Plan Subscription Can Be Created, Listed, or Deleted Without Authorization. Adds or removes tenant subscriptions, changing tenant-visible resources"
+description: "platform has a missing authorization vulnerability in GET /plan-subscriptions/page, POST /plan-subscriptions, DELETE /plan-subscriptions/{id}. Adds or removes tenant subscriptions, changing tenant-visible resources"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Plan Subscription Can Be Created, Listed, or Deleted Without Authorization. Adds or removes tenant subscriptions, changing tenant-visible resources
+platform has a missing authorization vulnerability in GET /plan-subscriptions/page, POST /plan-subscriptions, DELETE /plan-subscriptions/{id}. Adds or removes tenant subscriptions, changing tenant-visible resources
 
 - Attack precondition: The attacker is authenticated and knows valid `tenantId` / `planId` values
+- Affected endpoint: `GET /plan-subscriptions/page, POST /plan-subscriptions, DELETE /plan-subscriptions/{id}`
+- Affected authorization property: `tenantId, planId, @SaCheckPermission`
 - Security impact: Adds or removes tenant subscriptions, changing tenant-visible resources
 
 ### 1.2 Exploit path

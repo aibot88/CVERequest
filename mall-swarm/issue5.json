@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall-swarm has a missing authorization vulnerability: Member Read History Unauthorized Delete. 可删除他人的浏览历史记录。",
+          "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall-swarm has a missing authorization vulnerability: Member Read History Unauthorized Delete. 可删除他人的浏览历史记录。<p>This issue affects mall-swarm.</p>"
+              "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/member/readHistory/delete, POST /member/readHistory/delete. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.<p>This issue affects mall-swarm.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2803005",
+    "cveId": "CAN-2026-3213019",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

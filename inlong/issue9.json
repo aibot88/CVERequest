@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: D-7: Async topic task creates/configures topics via server-side master token. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster",
+          "value": "inlong has a missing authorization vulnerability in /v1/task?method=addTopicTask, /v1/cluster, /v1/node/master. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: D-7: Async topic task creates/configures topics via server-side master token. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in /v1/task?method=addTopicTask, /v1/cluster, /v1/node/master. Unauthorized asynchronous topic creation/configuration in the target TubeMQ cluster<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1380741",
+    "cveId": "CAN-2026-1471409",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue7: System User Position Permission Boundary Bypass"
-description: "surveyking has a missing authorization vulnerability: System User Position Permission Boundary Bypass. 绕过独立岗位更新权限，修改用户的部门/岗位绑定；该绑定后续参与工作流用户组解析。"
+description: "surveyking has a missing authorization vulnerability in POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update. An authenticated attacker can perform authorization-sensitive operations through POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: System User Position Permission Boundary Bypass. 绕过独立岗位更新权限，修改用户的部门/岗位绑定；该绑定后续参与工作流用户组解析。
+surveyking has a missing authorization vulnerability in POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update. An authenticated attacker can perform authorization-sensitive operations through POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update without the required permission.
 
-- Attack precondition: 持有 `system:user:update` 的用户，不需要持有独立的 `system:user:updatePosition`。
-- Security impact: 绕过独立岗位更新权限，修改用户的部门/岗位绑定；该绑定后续参与工作流用户组解析。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update`
+- Affected authorization property: `system:user:update, system:user:updatePosition, userPositions, getUserGroups(), updateUser, userPosition`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `POST /api/system/user/update`，在请求体中携带 `userPositions`。
+The attacker sends crafted requests to POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -49,7 +51,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-在 `updateUser` 中忽略 `userPositions`，或要求同时具备 `system:user:updatePosition`。
+Enforce server-side authorization for POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

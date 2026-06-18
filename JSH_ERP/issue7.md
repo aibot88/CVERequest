@@ -3,9 +3,9 @@ title: "JSH_ERP issue7: Authorization Relationship Disclosure via Checked/Value 
 description: "JSH_ERP has a missing authorization vulnerability in `GET /role/findUserRole`, `GET /depot/findUserDepot`, `GET /supplier/getUserCustomerValue`, `GET /user/getUserWithChecked`. The endpoints reveal authorization relationships such as which role a user has, which warehouses a user can access, which customers are assigned, or which users are linked to a relationship value"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,12 +35,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   117       * @return
   118       */
   119      @GetMapping(value = "/findUserRole")
-  120      @ApiOperation(value = "查询用户的角色")
+  120      @ApiOperation(value = "[non-English text removed]")
   121      public JSONArray findUserRole(@RequestParam("UBType") String type, @RequestParam("UBKeyId") String keyId,
   122                                    HttpServletRequest request)throws Exception {
   123          JSONArray arr = new JSONArray();
   124          try {
-  125              //获取权限信息
+  125              //[non-English text removed]
   126              String ubValue = userBusinessService.getUBValueByTypeAndKeyId(type, keyId);
   127              List<Role> dataList = roleService.findUserRole();
   128              if (null != dataList) {
@@ -67,22 +67,22 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   157       * @return
   158       */
   159      @GetMapping(value = "/findUserDepot")
-  160      @ApiOperation(value = "用户对应仓库显示")
+  160      @ApiOperation(value = "[non-English text removed]")
   161      public JSONArray findUserDepot(@RequestParam("UBType") String type, @RequestParam("UBKeyId") String keyId,
   162                                   HttpServletRequest request) throws Exception{
   163          JSONArray arr = new JSONArray();
   164          try {
-  165              //获取权限信息
+  165              //[non-English text removed]
   166              String ubValue = userBusinessService.getUBValueByTypeAndKeyId(type, keyId);
   167              List<Depot> dataList = depotService.findUserDepot();
-  168              //开始拼接json数据
+  168              //[non-English text removed]json[non-English text removed]
   169              JSONObject outer = new JSONObject();
   170              outer.put("id", 0);
   171              outer.put("key", 0);
   172              outer.put("value", 0);
-  173              outer.put("title", "仓库列表");
-  174              outer.put("attributes", "仓库列表");
-  175              //存放数据json数组
+  173              outer.put("title", "[non-English text removed]");
+  174              outer.put("attributes", "[non-English text removed]");
+  175              //[non-English text removed]json[non-English text removed]
   176              JSONArray dataArray = new JSONArray();
   177              if (null != dataList) {
   178                  for (Depot depot : dataList) {
@@ -111,12 +111,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   340       * @return
   341       */
   342      @GetMapping(value = "/getUserCustomerValue")
-  343      @ApiOperation(value = "获取用户对应客户的关系数组")
+  343      @ApiOperation(value = "[non-English text removed]")
   344      public JSONObject getUserCustomerValue(@RequestParam("UBType") String type, @RequestParam("UBKeyId") String keyId,
   345                                             HttpServletRequest request) throws Exception{
   346          JSONObject obj = new JSONObject();
   347          try {
-  348              //获取权限信息
+  348              //[non-English text removed]
   349              String ubValue = userBusinessService.getUBValueByTypeAndKeyId(type, keyId);
   350              if(StringUtil.isNotEmpty(ubValue)) {
   351                  String ubStr = ubValue.substring(1, ubValue.length()-1);
@@ -132,12 +132,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   361              obj.put("code", 200);
   362          } catch (Exception e) {
   363              obj.put("code", 500);
-  364              obj.put("data", "服务内部错误");
+  364              obj.put("data", "[non-English text removed]");
   365              logger.error(e.getMessage(), e);
   366          }
   367          return obj;
   368      }
-  369  
+  369
   370      /**
 ```
 
@@ -150,23 +150,23 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   463       * @return
   464       */
   465      @GetMapping(value = "/getUserWithChecked")
-  466      @ApiOperation(value = "获取对应的用户显示")
+  466      @ApiOperation(value = "[non-English text removed]")
   467      public JSONArray getUserWithChecked(@RequestParam("UBType") String type, @RequestParam("UBValue") String oneValue,
   468                                    HttpServletRequest request) throws Exception{
   469          JSONArray arr = new JSONArray();
   470          try {
-  471              //获取权限信息
+  471              //[non-English text removed]
   472              List<Long> keyIdList = userBusinessService.getUBKeyIdByTypeAndOneValue(type, oneValue);
   473              Map<Long, Long> keyIdMap = keyIdList.stream().collect(Collectors.toMap(Function.identity(),Function.identity()));
   474              List<User> dataList = userService.getUser(request);
-  475              //开始拼接json数据
+  475              //[non-English text removed]json[non-English text removed]
   476              JSONObject outer = new JSONObject();
   477              outer.put("id", 0);
   478              outer.put("key", 0);
   479              outer.put("value", 0);
-  480              outer.put("title", "用户列表");
-  481              outer.put("attributes", "用户列表");
-  482              //存放数据json数组
+  480              outer.put("title", "[non-English text removed]");
+  481              outer.put("attributes", "[non-English text removed]");
+  482              //[non-English text removed]json[non-English text removed]
   483              JSONArray dataArray = new JSONArray();
   484              if (null != dataList) {
   485                  for (User user : dataList) {
@@ -196,7 +196,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   132          return list;
   133      }
-  134  
+  134
   135      public String getUBValueByTypeAndKeyId(String type, String keyId) throws Exception {
   136          String ubValue = "";
   137          List<UserBusiness> ubList = getBasicData(keyId, type);
@@ -205,16 +205,14 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   140          }
   141          return ubValue;
   142      }
-  143  
+  143
   144      public Long checkIsValueExist(String type, String keyId)throws Exception {
 ```
 
 
 ## 2. Existing checks and why they fail
 
-- Authentication is the only generic gate.
-- Returning `checked` rather than raw `value` still leaks authorization relationship existence.
-- No current-user binding or management-scope validation exists.
+- Authentication is the only generic gate. - Returning `checked` rather than raw `value` still leaks authorization relationship existence. - No current-user binding or management-scope validation exists
 
 ## 3. Root Cause Analysis
 

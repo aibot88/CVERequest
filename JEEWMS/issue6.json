@@ -10,12 +10,12 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/com/zzjee/tms/controller/TmsYwDingdanController.java#L150",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-busin/src/main/java/com/base/modules/jeewms/controller/TmsYwDingdanController.java#L1074",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/com/zzjee/tms/controller/TmsYwDingdanController.java#L1074",
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/TmsYwDingdanEntity.c",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-busin/src/main/java/com/base/modules/jeewms/controller/TmsYwDingdanController.java#L1093",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-busin/src/main/java/com/base/modules/jeewms/controller/TmsYwDingdanController.java#L1113",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-busin/src/main/java/com/base/modules/jeewms/controller/TmsYwDingdanController.java#L1135",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/core/interceptors/AuthInterceptor.java#L95"
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/com/zzjee/tms/controller/TmsYwDingdanController.java#L1093",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/com/zzjee/tms/controller/TmsYwDingdanController.java#L1113",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/com/zzjee/tms/controller/TmsYwDingdanController.java#L1135",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/core/interceptors/AuthInterceptor.java#L95"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
           "vendor": "erzhongxmu",
@@ -33,12 +33,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `/rest/tmsYwDingdanController` 运输订单 REST CRUD 缺少组织 scope. 可绕过正常页面列表的组织范围过滤，跨组织读取或篡改运输订单；`sysOrgCode` 是该业务对象的数据归属边界字段。",
+          "value": "JEEWMS has a missing authorization vulnerability in /rest/tmsYwDingdanController, rest/, roleId/functionId, roleId/userIds, /rest/user. An authenticated attacker can perform authorization-sensitive operations through /rest/tmsYwDingdanController, rest/, roleId/functionId, roleId/userIds, /rest/user without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `/rest/tmsYwDingdanController` 运输订单 REST CRUD 缺少组织 scope. 可绕过正常页面列表的组织范围过滤，跨组织读取或篡改运输订单；`sysOrgCode` 是该业务对象的数据归属边界字段。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability in /rest/tmsYwDingdanController, rest/, roleId/functionId, roleId/userIds, /rest/user. An authenticated attacker can perform authorization-sensitive operations through /rest/tmsYwDingdanController, rest/, roleId/functionId, roleId/userIds, /rest/user without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -88,7 +88,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1297615",
+    "cveId": "CAN-2026-4048317",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

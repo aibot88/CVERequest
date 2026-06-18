@@ -25,12 +25,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "yudao-cloud has a missing authorization vulnerability: CRM Permission Update Can Modify Permission Rows Across Objects. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER",
+          "value": "yudao-cloud has a missing authorization vulnerability in PUT /crm/permission/update, bizType/bizId. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "yudao-cloud has a missing authorization vulnerability: CRM Permission Update Can Modify Permission Rows Across Objects. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER<p>This issue affects yudao-cloud.</p>"
+              "value": "yudao-cloud has a missing authorization vulnerability in PUT /crm/permission/update, bizType/bizId. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER<p>This issue affects yudao-cloud.</p>"
             }
           ]
         }
@@ -80,7 +80,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4555003",
+    "cveId": "CAN-2026-7458412",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

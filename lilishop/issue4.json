@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "lilishop has a missing authorization vulnerability: Issue 4. 跨店铺读取 clerk 元数据、`memberId`、`storeId`、`departmentId`、`roleIds`，并额外读取关联会员手机号和部门名称。",
+          "value": "lilishop has a missing authorization vulnerability in GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds. An authenticated attacker can perform authorization-sensitive operations through GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "lilishop has a missing authorization vulnerability: Issue 4. 跨店铺读取 clerk 元数据、`memberId`、`storeId`、`departmentId`、`roleIds`，并额外读取关联会员手机号和部门名称。<p>This issue affects lilishop.</p>"
+              "value": "lilishop has a missing authorization vulnerability in GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds. An authenticated attacker can perform authorization-sensitive operations through GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds without the required permission.<p>This issue affects lilishop.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3966108",
+    "cveId": "CAN-2026-3283200",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -1,11 +1,11 @@
 ---
-title: "lilishop issue4: Issue 4"
-description: "lilishop has a missing authorization vulnerability: Issue 4. 跨店铺读取 clerk 元数据、`memberId`、`storeId`、`departmentId`、`roleIds`，并额外读取关联会员手机号和部门名称。"
+title: "lilishop issue4: Missing Authorization in GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds"
+description: "lilishop has a missing authorization vulnerability in GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds. An authenticated attacker can perform authorization-sensitive operations through GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds without the required permission."
 tags:
   - lilishop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-lilishop has a missing authorization vulnerability: Issue 4. 跨店铺读取 clerk 元数据、`memberId`、`storeId`、`departmentId`、`roleIds`，并额外读取关联会员手机号和部门名称。
+lilishop has a missing authorization vulnerability in GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds. An authenticated attacker can perform authorization-sensitive operations through GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds without the required permission.
 
-- Attack precondition: 商家端已登录用户，拥有 `/store/clerk*` GET 查询权限，且知道或能猜到 clerkId。
-- Security impact: 跨店铺读取 clerk 元数据、`memberId`、`storeId`、`departmentId`、`roleIds`，并额外读取关联会员手机号和部门名称。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds`
+- Affected authorization property: `memberId, storeId, departmentId, roleIds, clerkService.get(id), getById`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `GET /store/clerk/{victimClerkId}`。
+The attacker sends crafted requests to GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -43,7 +45,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-`get(String id)` 中查询 clerk 后校验 `clerk.storeId == currentUser.storeId`；对不存在或无权统一返回 not found/authority error。
+Enforce server-side authorization for GET /store/clerk/{victimClerkId}, /store/clerk*, clerkId/memberId/departmentId/roleIds before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

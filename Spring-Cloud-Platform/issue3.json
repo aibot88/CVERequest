@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色成员/负责人关系可被越权改写. 攻击者可把任意用户加入任意高权限角色，包括管理员角色。后续授权查询会信任这些 membership 关系，从而造成权限提升。",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/user, PUT /group/{id}/user, base_group_member/base_group_leader. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/user, PUT /group/{id}/user, base_group_member/base_group_leader without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色成员/负责人关系可被越权改写. 攻击者可把任意用户加入任意高权限角色，包括管理员角色。后续授权查询会信任这些 membership 关系，从而造成权限提升。<p>This issue affects Spring-Cloud-Platform.</p>"
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability in PUT /api/admin/group/{id}/user, PUT /group/{id}/user, base_group_member/base_group_leader. An authenticated attacker can perform authorization-sensitive operations through PUT /api/admin/group/{id}/user, PUT /group/{id}/user, base_group_member/base_group_leader without the required permission.<p>This issue affects Spring-Cloud-Platform.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1389274",
+    "cveId": "CAN-2026-3469969",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

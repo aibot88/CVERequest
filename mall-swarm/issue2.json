@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall-swarm has a missing authorization vulnerability: Order Pay Success Unauthorized Update. 可伪造他人订单支付成功状态，触发库存扣减，扰乱订单履约流程。",
+          "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/order/paySuccess?orderId=...&payType=..., POST /order/paySuccess, POST /mall-portal/order/paySuccess?orderId=...&payType=, oms_order.status/payType/paymentTime. An authenticated attacker can perform authorization-sensitive operations through POST /mall-portal/order/paySuccess?orderId=...&payType=..., POST /order/paySuccess, POST /mall-portal/order/paySuccess?orderId=...&payType=, oms_order.status/payType/paymentTime without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall-swarm has a missing authorization vulnerability: Order Pay Success Unauthorized Update. 可伪造他人订单支付成功状态，触发库存扣减，扰乱订单履约流程。<p>This issue affects mall-swarm.</p>"
+              "value": "mall-swarm has a missing authorization vulnerability in POST /mall-portal/order/paySuccess?orderId=...&payType=..., POST /order/paySuccess, POST /mall-portal/order/paySuccess?orderId=...&payType=, oms_order.status/payType/paymentTime. An authenticated attacker can perform authorization-sensitive operations through POST /mall-portal/order/paySuccess?orderId=...&payType=..., POST /order/paySuccess, POST /mall-portal/order/paySuccess?orderId=...&payType=, oms_order.status/payType/paymentTime without the required permission.<p>This issue affects mall-swarm.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1543453",
+    "cveId": "CAN-2026-4032484",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

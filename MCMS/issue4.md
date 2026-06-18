@@ -1,11 +1,11 @@
 ---
 title: "MCMS issue4: Content copy uses `cms:content:save` to read and clone source content"
-description: "MCMS has a missing authorization vulnerability: Content copy uses `cms:content:save` to read and clone source content. A save-only user can read and duplicate source article data they are not authorized to view"
+description: "MCMS has a missing authorization vulnerability in GET /ms/cms/content/copy?id=, GET /ms/cms/content/copy?id=<sourceId>. A save-only user can read and duplicate source article data they are not authorized to view"
 tags:
   - MCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-MCMS has a missing authorization vulnerability: Content copy uses `cms:content:save` to read and clone source content. A save-only user can read and duplicate source article data they are not authorized to view
+MCMS has a missing authorization vulnerability in GET /ms/cms/content/copy?id=, GET /ms/cms/content/copy?id=<sourceId>. A save-only user can read and duplicate source article data they are not authorized to view
 
 - Attack precondition: The attacker is an authenticated backend `manager` user with `cms:content:save` but without `cms:content:view`, knows a source content id, and the source content belongs to a list-type category
+- Affected endpoint: `GET /ms/cms/content/copy?id=, GET /ms/cms/content/copy?id=<sourceId>`
+- Affected authorization property: `manager, cms:content:save, cms:content:view, contentBiz.getById(content.getId())`
 - Security impact: A save-only user can read and duplicate source article data they are not authorized to view
 
 ### 1.2 Exploit path

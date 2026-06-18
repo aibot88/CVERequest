@@ -3,9 +3,9 @@ title: "JSH_ERP issue4: Unauthorized User Role and Organization Binding via `/us
 description: "JSH_ERP has a missing authorization vulnerability in `POST /user/addUser`, `PUT /user/updateUser`. A low-privileged user can assign a higher role to themselves or others and move users into organizations that affect data visibility and business permissions"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -35,7 +35,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   311       * @return java.lang.Object
   312       */
   313      @PostMapping("/addUser")
-  314      @ApiOperation(value = "新增用户")
+  314      @ApiOperation(value = "[non-English text removed]")
   315      @ResponseBody
   316      public Object addUser(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception{
   317          JSONObject result = ExceptionConstants.standardSuccess();
@@ -63,7 +63,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   339       * @return java.lang.Object
   340       */
   341      @PutMapping("/updateUser")
-  342      @ApiOperation(value = "修改用户")
+  342      @ApiOperation(value = "[non-English text removed]")
   343      @ResponseBody
   344      public Object updateUser(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception{
   345          JSONObject result = ExceptionConstants.standardSuccess();
@@ -71,7 +71,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   347          userService.updateUserAndOrgUserRel(ue, request);
   348          return result;
   349      }
-  350  
+  350
 ```
 
 3. `jshERP-boot/src/main/java/com/jsh/erp/service/UserService.java`
@@ -81,17 +81,17 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   535                      BusinessConstants.LOG_OPERATION_TYPE_ADD,
   536                      ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-  537              //检查用户名和登录名
+  537              //[non-English text removed]
   538              checkLoginName(ue);
-  539              //新增用户信息
+  539              //[non-English text removed]
   540              ue= this.addUser(ue);
   541              if(ue==null){
-  542                  logger.error("异常码[{}],异常提示[{}],参数,[{}]",
+  542                  logger.error("[non-English text removed][{}],[non-English text removed][{}],[non-English text removed],[{}]",
   543                          ExceptionConstants.USER_ADD_FAILED_CODE,ExceptionConstants.USER_ADD_FAILED_MSG);
   544                  throw new BusinessRunTimeException(ExceptionConstants.USER_ADD_FAILED_CODE,
   545                          ExceptionConstants.USER_ADD_FAILED_MSG);
   546              }
-  547              //用户id，根据用户名查询id
+  547              //[non-English text removed]id,[non-English text removed]id
   548              Long userId = getIdByLoginName(ue.getLoginName());
   549              if(ue.getRoleId()!=null){
   550                  JSONObject ubObj = new JSONObject();
@@ -101,23 +101,23 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   554                  userBusinessService.insertUserBusiness(ubObj, request);
   555              }
   556              if(ue.getOrgaId()!=null && "1".equals(ue.getLeaderFlag())){
-  557                  //检查当前机构是否存在经理
+  557                  //[non-English text removed]
   558                  List<User> checkList = userMapperEx.getListByOrgaId(ue.getId(), ue.getOrgaId());
   559                  if(checkList.size()>0) {
   560                      throw new BusinessRunTimeException(ExceptionConstants.USER_LEADER_IS_EXIST_CODE,
   561                              ExceptionConstants.USER_LEADER_IS_EXIST_MSG);
   562                  }
   563              }
-  564              //新增用户和机构关联关系
+  564              //[non-English text removed]
   565              OrgaUserRel oul=new OrgaUserRel();
-  566              //机构id
+  566              //[non-English text removed]id
   567              oul.setOrgaId(ue.getOrgaId());
   568              oul.setUserId(userId);
-  569              //用户在机构中的排序
+  569              //[non-English text removed]
   570              oul.setUserBlngOrgaDsplSeq(ue.getUserBlngOrgaDsplSeq());
   571              oul=orgaUserRelService.addOrgaUserRel(oul);
   572              if(oul==null){
-  573                  logger.error("异常码[{}],异常提示[{}],参数,[{}]",
+  573                  logger.error("[non-English text removed][{}],[non-English text removed][{}],[non-English text removed],[{}]",
   574                          ExceptionConstants.ORGA_USER_REL_ADD_FAILED_CODE,ExceptionConstants.ORGA_USER_REL_ADD_FAILED_MSG);
   575                  throw new BusinessRunTimeException(ExceptionConstants.ORGA_USER_REL_ADD_FAILED_CODE,
   576                          ExceptionConstants.ORGA_USER_REL_ADD_FAILED_MSG);
@@ -128,12 +128,12 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/service/UserService.java#L684
 
 ```text
-  681              //检查用户名和登录名
+  681              //[non-English text removed]
   682              checkLoginName(ue);
-  683              //更新用户信息
+  683              //[non-English text removed]
   684              ue = this.updateUser(ue);
   685              if (ue == null) {
-  686                  logger.error("异常码[{}],异常提示[{}],参数,[{}]",
+  686                  logger.error("[non-English text removed][{}],[non-English text removed][{}],[non-English text removed],[{}]",
   687                          ExceptionConstants.USER_EDIT_FAILED_CODE, ExceptionConstants.USER_EDIT_FAILED_MSG);
   688                  throw new BusinessRunTimeException(ExceptionConstants.USER_EDIT_FAILED_CODE,
   689                          ExceptionConstants.USER_EDIT_FAILED_MSG);
@@ -152,32 +152,32 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   702                  }
   703              }
   704              if(ue.getOrgaId()!=null && "1".equals(ue.getLeaderFlag())){
-  705                  //检查当前机构是否存在经理
+  705                  //[non-English text removed]
   706                  List<User> checkList = userMapperEx.getListByOrgaId(ue.getId(), ue.getOrgaId());
   707                  if(checkList.size()>0) {
   708                      throw new BusinessRunTimeException(ExceptionConstants.USER_LEADER_IS_EXIST_CODE,
   709                              ExceptionConstants.USER_LEADER_IS_EXIST_MSG);
   710                  }
   711              }
-  712              //更新用户和机构关联关系
+  712              //[non-English text removed]
   713              OrgaUserRel oul = new OrgaUserRel();
-  714              //机构和用户关联关系id
+  714              //[non-English text removed]id
   715              oul.setId(ue.getOrgaUserRelId());
-  716              //机构id
+  716              //[non-English text removed]id
   717              oul.setOrgaId(ue.getOrgaId());
-  718              //用户id
+  718              //[non-English text removed]id
   719              oul.setUserId(ue.getId());
-  720              //用户在机构中的排序
+  720              //[non-English text removed]
   721              oul.setUserBlngOrgaDsplSeq(ue.getUserBlngOrgaDsplSeq());
   722              if (oul.getId() != null) {
-  723                  //已存在机构和用户的关联关系，更新
+  723                  //[non-English text removed],[non-English text removed]
   724                  oul = orgaUserRelService.updateOrgaUserRel(oul);
   725              } else {
-  726                  //不存在机构和用户的关联关系，新建
+  726                  //[non-English text removed],[non-English text removed]
   727                  oul = orgaUserRelService.addOrgaUserRel(oul);
   728              }
   729              if (oul == null) {
-  730                  logger.error("异常码[{}],异常提示[{}],参数,[{}]",
+  730                  logger.error("[non-English text removed][{}],[non-English text removed][{}],[non-English text removed],[{}]",
   731                          ExceptionConstants.ORGA_USER_REL_EDIT_FAILED_CODE, ExceptionConstants.ORGA_USER_REL_EDIT_FAILED_MSG);
   732                  throw new BusinessRunTimeException(ExceptionConstants.ORGA_USER_REL_EDIT_FAILED_CODE,
   733                          ExceptionConstants.ORGA_USER_REL_EDIT_FAILED_MSG);
@@ -195,22 +195,19 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   759              return;
   760          }
   761          Long userId=userEx.getId();
-  762          //检查登录名
+  762          //[non-English text removed]
   763          if(!StringUtils.isEmpty(userEx.getLoginName())){
   764              String loginName=userEx.getLoginName();
   765              list=this.getUserListByloginName(loginName);
   766              if(list!=null&&list.size()>0){
   767                  if(list.size()>1){
-  768                      //超过一条数据存在，该登录名已存在
+  768                      //[non-English text removed],[non-English text removed]
 ```
 
 
 ## 2. Existing checks and why they fail
 
-- User-count limit only controls capacity.
-- Login-name uniqueness is unrelated to authorization.
-- `checkRoleAndOrg` validates role/department consistency, not whether the caller may assign that role or organization.
-- No target-user management scope or role ceiling exists.
+- User-count limit only controls capacity. - Login-name uniqueness is unrelated to authorization. - `checkRoleAndOrg` validates role/department consistency, not whether the caller may assign that role or organization. - No target-user management scope or role ceiling exists
 
 ## 3. Root Cause Analysis
 

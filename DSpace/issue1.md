@@ -1,11 +1,11 @@
 ---
 title: "DSpace issue1: Relationship Creation Allows Unauthorized Author/Profile Binding"
-description: "DSpace has a missing authorization vulnerability: Relationship Creation Allows Unauthorized Author/Profile Binding. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata"
+description: "DSpace has a missing authorization vulnerability. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata"
 tags:
   - DSpace
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,10 @@ tags:
 
 ### 1.1 Summary
 
-DSpace has a missing authorization vulnerability: Relationship Creation Allows Unauthorized Author/Profile Binding. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata
+DSpace has a missing authorization vulnerability. Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata
 
 - Attack precondition: The attacker is an authenticated user who can write their own Person/Profile item. Researcher profile / shared workspace author metadata support is enabled
+- Affected authorization property: `WRITE, dc.contributor.author, READ, leftItem WRITE || rightItem WRITE, relationshipDAO.create, researcherProfileService.isAuthorOf(...)`
 - Security impact: Unauthorized `READ` access to another in-progress item through forged author/profile relationship metadata
 
 ### 1.2 Exploit path

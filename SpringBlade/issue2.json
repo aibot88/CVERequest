@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token",
+          "value": "SpringBlade has a missing authorization vulnerability in POST /user/user-auth-info, /user/user-auth-info, uuid/source, tenantId/uuid/source. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in POST /user/user-auth-info, /user/user-auth-info, uuid/source, tenantId/uuid/source. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3621121",
+    "cveId": "CAN-2026-9463220",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

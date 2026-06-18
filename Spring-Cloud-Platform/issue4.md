@@ -1,11 +1,11 @@
 ---
-title: "Spring-Cloud-Platform issue4: service-client 列表接口泄露 client secret"
-description: "Spring-Cloud-Platform has a missing authorization vulnerability: service-client 列表接口泄露 client secret. 泄露 client secret。该 secret 被用于客户端校验相关接口，属于敏感凭据泄露。"
+title: "Spring-Cloud-Platform issue4: service-client client secret"
+description: "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client. An authenticated attacker can read authorization-sensitive data that should be restricted."
 tags:
   - Spring-Cloud-Platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,13 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-Spring-Cloud-Platform has a missing authorization vulnerability: service-client 列表接口泄露 client secret. 泄露 client secret。该 secret 被用于客户端校验相关接口，属于敏感凭据泄露。
+Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client. An authenticated attacker can read authorization-sensitive data that should be restricted.
 
-- Security impact: 泄露 client secret。该 secret 被用于客户端校验相关接口，属于敏感凭据泄露。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client`
+- Affected authorization property: `List<Client>, client.*, secret, @JsonIgnore, INNER JOIN auth_client_service, getClient`
+- Security impact: An authenticated attacker can read authorization-sensitive data that should be restricted.
 
 ### 1.2 Exploit path
 
-`GET /api/auth/service/{id}/client` 访问 service-client 关系列表接口。权限字典没有对应 GET 子资源，父级 `GET /auth/service/{*}` 不能匹配 `/client` 后缀，因此权限检查 fail-open。Controller 返回 `List<Client>`，SQL 查询 `client.*`，实体包含 `secret` 且没有响应 DTO 或 `@JsonIgnore` 过滤。
+The attacker sends crafted requests to GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -36,10 +39,6 @@ Evidence location: Client.java
 
 Evidence location: DBAuthClientService.java
 
-## 2. Existing checks and why they fail
-
-无精确 GET 子资源权限；无字段级响应过滤；返回实体对象而非脱敏 DTO。
-
 ## 3. Root Cause Analysis
 
 Root Cause 1: Missing server-side authorization on the vulnerable operation.
@@ -52,7 +51,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-增加 `GET /auth/service/{*}/client` 权限项；返回 DTO 排除 `secret`；敏感凭据只允许专用安全流程读取或轮换。
+Enforce server-side authorization for GET /api/auth/service/{id}/client, GET /auth/service/{, GET /service/{id}/client, GET /auth/service/{*}, /client, GET /auth/service/{*}/client before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

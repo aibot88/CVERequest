@@ -10,9 +10,9 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L33",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L69",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L90",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L105",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L69",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L90",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L105",
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/core/interceptors/AuthInterceptor.java#L95"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `/rest/user` 暴露用户实体 CRUD. 可绕过正常用户管理流程，修改账号状态、用户类型、删除用户等授权相关状态；部分字段还可能造成账户控制或业务破坏。",
+          "value": "JEEWMS has a missing authorization vulnerability in /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$. An authenticated attacker can perform authorization-sensitive operations through /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `/rest/user` 暴露用户实体 CRUD. 可绕过正常用户管理流程，修改账号状态、用户类型、删除用户等授权相关状态；部分字段还可能造成账户控制或业务破坏。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability in /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$. An authenticated attacker can perform authorization-sensitive operations through /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3962004",
+    "cveId": "CAN-2026-2573258",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

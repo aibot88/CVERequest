@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `POST /role/grant`. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary",
+          "value": "SpringBlade has a missing authorization vulnerability in /role/grant, roleIds/menuIds/dataScopeIds/apiScopeIds. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `POST /role/grant`. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in /role/grant, roleIds/menuIds/dataScopeIds/apiScopeIds. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1904568",
+    "cveId": "CAN-2026-7339112",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

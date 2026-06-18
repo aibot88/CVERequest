@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue3: `POST /role/grant`"
-description: "SpringBlade has a missing authorization vulnerability: `POST /role/grant`. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary"
+description: "SpringBlade has a missing authorization vulnerability in /role/grant, roleIds/menuIds/dataScopeIds/apiScopeIds. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `POST /role/grant`. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary
+SpringBlade has a missing authorization vulnerability in /role/grant, roleIds/menuIds/dataScopeIds/apiScopeIds. expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary
 
 - Attack precondition: tenant admin with `HAS_ROLE_ADMIN` can call `/role/grant`
+- Affected endpoint: `/role/grant, roleIds/menuIds/dataScopeIds/apiScopeIds`
+- Affected authorization property: `HAS_ROLE_ADMIN, roleMenu.roleId, roleMenu.menuId, roleScope.roleId, roleScope.scopeId, roleScope.scopeCategory`
 - Security impact: expands role menu access, data-scope access, or API-scope access beyond the operator's allowed authorization boundary
 
 ### 1.2 Exploit path
@@ -31,9 +33,9 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
   134  		return R.status(roleService.removeByIds(Func.toLongList(ids)));
   135  	}
-  136  
+  136
   137  	/**
-  138  	 * 设置角色权限
+  138  	 * [non-English text removed]
   139  	 */
   140  	@PostMapping("/grant")
 ```
@@ -44,7 +46,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   114  		roleScopeService.remove(Wrappers.<RoleScope>update().lambda().eq(RoleScope::getScopeCategory, API_SCOPE_CATEGORY).in(RoleScope::getRoleId, roleIds));
-  115  		// 组装配置
+  115  		// [non-English text removed]
   116  		List<RoleScope> roleApiScopes = new ArrayList<>();
   117  		roleIds.forEach(roleId -> apiScopeIds.forEach(scopeId -> {
   118  			RoleScope roleScope = new RoleScope();
@@ -60,12 +62,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/service/impl/MenuServiceImpl.java#L145
 
 ```text
-  142  
+  142
   143  	@Override
   144  	public List<MenuVO> grantTree(BladeUser user) {
   145  		return ForestNodeMerger.merge(user.getTenantId().equals(BladeConstant.ADMIN_TENANT_ID) ? baseMapper.grantTree() : baseMapper.grantTreeByRole(Func.toLongList(user.getRoleId())));
   146  	}
-  147  
+  147
   148  	@Override
 ```
 

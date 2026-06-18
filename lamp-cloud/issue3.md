@@ -3,9 +3,9 @@ title: "lamp-cloud issue3: Unauthorized Organization-Role Binding via `POST /bas
 description: "lamp-cloud has a missing authorization vulnerability in `POST /baseOrg/orgRole`. Organization-wide privilege expansion. Employees may inherit roles through organization membership"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,17 +34,17 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/lamp-base-biz/src/main/java/top/tangyh/lamp/base/service/user/impl/BaseOrgServiceImpl.java#L133
 
 ```text
-  130  
+  130
   131      @Override
   132      @Transactional(rollbackFor = Exception.class)
   133      public List<Long> saveOrgRole(BaseOrgRoleRelSaveVO saveVO) {
   134          if (saveVO.getFlag() == null) {
   135              saveVO.setFlag(true);
   136          }
-  137  
+  137
   138          baseOrgRoleRelManager.remove(Wraps.<BaseOrgRoleRel>lbQ().eq(BaseOrgRoleRel::getOrgId, saveVO.getOrgId())
   139                  .in(BaseOrgRoleRel::getRoleId, saveVO.getRoleIdList()));
-  140  
+  140
   141          if (saveVO.getFlag() && CollUtil.isNotEmpty(saveVO.getRoleIdList())) {
   142              List<BaseOrgRoleRel> list = saveVO.getRoleIdList().stream()
   143                      .map(roleId -> BaseOrgRoleRel.builder()
@@ -52,11 +52,11 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
   145                              .build()).toList();
   146              baseOrgRoleRelManager.saveBatch(list);
   147          }
-  148  
+  148
   149          cacheOps.del(OrgRoleCacheKeyBuilder.build(saveVO.getOrgId()));
   150          return findOrgRoleByOrgId(saveVO.getOrgId());
   151      }
-  152  
+  152
   153      @Override
 ```
 
@@ -66,18 +66,18 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
    40      /**
-   41       * 角色;#base_role
+   41       * [non-English text removed];#base_role
    42       */
-   43      @Schema(description = "角色")
-   44      @Size(min = 1, message = "请选择角色")
+   43      @Schema(description = "[non-English text removed]")
+   44      @Size(min = 1, message = "[non-English text removed]")
    45      private List<Long> roleIdList;
    46      /**
-   47       * 机构;#base_org
+   47       * [non-English text removed];#base_org
    48       */
-   49      @Schema(description = "机构")
-   50      @NotNull(message = "请选择机构")
+   49      @Schema(description = "[non-English text removed]")
+   50      @NotNull(message = "[non-English text removed]")
    51      private Long orgId;
-   52  
+   52
    53  }
 ```
 

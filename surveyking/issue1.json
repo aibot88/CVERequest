@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: Project Partner Management Authorization Bypass. 普通项目参与者可提升自己/他人为 OWNER/COLLABORATOR，或破坏项目成员绑定。",
+          "value": "surveyking has a missing authorization vulnerability in /api/project/partner/create, /api/project/partner/delete, type/userId/projectId. An authenticated attacker can perform authorization-sensitive operations through /api/project/partner/create, /api/project/partner/delete, type/userId/projectId without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: Project Partner Management Authorization Bypass. 普通项目参与者可提升自己/他人为 OWNER/COLLABORATOR，或破坏项目成员绑定。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in /api/project/partner/create, /api/project/partner/delete, type/userId/projectId. An authenticated attacker can perform authorization-sensitive operations through /api/project/partner/create, /api/project/partner/delete, type/userId/projectId without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4888034",
+    "cveId": "CAN-2026-3923176",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

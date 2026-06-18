@@ -27,12 +27,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "Ampache has a missing authorization vulnerability: API `share_create` Arbitrary Target. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow",
+          "value": "Ampache has a missing authorization vulnerability in PUT /server/{json. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "Ampache has a missing authorization vulnerability: API `share_create` Arbitrary Target. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow<p>This issue affects Ampache.</p>"
+              "value": "Ampache has a missing authorization vulnerability in PUT /server/{json. The attacker can create a public share for an unauthorized target object. The resulting `share.secret` / `share.public_url` can be used to access the object through the share flow<p>This issue affects Ampache.</p>"
             }
           ]
         }
@@ -82,7 +82,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9180667",
+    "cveId": "CAN-2026-4197779",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

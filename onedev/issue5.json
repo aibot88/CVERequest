@@ -33,12 +33,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "onedev has a missing authorization vulnerability: Detector work log 写入绕过 time tracking gate. 无 time-tracking 权限的用户可创建 time-tracking 记录，影响 issue work log 数据；REST 路径非管理员只能写自己，未扩大为伪造任意他人 work。",
+          "value": "onedev has a missing authorization vulnerability in POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper. An authenticated attacker can perform authorization-sensitive operations through POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "onedev has a missing authorization vulnerability: Detector work log 写入绕过 time tracking gate. 无 time-tracking 权限的用户可创建 time-tracking 记录，影响 issue work log 数据；REST 路径非管理员只能写自己，未扩大为伪造任意他人 work。<p>This issue affects onedev.</p>"
+              "value": "onedev has a missing authorization vulnerability in POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper. An authenticated attacker can perform authorization-sensitive operations through POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper without the required permission.<p>This issue affects onedev.</p>"
             }
           ]
         }
@@ -88,7 +88,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2222968",
+    "cveId": "CAN-2026-7505284",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

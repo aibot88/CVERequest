@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `POST /user/grant`. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`",
+          "value": "SpringBlade has a missing authorization vulnerability in /user/grant, RoleServiceImpl.selectList/tree. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `POST /user/grant`. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in /user/grant, RoleServiceImpl.selectList/tree. assigned user can receive elevated roles on next login; token creation and route/API checks trust the stored `roleId`<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8947590",
+    "cveId": "CAN-2026-7332987",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

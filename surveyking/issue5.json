@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: Answer Project Scope Authorization Bypass. 跨项目读取、导出、修改、删除答卷数据。",
+          "value": "surveyking has a missing authorization vulnerability in /api/answer/list|get|update|delete|download, answer:list/update/delete. An authenticated attacker can perform authorization-sensitive operations through /api/answer/list|get|update|delete|download, answer:list/update/delete without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: Answer Project Scope Authorization Bypass. 跨项目读取、导出、修改、删除答卷数据。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in /api/answer/list|get|update|delete|download, answer:list/update/delete. An authenticated attacker can perform authorization-sensitive operations through /api/answer/list|get|update|delete|download, answer:list/update/delete without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2176800",
+    "cveId": "CAN-2026-9639546",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

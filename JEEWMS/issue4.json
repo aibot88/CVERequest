@@ -10,8 +10,8 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L947",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L952",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L966"
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L952",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L966"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
           "vendor": "erzhongxmu",
@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `doAddUserToRole` 可批量添加用户到任意角色. 可将自己或其他用户加入高权限角色，直接提升系统权限。",
+          "value": "JEEWMS has a missing authorization vulnerability in roleId/userIds. An authenticated attacker can perform authorization-sensitive operations through roleId/userIds without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `doAddUserToRole` 可批量添加用户到任意角色. 可将自己或其他用户加入高权限角色，直接提升系统权限。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability in roleId/userIds. An authenticated attacker can perform authorization-sensitive operations through roleId/userIds without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8871032",
+    "cveId": "CAN-2026-7900931",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

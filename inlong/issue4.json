@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations",
+          "value": "inlong has a missing authorization vulnerability in /v1/node/master?method=modify, /v1/node/master. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in /v1/node/master?method=modify, /v1/node/master. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5181205",
+    "cveId": "CAN-2026-2867618",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -34,12 +34,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: empUser/importData 组织重绑定. 攻击者可批量创建或更新员工的机构/公司归属，放大组织边界污染。",
+          "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/importData, /, OfficeType/CompanyType. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/importData, /, OfficeType/CompanyType without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: empUser/importData 组织重绑定. 攻击者可批量创建或更新员工的机构/公司归属，放大组织边界污染。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/importData, /, OfficeType/CompanyType. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/importData, /, OfficeType/CompanyType without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -89,7 +89,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1670188",
+    "cveId": "CAN-2026-2277597",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

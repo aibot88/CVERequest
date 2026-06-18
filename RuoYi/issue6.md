@@ -1,11 +1,11 @@
 ---
 title: "RuoYi issue6: Menu Permission Property Overwrite"
-description: "RuoYi has a missing authorization vulnerability: Menu Permission Property Overwrite. 破坏菜单权限资源边界；`perms` 会被 Shiro 作为权限字符串加载，可能使角色权限语义被篡改。"
+description: "RuoYi has a missing authorization vulnerability in /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors. An authenticated attacker can perform authorization-sensitive operations through /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors without the required permission."
 tags:
   - RuoYi
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,15 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-RuoYi has a missing authorization vulnerability: Menu Permission Property Overwrite. 破坏菜单权限资源边界；`perms` 会被 Shiro 作为权限字符串加载，可能使角色权限语义被篡改。
+RuoYi has a missing authorization vulnerability in /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors. An authenticated attacker can perform authorization-sensitive operations through /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors without the required permission.
 
-- Attack precondition: 非超级管理员拥有 `system:menu:add`、`system:menu:edit` 或相关菜单管理权限。
-- Affected authorization property: ``sys_menu.perms`, `sys_menu.parent_id`, `sys_menu.visible`, `sys_menu.menu_type`。核心 MRBPC 点为 `sys_menu.perms`。`
-- Security impact: 破坏菜单权限资源边界；`perms` 会被 Shiro 作为权限字符串加载，可能使角色权限语义被篡改。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors`
+- Affected authorization property: ``sys_menu.perms`, `sys_menu.parent_id`, `sys_menu.visible`, `sys_menu.menu_type`. MRBPC `sys_menu.perms``
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors without the required permission.
 
 ### 1.2 Exploit path
 
-POST `/system/menu/add` 或 `/system/menu/edit`，提交不可管理的 `menuId/parentId`，或将菜单 `perms` 改成更高权限字符串。
+The attacker sends crafted requests to /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -30,9 +31,9 @@ POST `/system/menu/add` 或 `/system/menu/edit`，提交不可管理的 `menuId/
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysMenuController.java#L104
 
 ```text
-  101       * 新增保存菜单
+  101       * [non-English text removed]
   102       */
-  103      @Log(title = "菜单管理", businessType = BusinessType.INSERT)
+  103      @Log(title = "[non-English text removed]", businessType = BusinessType.INSERT)
   104      @RequiresPermissions("system:menu:add")
   105      @PostMapping("/add")
   106      @ResponseBody
@@ -40,15 +41,15 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
   108      {
   109          if (!menuService.checkMenuNameUnique(menu))
   110          {
-  111              return error("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+  111              return error("[non-English text removed]'" + menu.getMenuName() + "'[non-English text removed],[non-English text removed]");
   112          }
   113          menu.setCreateBy(getLoginName());
   114          AuthorizationUtils.clearAllCachedAuthorizationInfo();
   115          return toAjax(menuService.insertMenu(menu));
   116      }
-  117  
+  117
   118      /**
-  119       * 修改菜单
+  119       * [non-English text removed]
   120       */
   121      @RequiresPermissions("system:menu:edit")
   122      @GetMapping("/edit/{menuId}")
@@ -57,11 +58,11 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
   125          mmap.put("menu", menuService.selectMenuById(menuId));
   126          return prefix + "/edit";
   127      }
-  128  
+  128
   129      /**
-  130       * 修改保存菜单
+  130       * [non-English text removed]
   131       */
-  132      @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
+  132      @Log(title = "[non-English text removed]", businessType = BusinessType.UPDATE)
   133      @RequiresPermissions("system:menu:edit")
   134      @PostMapping("/edit")
   135      @ResponseBody
@@ -69,15 +70,15 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
   137      {
   138          if (!menuService.checkMenuNameUnique(menu))
   139          {
-  140              return error("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+  140              return error("[non-English text removed]'" + menu.getMenuName() + "'[non-English text removed],[non-English text removed]");
   141          }
   142          menu.setUpdateBy(getLoginName());
   143          AuthorizationUtils.clearAllCachedAuthorizationInfo();
   144          return toAjax(menuService.updateMenu(menu));
   145      }
-  146  
+  146
   147      /**
-  148       * 保存菜单排序
+  148       * [non-English text removed]
   149       */
   150      @PostMapping("/updateSort")
   151      @ResponseBody
@@ -86,9 +87,9 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
   154          menuService.updateMenuSort(menuIds, orderNums);
   155          return success();
   156      }
-  157  
+  157
   158      /**
-  159       * 选择菜单图标
+  159       * [non-English text removed]
 ```
 
 2. `ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysMenuServiceImpl.java`
@@ -96,7 +97,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysMenuServiceImpl.java#L72
 
 ```text
-   69       * @return 所有菜单信息
+   69       * @return [non-English text removed]
    70       */
    71      @Override
    72      public List<SysMenu> selectMenuList(SysMenu menu, Long userId)
@@ -113,11 +114,11 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
    83          }
    84          return menuList;
    85      }
-   86  
+   86
    87      /**
-   88       * 查询菜单集合
-   89       * 
-   90       * @return 所有菜单信息
+   88       * [non-English text removed]
+   89       *
+   90       * @return [non-English text removed]
    91       */
    92      @Override
    93      public List<SysMenu> selectMenuAll(Long userId)
@@ -133,18 +134,18 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   103          }
   104          return menuList;
   105      }
-  106  
+  106
   107      /**
 ```
 
-3. `ruoyi-system/target/classes/mapper/system/SysMenuMapper.xml`
+3. `ruoyi-system/src/main/resources/mapper/system/SysMenuMapper.xml`
 
-Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysMenuMapper.xml#L137
+Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysMenuMapper.xml#L137
 
 ```text
   134  		where menu_name=#{menuName} and parent_id = #{parentId} limit 1
   135  	</select>
-  136  
+  136
   137  	<update id="updateMenu" parameterType="SysMenu">
   138  		update sys_menu
   139  		<set>
@@ -164,7 +165,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   153  		</set>
   154  		where menu_id = #{menuId}
   155  	</update>
-  156  
+  156
   157  	<insert id="insertMenu" parameterType="SysMenu">
   158  		insert into sys_menu(
   159  		<if test="menuId != null and menuId != 0">menu_id,</if>
@@ -198,14 +199,14 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   187  		sysdate()
   188  		)
   189  	</insert>
-  190  
+  190
   191  	<update id="updateMenuSort" parameterType="SysMenu">
   192  	    update sys_menu
   193  	    set order_num = #{orderNum}
   194  	    where menu_id = #{menuId}
   195  	</update>
-  196  
-  197  </mapper> 
+  196
+  197  </mapper>
 ```
 
 4. `ruoyi-framework/src/main/java/com/ruoyi/framework/shiro/realm/UserRealm.java`
@@ -218,9 +219,9 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-fram
    72          {
    73              roles = roleService.selectRoleKeys(user.getUserId());
    74              menus = menuService.selectPermsByUserId(user.getUserId());
-   75              // 角色加入AuthorizationInfo认证对象
+   75              // [non-English text removed]AuthorizationInfo[non-English text removed]
    76              info.setRoles(roles);
-   77              // 权限加入AuthorizationInfo认证对象
+   77              // [non-English text removed]AuthorizationInfo[non-English text removed]
    78              info.setStringPermissions(menus);
    79          }
    80          return info;
@@ -240,7 +241,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-菜单管理写接口仅允许超级管理员访问，或对 `menuId/parentId` 校验属于当前用户可管理菜单集合，并限制 `perms` 不能超出操作者权限集合。
+Enforce server-side authorization for /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MCMS has a missing authorization vulnerability: `getFromFengMian` bypasses `cms:content:view`. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count",
+          "value": "MCMS has a missing authorization vulnerability in GET /ms/cms/content/getFromFengMian?categoryId=..., GET /ms/cms/content/getFromFengMian?categoryId=, /getFromFengMian. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MCMS has a missing authorization vulnerability: `getFromFengMian` bypasses `cms:content:view`. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count<p>This issue affects MCMS.</p>"
+              "value": "MCMS has a missing authorization vulnerability in GET /ms/cms/content/getFromFengMian?categoryId=..., GET /ms/cms/content/getFromFengMian?categoryId=, /getFromFengMian. Unauthorized users can read article fields including category relation, display status, type, details, out-link, and hit count<p>This issue affects MCMS.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5156443",
+    "cveId": "CAN-2026-2010067",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

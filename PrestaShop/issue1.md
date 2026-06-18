@@ -1,11 +1,11 @@
 ---
 title: "PrestaShop issue1: Legacy AdminAccess Tab Permission Update"
-description: "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Tab Permission Update. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system"
+description: "PrestaShop has a missing authorization vulnerability in edit/UPDATE, CREATE/DELETE, CREATE/READ/UPDATE/DELETE. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system"
 tags:
   - PrestaShop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,8 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Tab Permission Update. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system
+PrestaShop has a missing authorization vulnerability in edit/UPDATE, CREATE/DELETE, CREATE/READ/UPDATE/DELETE. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system
 
+- Attack precondition: Any authenticated user
+- Affected endpoint: `edit/UPDATE, CREATE/DELETE, CREATE/READ/UPDATE/DELETE`
+- Affected authorization property: `AdminAccess, CREATE, DELETE, access.id_profile, access.id_authorization_role, ajaxProcessUpdateAccess()`
 - Security impact: The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system
 
 ### 1.2 Exploit path
@@ -41,9 +44,7 @@ Evidence location: src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParam
 
 ## 2. Existing checks and why they fail
 
-- Parameter allowlist only validates `perm` format, not authorization boundary.
-- `$this->access('edit')` proves only page update permission, not the right to grant `CREATE` or `DELETE`.
-- UI-side disabled check is bypassable and not a server-side control.
+- Parameter allowlist only validates `perm` format, not authorization boundary. - `$this->access('edit')` proves only page update permission, not the right to grant `CREATE` or `DELETE`. - UI-side disabled check is bypassable and not a server-side control
 
 ## 3. Root Cause Analysis
 

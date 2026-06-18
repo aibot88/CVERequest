@@ -3,9 +3,9 @@ title: "lamp-cloud issue4: Unauthorized Role-Resource Binding via `POST /baseRol
 description: "lamp-cloud has a missing authorization vulnerability in `POST /baseRole/roleResource`. Privilege expansion for all holders of the modified role. Added resources are used by the authorization system"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,7 +34,7 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/lamp-base-biz/src/main/java/top/tangyh/lamp/base/service/system/impl/BaseRoleServiceImpl.java#L152
 
 ```text
-  149  
+  149
   150      @Override
   151      @Transactional(rollbackFor = Exception.class)
   152      public Boolean saveRoleResource(BaseRoleResourceRelSaveVO saveVO) {
@@ -43,7 +43,7 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
   155          if (CollUtil.isEmpty(applicationResourceMap)) {
   156              return false;
   157          }
-  158  
+  158
   159          List<BaseRoleResourceRel> list = new ArrayList<>();
   160          List<CacheKey> keys = new ArrayList<>();
   161          applicationResourceMap.forEach((applicationId, resourceList) -> {
@@ -67,17 +67,17 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
   178      }
-  179  
+  179
   180      @Override
   181      public List<Long> findResourceIdByEmployeeId(Long applicationId, Long employeeId) {
   182          return superManager.findResourceIdByEmployeeId(applicationId, employeeId);
   183      }
-  184  
+  184
   185      @Override
   186      public boolean checkRole(Long employeeId, String... codes) {
   187          return superManager.checkRole(employeeId, codes);
   188      }
-  189  
+  189
   190      @Override
   191      public List<String> findRoleCodeByEmployeeId(Long employeeId) {
   192          List<BaseRole> list = superManager.findRoleByEmployeeId(employeeId);
@@ -92,15 +92,15 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
    39      /**
-   40       * 角色id;#base_role
+   40       * [non-English text removed]id;#base_role
    41       */
-   42      @Schema(description = "角色id")
-   43      @NotNull(message = "请填写角色id")
+   42      @Schema(description = "[non-English text removed]id")
+   43      @NotNull(message = "[non-English text removed]id")
    44      private Long roleId;
    45      /**
-   46       * 编码
+   46       * [non-English text removed]
    47       */
-   48      @Schema(description = "应用-资源 列表 [必填]")
+   48      @Schema(description = "[non-English text removed]-[non-English text removed] [non-English text removed] [[non-English text removed]]")
    49      @NotNull
    50      private Map<Long, List<Long>> applicationResourceMap;
    51  }

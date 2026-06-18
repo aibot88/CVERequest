@@ -3,9 +3,9 @@ title: "pig issue4: OAuth Client Secret and Authorization Config Disclosure"
 description: "pig has a missing authorization vulnerability in - `GET /client/{clientId}`. Disclosure of OAuth client secrets can enable client impersonation or facilitate attacks against token issuance flows, depending on deployed OAuth clients and grant types"
 tags:
   - pig
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -15,7 +15,9 @@ tags:
 
 pig has a missing authorization vulnerability in - `GET /client/{clientId}`. Disclosure of OAuth client secrets can enable client impersonation or facilitate attacks against token issuance flows, depending on deployed OAuth clients and grant types
 
+- Attack precondition: Any authenticated user
 - Affected endpoint: `- `GET /client/{clientId}``
+- Affected authorization property: `clientSecret, scope, authorizedGrantTypes, autoapprove, sys_client_view, SysOauthClientDetails`
 - Security impact: Disclosure of OAuth client secrets can enable client impersonation or facilitate attacks against token issuance flows, depending on deployed OAuth clients and grant types
 
 ### 1.2 Exploit path
@@ -36,8 +38,7 @@ Evidence location: PigRemoteRegisteredClientRepository.java
 
 ## 2. Existing checks and why they fail
 
-- `/client/page` has `sys_client_view`, but `/client/{clientId}` and `/client/export` do not.
-- The entity/DTO does not mask or omit `clientSecret`.
+- `/client/page` has `sys_client_view`, but `/client/{clientId}` and `/client/export` do not. - The entity/DTO does not mask or omit `clientSecret`
 
 ## 3. Root Cause Analysis
 

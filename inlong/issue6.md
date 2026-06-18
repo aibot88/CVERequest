@@ -1,11 +1,11 @@
 ---
 title: "inlong issue6: D-4: Topic config/auth mutation via manager-filled master token"
-description: "inlong has a missing authorization vulnerability: D-4: Topic config/auth mutation via manager-filled master token. Unauthorized topic creation, deletion, publish/subscribe toggling, and topic authorization-control changes"
+description: "inlong has a missing authorization vulnerability in /v1/topic. Unauthorized topic creation, deletion, publish/subscribe toggling, and topic authorization-control changes"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-4: Topic config/auth mutation via manager-filled master token. Unauthorized topic creation, deletion, publish/subscribe toggling, and topic authorization-control changes
+inlong has a missing authorization vulnerability in /v1/topic. Unauthorized topic creation, deletion, publish/subscribe toggling, and topic authorization-control changes
 
 - Attack precondition: The attacker can access `/v1/topic`
+- Affected endpoint: `/v1/topic`
+- Affected authorization property: `clusterId, baseRequestMaster`
 - Security impact: Unauthorized topic creation, deletion, publish/subscribe toggling, and topic authorization-control changes
 
 ### 1.2 Exploit path

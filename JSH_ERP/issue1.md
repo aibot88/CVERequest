@@ -3,9 +3,9 @@ title: "JSH_ERP issue1: Arbitrary Password Reset via `/user/resetPwd`"
 description: "JSH_ERP has a missing authorization vulnerability in `POST /user/resetPwd`. A low-privileged user can reset and take over any non-`admin` account in the same reachable data scope. If the target account has higher business privileges, this becomes privilege escalation and account takeover"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -33,9 +33,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
   227          return res;
   228      }
-  229  
+  229
   230      @PostMapping(value = "/resetPwd")
-  231      @ApiOperation(value = "重置密码")
+  231      @ApiOperation(value = "[non-English text removed]")
   232      public String resetPwd(@RequestBody JSONObject jsonObject,
   233                                       HttpServletRequest request) throws Exception {
 ```
@@ -45,7 +45,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/controller/UserController.java#L234
 
 ```text
-  231      @ApiOperation(value = "重置密码")
+  231      @ApiOperation(value = "[non-English text removed]")
   232      public String resetPwd(@RequestBody JSONObject jsonObject,
   233                                       HttpServletRequest request) throws Exception {
   234          Map<String, Object> objectMap = new HashMap<>();
@@ -63,24 +63,24 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
   210      }
-  211  
+  211
   212      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
   213      public int resetPwd(String md5Pwd, Long id, HttpServletRequest request) throws Exception{
   214          int result=0;
   215          User u = getUser(id);
   216          String loginName = u.getLoginName();
   217          if("admin".equals(loginName)){
-  218              logger.info("禁止重置超管密码");
+  218              logger.info("[non-English text removed]");
   219          } else {
   220              User user = new User();
   221              user.setId(id);
   222              user.setPassword(md5Pwd);
   223              try{
-  224                  //判断是否登录过
+  224                  //[non-English text removed]
   225                  Object userId = redisService.getObjectFromSessionByKey(request,"userId");
   226                  if (userId != null) {
   227                      result = userMapper.updateByPrimaryKeySelective(user);
-  228                      logService.insertLog("用户",
+  228                      logService.insertLog("[non-English text removed]",
   229                              new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append(id).toString(),
   230                              ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
   231                  }
@@ -90,7 +90,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   235          }
   236          return result;
   237      }
-  238  
+  238
 ```
 
 4. `jshERP-boot/src/main/java/com/jsh/erp/filter/LogCostFilter.java`
@@ -99,9 +99,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
    45          }
-   46          //具体，比如：处理若用户未登录，则跳转到登录页
+   46          //[non-English text removed],[non-English text removed]:[non-English text removed],[non-English text removed]
    47          Object userId = redisService.getObjectFromSessionByKey(servletRequest,"userId");
-   48          if(userId!=null) { //如果已登录，不阻止
+   48          if(userId!=null) { //[non-English text removed],[non-English text removed]
    49              chain.doFilter(request, response);
    50              return;
    51          }
@@ -110,10 +110,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ## 2. Existing checks and why they fail
 
-- Login check: only proves the caller is authenticated, not authorized to reset another user's password.
-- `admin` exclusion: protects only the literal super-admin login name and does not protect tenant admins or other privileged users.
-- No old-password check is required for the target account.
-- No user-management permission or target-user scope check exists.
+- Login check: only proves the caller is authenticated, not authorized to reset another user's password. - `admin` exclusion: protects only the literal super-admin login name and does not protect tenant admins or other privileged users. - No old-password check is required for the target account. - No user-management permission or target-user scope check exists
 
 ## 3. Root Cause Analysis
 

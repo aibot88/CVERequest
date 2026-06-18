@@ -35,12 +35,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior",
+          "value": "PrestaShop has a missing authorization vulnerability in POST /api/specific_prices?id_shop=. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior<p>This issue affects PrestaShop.</p>"
+              "value": "PrestaShop has a missing authorization vulnerability in POST /api/specific_prices?id_shop=. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior<p>This issue affects PrestaShop.</p>"
             }
           ]
         }
@@ -90,7 +90,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3790719",
+    "cveId": "CAN-2026-3703363",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

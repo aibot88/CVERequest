@@ -1,11 +1,11 @@
 ---
 title: "yudao-cloud issue1: System Permission Assignment Lacks Grant-Bound Checks"
-description: "yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions"
+description: "yudao-cloud has a missing authorization vulnerability in system_role.data_scope/data_scope_dept_ids. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions"
 tags:
   - yudao-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions
+yudao-cloud has a missing authorization vulnerability in system_role.data_scope/data_scope_dept_ids. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions
 
 - Attack precondition: Attacker has one or more function permissions such as `system:permission:assign-role-menu`, `system:permission:assign-role-data-scope`, or `system:permission:assign-user-role`, but should not be allowed to grant higher roles, menus, or data scopes
+- Affected endpoint: `system_role.data_scope/data_scope_dept_ids`
+- Affected authorization property: `system:permission:assign-role-menu, system:permission:assign-role-data-scope, system:permission:assign-user-role, roleId, menuIds, roleIds`
 - Security impact: A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions
 
 ### 1.2 Exploit path

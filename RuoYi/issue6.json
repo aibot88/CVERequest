@@ -11,7 +11,7 @@
           "programFiles": [
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysMenuController.java#L104",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysMenuServiceImpl.java#L72",
-            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysMenuMapper.xml#L137",
+            "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysMenuMapper.xml#L137",
             "https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-framework/src/main/java/com/ruoyi/framework/shiro/realm/UserRealm.java#L73"
           ],
           "repo": "https://github.com/yangzongzhuan/RuoYi",
@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "RuoYi has a missing authorization vulnerability: Menu Permission Property Overwrite. 破坏菜单权限资源边界；`perms` 会被 Shiro 作为权限字符串加载，可能使角色权限语义被篡改。",
+          "value": "RuoYi has a missing authorization vulnerability in /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors. An authenticated attacker can perform authorization-sensitive operations through /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "RuoYi has a missing authorization vulnerability: Menu Permission Property Overwrite. 破坏菜单权限资源边界；`perms` 会被 Shiro 作为权限字符串加载，可能使角色权限语义被篡改。<p>This issue affects RuoYi.</p>"
+              "value": "RuoYi has a missing authorization vulnerability in /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors. An authenticated attacker can perform authorization-sensitive operations through /system/menu/add, /system/menu/edit, menuId/parentId, system:menu:add/edit, dataScope/deptIds, parentId/ancestors without the required permission.<p>This issue affects RuoYi.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7132982",
+    "cveId": "CAN-2026-8040319",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

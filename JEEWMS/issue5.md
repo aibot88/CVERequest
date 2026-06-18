@@ -1,11 +1,11 @@
 ---
-title: "JEEWMS issue5: `/rest/user` 暴露用户实体 CRUD"
-description: "JEEWMS has a missing authorization vulnerability: `/rest/user` 暴露用户实体 CRUD. 可绕过正常用户管理流程，修改账号状态、用户类型、删除用户等授权相关状态；部分字段还可能造成账户控制或业务破坏。"
+title: "JEEWMS issue5: `/rest/user` CRUD"
+description: "JEEWMS has a missing authorization vulnerability in /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$. An authenticated attacker can perform authorization-sensitive operations through /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ without the required permission."
 tags:
   - JEEWMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-JEEWMS has a missing authorization vulnerability: `/rest/user` 暴露用户实体 CRUD. 可绕过正常用户管理流程，修改账号状态、用户类型、删除用户等授权相关状态；部分字段还可能造成账户控制或业务破坏。
+JEEWMS has a missing authorization vulnerability in /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$. An authenticated attacker can perform authorization-sensitive operations through /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ without the required permission.
 
-- Attack precondition: 攻击者能访问 `/rest/user` REST API。`AuthInterceptor` 对 `rest/...` 路径直接放行。
-- Security impact: 可绕过正常用户管理流程，修改账号状态、用户类型、删除用户等授权相关状态；部分字段还可能造成账户控制或业务破坏。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$`
+- Affected authorization property: `AuthInterceptor, TSUser, UserController.saveUser, saveOrUpdate`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `/rest/user` 的 POST/PUT/DELETE 创建、修改、删除 `TSUser` 实体。
+The attacker sends crafted requests to /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -29,79 +31,78 @@ JEEWMS has a missing authorization vulnerability: `/rest/user` 暴露用户实�
 Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L33
 
 ```text
-   30   * 
+   30   *
    31   * @author liuht
    32   */
    33  @Controller
    34  @RequestMapping(value = "/user")
    35  public class UserRestController {
-   36  
+   36
    37  	@Autowired
    38  	private UserService userService;
 ```
 
-2. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
+2. `src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L69
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L69
 
 ```text
-   66  	 * 访问地址：http://localhost:8080/jeecg/rest/user/{id}
-   67  	 * @param id
-   68  	 * @return
-   69  	 */
-   70  	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-   71  	@ResponseBody
-   72  	public ResponseEntity<?> get(@PathVariable("id") String id) {
-   73  		TSUser currentUser = currentUser();
-   74  		if (currentUser == null) {
-   75  			return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
+   66  		return new ResponseEntity(task, HttpStatus.OK);
+   67  	}
+   68
+   69  	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+   70  	@ResponseBody
+   71  	public ResponseEntity<?> create(@RequestBody TSUser user, UriComponentsBuilder uriBuilder) {
+   72  		//[non-English text removed]JSR303 Bean Validator[non-English text removed],[non-English text removed]400[non-English text removed]json[non-English text removed].
+   73  		Set<ConstraintViolation<TSUser>> failures = validator.validate(user);
+   74  		if (!failures.isEmpty()) {
+   75  			return new ResponseEntity(BeanValidators.extractPropertyAndMessage(failures), HttpStatus.BAD_REQUEST);
    76  		}
-   77  		if (!canReadUsers(currentUser) || !securityHelper().canAccessUser(currentUser, id)) {
-   78  			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-   79  		}
-   80  		TSUser user = userService.get(TSUser.class, id);
-   81  		if (user == null) {
-   82  			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+   77
+   78  		//[non-English text removed]
+   79  		userService.save(user);
+   80
+   81  		//[non-English text removed]Restful[non-English text removed],[non-English text removed]url, [non-English text removed]id[non-English text removed].
+   82  		String id = user.getId();
 ```
 
-3. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
+3. `src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L90
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L90
 
 ```text
-   87  	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-   88  	@ResponseBody
-   89  	public ResponseEntity<?> create(@RequestBody TSUser user, UriComponentsBuilder uriBuilder) {
-   90  		TSUser currentUser = currentUser();
-   91  		if (currentUser == null) {
-   92  			return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
-   93  		}
-   94  		if (!canWriteUsers(currentUser)) {
-   95  			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+   87  		return new ResponseEntity(headers, HttpStatus.CREATED);
+   88  	}
+   89
+   90  	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+   91  	public ResponseEntity<?> update(@RequestBody TSUser user) {
+   92  		//[non-English text removed]JSR303 Bean Validator[non-English text removed],[non-English text removed]400[non-English text removed]json[non-English text removed].
+   93  		Set<ConstraintViolation<TSUser>> failures = validator.validate(user);
+   94  		if (!failures.isEmpty()) {
+   95  			return new ResponseEntity(BeanValidators.extractPropertyAndMessage(failures), HttpStatus.BAD_REQUEST);
    96  		}
-   97  		Set<ConstraintViolation<TSUser>> failures = validator.validate(user);
-   98  		if (!failures.isEmpty()) {
-   99  			return new ResponseEntity<Object>(BeanValidators.extractPropertyAndMessage(failures), HttpStatus.BAD_REQUEST);
-  100  		}
-  101  		TSUser safeUser = new TSUser();
-  102  		copyWritableFields(user, safeUser);
+   97
+   98  		//[non-English text removed]
+   99  		userService.saveOrUpdate(user);
+  100
+  101  		//[non-English text removed]Restful[non-English text removed],[non-English text removed]204[non-English text removed], [non-English text removed]. [non-English text removed]200[non-English text removed].
+  102  		return new ResponseEntity(HttpStatus.NO_CONTENT);
 ```
 
-4. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
+4. `src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L105
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/rest/controller/UserRestController.java#L105
 
 ```text
-  102  		copyWritableFields(user, safeUser);
-  103  		safeUser.setUserName(user.getUserName());
-  104  		if (StringUtil.isNotEmpty(user.getPassword())) {
-  105  			safeUser.setPassword(PasswordUtil.encrypt(user.getUserName(), user.getPassword(), PasswordUtil.getStaticSalt()));
-  106  		}
-  107  		safeUser.setStatus(Globals.User_Normal);
-  108  		safeUser.setDeleteFlag(Globals.Delete_Normal);
-  109  		userService.save(safeUser);
-  110  
-  111  		URI uri = uriBuilder.path("/rest/user/" + safeUser.getId()).build().toUri();
+  102  		return new ResponseEntity(HttpStatus.NO_CONTENT);
+  103  	}
+  104
+  105  	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  106  	@ResponseStatus(HttpStatus.NO_CONTENT)
+  107  	public void delete(@PathVariable("id") String id) {
+  108  		userService.deleteEntityById(TSUser.class, id);
+  109  	}
+  110  }
 ```
 
 5. `src/main/java/org/jeecgframework/core/interceptors/AuthInterceptor.java`
@@ -115,7 +116,7 @@ Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java
    95          } else if (moHuContain(excludeContainUrls, requestPath)) {
    96              return true;
    97          } else {
-   98              // 步骤二： 权限控制，优先重组请求 URL（考虑 online 请求前缀一致问题）
+   98              // [non-English text removed]: [non-English text removed],[non-English text removed] URL([non-English text removed] online [non-English text removed])
    99              String clickFunctionId = request.getParameter("clickFunctionId");
 ```
 
@@ -132,7 +133,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-移除或禁用该 REST Controller；至少要求认证和系统管理员权限；对 `TSUser` 使用 DTO 白名单，禁止客户端直接写入账号状态、类型、删除标志等敏感字段。
+Enforce server-side authorization for /rest/user, rest/, save/saveOrUpdate/deleteEntityById, /user, ^rest/[a-zA-Z0-9_/]+$ before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

@@ -3,9 +3,9 @@ title: "lamp-cloud issue1: Unauthorized Employee-Role Binding via `POST /baseEmp
 description: "lamp-cloud has a missing authorization vulnerability in `POST /baseEmployee/employeeRole`. Privilege escalation and lateral privilege expansion. The written role relation is later used by the permission calculation chain"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,17 +34,17 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/lamp-base-biz/src/main/java/top/tangyh/lamp/base/service/user/impl/BaseEmployeeServiceImpl.java#L86
 
 ```text
-   83  
+   83
    84      @Override
    85      @Transactional(rollbackFor = Exception.class)
    86      public List<Long> saveEmployeeRole(BaseEmployeeRoleRelSaveVO saveVO) {
    87          if (saveVO.getFlag() == null) {
    88              saveVO.setFlag(true);
    89          }
-   90  
+   90
    91          baseEmployeeRoleRelManager.remove(Wraps.<BaseEmployeeRoleRel>lbQ().eq(BaseEmployeeRoleRel::getEmployeeId, saveVO.getEmployeeId())
    92                  .in(BaseEmployeeRoleRel::getRoleId, saveVO.getRoleIdList()));
-   93  
+   93
    94          if (saveVO.getFlag() && CollUtil.isNotEmpty(saveVO.getRoleIdList())) {
    95              List<BaseEmployeeRoleRel> list = saveVO.getRoleIdList().stream()
    96                      .map(roleId -> BaseEmployeeRoleRel.builder()
@@ -52,11 +52,11 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
    98                              .build()).toList();
    99              baseEmployeeRoleRelManager.saveBatch(list);
   100          }
-  101  
+  101
   102          cacheOps.del(EmployeeRoleCacheKeyBuilder.build(saveVO.getEmployeeId()));
   103          return findEmployeeRoleByEmployeeId(saveVO.getEmployeeId());
   104      }
-  105  
+  105
   106      @Override
 ```
 
@@ -66,18 +66,18 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/la
 
 ```text
    40      /**
-   41       * 角色;#base_role
+   41       * [non-English text removed];#base_role
    42       */
-   43      @Schema(description = "角色")
-   44      @Size(min = 1, message = "请选择角色")
+   43      @Schema(description = "[non-English text removed]")
+   44      @Size(min = 1, message = "[non-English text removed]")
    45      private List<Long> roleIdList;
    46      /**
-   47       * 员工;#base_employee
+   47       * [non-English text removed];#base_employee
    48       */
-   49      @Schema(description = "员工")
-   50      @NotNull(message = "请选择员工")
+   49      @Schema(description = "[non-English text removed]")
+   50      @NotNull(message = "[non-English text removed]")
    51      private Long employeeId;
-   52  
+   52
    53  }
 ```
 

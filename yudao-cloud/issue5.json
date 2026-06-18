@@ -25,12 +25,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "yudao-cloud has a missing authorization vulnerability: CRM Customer Import Can Assign Arbitrary Owner and Derive OWNER Permission. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary",
+          "value": "yudao-cloud has a missing authorization vulnerability in POST /crm/customer/import, crm_permission.userId/level=OWNER. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "yudao-cloud has a missing authorization vulnerability: CRM Customer Import Can Assign Arbitrary Owner and Derive OWNER Permission. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary<p>This issue affects yudao-cloud.</p>"
+              "value": "yudao-cloud has a missing authorization vulnerability in POST /crm/customer/import, crm_permission.userId/level=OWNER. The attacker can create CRM customers assigned to arbitrary users and create corresponding `crm_permission` OWNER bindings. This bypasses the separate customer distribution permission boundary<p>This issue affects yudao-cloud.</p>"
             }
           ]
         }
@@ -80,7 +80,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-6007229",
+    "cveId": "CAN-2026-1695048",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -1,11 +1,11 @@
 ---
 title: "platform issue6: DB Instance Configuration Can Be Modified Without Authorization"
-description: "platform has a missing authorization vulnerability: DB Instance Configuration Can Be Modified Without Authorization. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability"
+description: "platform has a missing authorization vulnerability in POST /db-instances/create, PUT /db-instances/{id}/modify, DELETE /db-instances/{id}. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: DB Instance Configuration Can Be Modified Without Authorization. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability
+platform has a missing authorization vulnerability in POST /db-instances/create, PUT /db-instances/{id}/modify, DELETE /db-instances/{id}. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability
 
 - Attack precondition: The attacker is authenticated; the modified DB instance is bound, or may later be bound, to a tenant
+- Affected endpoint: `POST /db-instances/create, PUT /db-instances/{id}/modify, DELETE /db-instances/{id}`
+- Affected authorization property: `tenant:db-config, @SaCheckPermission`
 - Security impact: Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability
 
 ### 1.2 Exploit path

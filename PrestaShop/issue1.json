@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Tab Permission Update. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system",
+          "value": "PrestaShop has a missing authorization vulnerability in edit/UPDATE, CREATE/DELETE, CREATE/READ/UPDATE/DELETE. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Tab Permission Update. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system<p>This issue affects PrestaShop.</p>"
+              "value": "PrestaShop has a missing authorization vulnerability in edit/UPDATE, CREATE/DELETE, CREATE/READ/UPDATE/DELETE. The attacker can grant a profile tab-level `CREATE` / `DELETE` permissions that exceed the current operator's own authorization. These rows are later trusted by the Back Office authorization system<p>This issue affects PrestaShop.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1694335",
+    "cveId": "CAN-2026-7832115",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

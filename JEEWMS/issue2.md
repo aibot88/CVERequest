@@ -1,11 +1,11 @@
 ---
-title: "JEEWMS issue2: `updateAuthority` 可改写角色功能权限"
-description: "JEEWMS has a missing authorization vulnerability: `updateAuthority` 可改写角色功能权限. 可给角色授予或移除菜单/功能权限，影响用户后续可访问功能和授权状态。"
+title: "JEEWMS issue2: `updateAuthority`"
+description: "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission."
 tags:
   - JEEWMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,15 @@ tags:
 
 ### 1.1 Summary
 
-JEEWMS has a missing authorization vulnerability: `updateAuthority` 可改写角色功能权限. 可给角色授予或移除菜单/功能权限，影响用户后续可访问功能和授权状态。
+JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.
 
-- Attack precondition: 攻击者能访问 `roleController.do?updateAuthority`。源码层面未证明该入口仅系统管理员可访问。
-- Security impact: 可给角色授予或移除菜单/功能权限，影响用户后续可访问功能和授权状态。
+- Attack precondition: Any authenticated user
+- Affected authorization property: `roleController.do?updateAuthority, roleId, rolefunctions, TSRoleFunction, @RequestMapping(params = "updateAuthority"), updateCompare`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations without the required permission.
 
 ### 1.2 Exploit path
 
-提交任意 `roleId` 和 `rolefunctions`，服务端删除该角色旧功能绑定并新增请求中的功能绑定。
+The attacker sends crafted requests to the affected endpoint with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -38,72 +39,72 @@ Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java
   583  		AjaxJson j = new AjaxJson();
 ```
 
-2. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
+2. `src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L585
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L585
 
 ```text
-  582  	@ResponseBody
-  583  	public AjaxJson updateAuthority(HttpServletRequest request) {
-  584  		AjaxJson j = new AjaxJson();
-  585  		try {
-  586  			String roleId = request.getParameter("roleId");
-  587  			String rolefunction = request.getParameter("rolefunctions");
-  588  			String scopeMessage = validateRoleAuthorityScope(roleId, rolefunction);
-  589  			if (scopeMessage != null) {
-  590  				j.setSuccess(false);
+  582  	public AjaxJson updateAuthority(HttpServletRequest request) {
+  583  		AjaxJson j = new AjaxJson();
+  584  		try {
+  585  			String roleId = request.getParameter("roleId");
+  586  			String rolefunction = request.getParameter("rolefunctions");
+  587  			TSRole role = this.systemService.get(TSRole.class, roleId);
+  588  			List<TSRoleFunction> roleFunctionList = systemService
+  589  					.findByProperty(TSRoleFunction.class, "TSRole.id",
+  590  							role.getId());
 ```
 
-3. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
+3. `src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L595
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L595
 
 ```text
-  592  				return j;
-  593  			}
-  594  			TSRole role = this.systemService.get(TSRole.class, roleId);
-  595  			List<TSRoleFunction> roleFunctionList = systemService
-  596  					.findByProperty(TSRoleFunction.class, "TSRole.id",
-  597  							role.getId());
-  598  			Map<String, TSRoleFunction> map = new HashMap<String, TSRoleFunction>(1024);
-  599  			for (TSRoleFunction functionOfRole : roleFunctionList) {
-  600  				map.put(functionOfRole.getTSFunction().getId(), functionOfRole);
-  601  			}
-  602  			String[] roleFunctions = rolefunction.split(",");
-  603  			Set<String> set = new HashSet<String>();
+  592  			for (TSRoleFunction functionOfRole : roleFunctionList) {
+  593  				map.put(functionOfRole.getTSFunction().getId(), functionOfRole);
+  594  			}
+  595  			String[] roleFunctions = rolefunction.split(",");
+  596  			Set<String> set = new HashSet<String>();
+  597  			for (String s : roleFunctions) {
+  598  				set.add(s);
+  599  			}
+  600  			updateCompare(set, role, map);
+  601  			j.setMsg("[non-English text removed]");
+  602  		} catch (Exception e) {
+  603  			logger.error(ExceptionUtil.getExceptionMessage(e));
 ```
 
-4. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
+4. `src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L627
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L627
 
 ```text
-  624  		}
-  625  		if (!helper.canManageRole(currentUser, roleId)) {
-  626  			return "没有权限操作该角色！";
-  627  		}
-  628  		for (String functionId : helper.parseIds(functionIds)) {
-  629  			if (!helper.currentUserHasFunction(currentUser, functionId)) {
-  630  				return "没有权限授予该功能！";
-  631  			}
-  632  		}
-  633  		return null;
-  634  	}
+  624  			if (map.containsKey(s)) {
+  625  				map.remove(s);
+  626  			} else {
+  627  				TSRoleFunction rf = new TSRoleFunction();
+  628  				TSFunction f = this.systemService.get(TSFunction.class, s);
+  629  				rf.setTSFunction(f);
+  630  				rf.setTSRole(role);
+  631  				entitys.add(rf);
+  632  			}
+  633  		}
+  634  		Collection<TSRoleFunction> collection = map.values();
 ```
 
-5. `security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
+5. `src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java`
 
-Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/security-reports/pure_fix_code/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L639
+Evidence location: https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/RoleController.java#L639
 
 ```text
-  636  	/**
-  637  	 * 权限比较
-  638  	 * 
-  639  	 * @param set
-  640  	 *            最新的权限列表
-  641  	 * @param role
-  642  	 *            当前角色
-  643  	 * @param map
+  636  		for (; it.hasNext();) {
+  637  			deleteEntitys.add(it.next());
+  638  		}
+  639  		systemService.batchSave(entitys);
+  640  		systemService.deleteAllEntitie(deleteEntitys);
+  641
+  642  	}
+  643
 ```
 
 
@@ -119,7 +120,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-将该接口强制限制为系统管理员或明确的角色管理权限；校验当前用户可管理目标角色，且只能授予自己权限范围内的功能。
+Enforce server-side authorization for the vulnerable operation before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

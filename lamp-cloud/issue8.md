@@ -3,9 +3,9 @@ title: "lamp-cloud issue8: Unauthorized Organization Membership Disclosure via `
 description: "lamp-cloud has a missing authorization vulnerability in `GET /anyone/findDeptByCompany`. Disclosure of another employee's organization membership. The same relationship is authorization-relevant because organization membership can participate in organization role inheritance"
 tags:
   - lamp-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -34,29 +34,29 @@ Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/l
 Evidence location: https://gitee.com/dromara/lamp-cloud/blob/master/lamp-base/lamp-base-biz/src/main/java/top/tangyh/lamp/base/service/user/impl/BaseOrgServiceImpl.java#L166
 
 ```text
-  163  
+  163
   164      @Override
   165      @Transactional(readOnly = true)
   166      public List<BaseOrg> findDeptByEmployeeId(Long employeeId, Long companyId) {
-  167          // 员工所属的机构 ID （可能含有单位或部门）
+  167          // [non-English text removed] ID ([non-English text removed])
   168          List<Long> orgIdList = baseEmployeeOrgRelManager.findOrgIdByEmployeeId(employeeId);
-  169          // 员工所属的机构 实体类
+  169          // [non-English text removed] [non-English text removed]
   170          List<BaseOrg> orgList = findByIds(orgIdList, null);
-  171  
+  171
   172          /*
-  173           * 有可能 companyId 为空，但 orgIdList 不为空
-  174           * 原因： 在维护机构数据时， 没有将 部门 挂在 单位 下，而是直接将 部门 作为根节点，并挂载 子部门。
+  173           * [non-English text removed] companyId [non-English text removed],[non-English text removed] orgIdList [non-English text removed]
+  174           * [non-English text removed]: [non-English text removed], [non-English text removed] [non-English text removed] [non-English text removed] [non-English text removed] [non-English text removed],[non-English text removed] [non-English text removed] [non-English text removed],[non-English text removed] [non-English text removed].
   175           */
-  176  
+  176
   177          return orgList.stream()
-  178                  // 只查找部门
+  178                  // [non-English text removed]
   179                  .filter(item -> OrgTypeEnum.DEPT.eq(item.getType()))
-  180                  // 限定查找 companyId 的下级部门
+  180                  // [non-English text removed] companyId [non-English text removed]
   181                  .filter(item -> companyId == null || StrUtil.contains(item.getTreePath(), TreeUtil.buildTreePath(companyId)))
   182                  .toList();
   183      }
-  184  
-  185  
+  184
+  185
 ```
 
 

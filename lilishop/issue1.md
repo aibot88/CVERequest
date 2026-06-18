@@ -1,11 +1,11 @@
 ---
-title: "lilishop issue1: Issue 1"
-description: "lilishop has a missing authorization vulnerability: Issue 1. 可读取、删除、替换其他店铺角色的菜单权限绑定，导致跨店铺权限破坏或权限授予。"
+title: "lilishop issue1: Missing Authorization in POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete"
+description: "lilishop has a missing authorization vulnerability in POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete. An authenticated attacker can perform authorization-sensitive operations through POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete without the required permission."
 tags:
   - lilishop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-lilishop has a missing authorization vulnerability: Issue 1. 可读取、删除、替换其他店铺角色的菜单权限绑定，导致跨店铺权限破坏或权限授予。
+lilishop has a missing authorization vulnerability in POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete. An authenticated attacker can perform authorization-sensitive operations through POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete without the required permission.
 
-- Attack precondition: 商家端已登录用户，拥有 `/store/roleMenu*` 非 GET 操作权限，或 `isSuper=true` 的店铺管理员。
-- Security impact: 可读取、删除、替换其他店铺角色的菜单权限绑定，导致跨店铺权限破坏或权限授予。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete`
+- Affected authorization property: `isSuper=true, roleId, StoreMenuRole, roleId -> storeId == currentUser.storeId, storeId, role_id`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `POST /store/roleMenu/{victimRoleId}`，路径使用其他店铺的 `roleId`。服务端按该 `roleId` 删除原菜单绑定，再保存攻击者提交的 `StoreMenuRole` 列表。
+The attacker sends crafted requests to POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -46,7 +48,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-在 `findByRoleId/updateRoleMenu/delete` 前查询 `StoreRole` 并校验 `storeId == currentUser.storeId`；强制 body 每条 `roleId = path roleId`，并校验 `menuId` 是合法店铺菜单。
+Enforce server-side authorization for POST /store/roleMenu/{victimRoleId}, POST /store/roleMenu/{, /store/roleMenu*, roleId/menuId/isSuper, POST /store/roleMenu/{Bid}, findByRoleId/updateRoleMenu/delete before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

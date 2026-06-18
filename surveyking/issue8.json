@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: RBAC Grant Upper Bound Missing. 授予自己或他人更高权限，突破 RBAC 权限上界。",
+          "value": "surveyking has a missing authorization vulnerability in /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId. An authenticated attacker can perform authorization-sensitive operations through /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: RBAC Grant Upper Bound Missing. 授予自己或他人更高权限，突破 RBAC 权限上界。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId. An authenticated attacker can perform authorization-sensitive operations through /api/system/user/update, /api/system/role/update, role.authority/userRole.roleId without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5907905",
+    "cveId": "CAN-2026-3799148",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

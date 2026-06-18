@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: D-6: Region and broker-region relation mutation without authorization. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership",
+          "value": "inlong has a missing authorization vulnerability in /v1/region. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: D-6: Region and broker-region relation mutation without authorization. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in /v1/region. Unauthorized creation/deletion of regions and reassignment/reset of broker `regionId` membership<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5501307",
+    "cveId": "CAN-2026-3391199",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

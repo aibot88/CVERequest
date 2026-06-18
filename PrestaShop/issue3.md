@@ -1,11 +1,11 @@
 ---
 title: "PrestaShop issue3: Legacy Webservice Body RBP Write Without Binding Authorization"
-description: "PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior"
+description: "PrestaShop has a missing authorization vulnerability in POST /api/specific_prices?id_shop=. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior"
 tags:
   - PrestaShop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,8 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior
+PrestaShop has a missing authorization vulnerability in POST /api/specific_prices?id_shop=. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior
 
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /api/specific_prices?id_shop=`
+- Affected authorization property: `specific_prices, addresses, carts, orders, webserviceChecks(), shopHasRight()`
 - Security impact: The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior
 
 ### 1.2 Exploit path
@@ -53,9 +56,7 @@ Evidence location: classes/order/Order.php#L229
 
 ## 2. Existing checks and why they fail
 
-- Resource/method checks do not authorize body relationship targets.
-- Field validation accepts unsigned IDs and valid formats, but does not validate current key authorization over the referenced shop/customer/cart/address.
-- Shop right check is tied to request shop context, not every body-provided RBP field.
+- Resource/method checks do not authorize body relationship targets. - Field validation accepts unsigned IDs and valid formats, but does not validate current key authorization over the referenced shop/customer/cart/address. - Shop right check is tied to request shop context, not every body-provided RBP field
 
 ## 3. Root Cause Analysis
 

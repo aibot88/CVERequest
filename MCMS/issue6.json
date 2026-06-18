@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "MCMS has a missing authorization vulnerability: Public category get bypasses public visibility filters. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out",
+          "value": "MCMS has a missing authorization vulnerability in GET /cms/category/get?id=..., GET /cms/category/get?id=, /cms/category/get, /ms/**. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "MCMS has a missing authorization vulnerability: Public category get bypasses public visibility filters. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out<p>This issue affects MCMS.</p>"
+              "value": "MCMS has a missing authorization vulnerability in GET /cms/category/get?id=..., GET /cms/category/get?id=, /cms/category/get, /ms/**. Public users can retrieve hidden or non-CMS category metadata that the public category list intentionally filters out<p>This issue affects MCMS.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4429592",
+    "cveId": "CAN-2026-8277343",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

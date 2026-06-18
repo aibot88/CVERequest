@@ -3,9 +3,9 @@ title: "JSH_ERP issue5: Unauthorized Role Capability Modification via `/role/*`"
 description: "JSH_ERP has a missing authorization vulnerability in `POST /role/add`, `PUT /role/update`, `POST /role/batchSetStatus`, `DELETE /role/delete`, `DELETE /role/deleteBatch`. A user can weaken price masking, change data-scope type, enable disabled roles, or delete roles. This can grant broader business data visibility and alter authorization behavior for all users assigned to the affected role"
 tags:
   - JSH_ERP
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -33,17 +33,17 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 ```text
    65          return getDataTable(list);
    66      }
-   67  
+   67
    68      @PostMapping(value = "/add")
-   69      @ApiOperation(value = "新增")
+   69      @ApiOperation(value = "[non-English text removed]")
    70      public String addResource(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception {
    71          Map<String, Object> objectMap = new HashMap<>();
    72          int insert = roleService.insertRole(obj, request);
    73          return returnStr(objectMap, insert);
    74      }
-   75  
+   75
    76      @PutMapping(value = "/update")
-   77      @ApiOperation(value = "修改")
+   77      @ApiOperation(value = "[non-English text removed]")
    78      public String updateResource(@RequestBody JSONObject obj, HttpServletRequest request)throws Exception {
    79          Map<String, Object> objectMap = new HashMap<>();
    80          int update = roleService.updateRole(obj, request);
@@ -57,7 +57,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
   118      }
-  119  
+  119
   120      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
   121      public int insertRole(JSONObject obj, HttpServletRequest request)throws Exception {
   122          Role role = JSONObject.parseObject(obj.toJSONString(), Role.class);
@@ -65,21 +65,21 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   124          try{
   125              role.setEnabled(true);
   126              result=roleMapper.insertSelective(role);
-  127              logService.insertLog("角色",
+  127              logService.insertLog("[non-English text removed]",
   128                      new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_ADD).append(role.getName()).toString(), request);
   129          }catch(Exception e){
   130              JshException.writeFail(logger, e);
   131          }
   132          return result;
   133      }
-  134  
+  134
   135      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
   136      public int updateRole(JSONObject obj, HttpServletRequest request) throws Exception{
   137          Role role = JSONObject.parseObject(obj.toJSONString(), Role.class);
   138          int result=0;
   139          try{
   140              result=roleMapper.updateByPrimaryKeySelective(role);
-  141              logService.insertLog("角色",
+  141              logService.insertLog("[non-English text removed]",
   142                      new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append(role.getName()).toString(), request);
   143          }catch(Exception e){
 ```
@@ -90,10 +90,10 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ```text
   213      }
-  214  
+  214
   215      @Transactional(value = "transactionManager", rollbackFor = Exception.class)
   216      public int batchSetStatus(Boolean status, String ids)throws Exception {
-  217          logService.insertLog("角色",
+  217          logService.insertLog("[non-English text removed]",
   218                  new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_ENABLED).toString(),
   219                  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
   220          List<Long> roleIds = StringUtil.strToLongList(ids);
@@ -120,9 +120,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   831          }
   832          return role;
   833      }
-  834  
+  834
   835      /**
-  836       * 获取用户id
+  836       * [non-English text removed]id
   837       * @param request
   838       * @return
   839       */
@@ -134,9 +134,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   845          }
   846          return userId;
   847      }
-  848  
+  848
   849      /**
-  850       * 用户的按钮权限
+  850       * [non-English text removed]
   851       * @param userId
 ```
 
@@ -162,9 +162,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   251          }
   252          return price;
   253      }
-  254  
+  254
   255      /**
-  256       * 根据权限进行屏蔽价格-单据
+  256       * [non-English text removed]-[non-English text removed]
   257       * @param price
   258       * @param billCategory
   259       * @param priceLimit
@@ -186,9 +186,9 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   275          }
   276          return price;
   277      }
-  278  
+  278
   279      /**
-  280       * 根据权限进行屏蔽价格-物料
+  280       * [non-English text removed]-[non-English text removed]
   281       * @param price
   282       * @param type
   283       * @return
@@ -209,7 +209,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
   298          }
   299          return price;
   300      }
-  301  
+  301
   302      public String getCurrentPriceLimit(HttpServletRequest request) throws Exception {
   303          Long userId = userService.getUserId(request);
   304          return userService.getRoleTypeByUserId(userId).getPriceLimit();
@@ -220,9 +220,7 @@ Evidence location: https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/
 
 ## 2. Existing checks and why they fail
 
-- `insertRole` forces `enabled=true`, but does not restrict `type`, `priceLimit`, tenant, or role management authority.
-- No role-management permission check exists.
-- No field-level ceiling prevents privilege expansion.
+- `insertRole` forces `enabled=true`, but does not restrict `type`, `priceLimit`, tenant, or role management authority. - No role-management permission check exists. - No field-level ceiling prevents privilege expansion
 
 ## 3. Root Cause Analysis
 

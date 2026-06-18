@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: DB Instance Configuration Can Be Modified Without Authorization. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability",
+          "value": "platform has a missing authorization vulnerability in POST /db-instances/create, PUT /db-instances/{id}/modify, DELETE /db-instances/{id}. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: DB Instance Configuration Can Be Modified Without Authorization. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in POST /db-instances/create, PUT /db-instances/{id}/modify, DELETE /db-instances/{id}. Persistent tampering with data-source configuration can alter tenant data isolation targets or break availability<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9523707",
+    "cveId": "CAN-2026-1190372",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

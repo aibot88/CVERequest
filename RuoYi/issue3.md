@@ -1,11 +1,11 @@
 ---
 title: "RuoYi issue3: Unauthorized Role Assignment To Users"
-description: "RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment To Users. 给不可见用户授予角色，改变其 RBAC membership 和后续权限集合。"
+description: "RuoYi has a missing authorization vulnerability in /system/role/authUser/selectAll, allocatedList/unallocatedList. An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/selectAll, allocatedList/unallocatedList without the required permission."
 tags:
   - RuoYi
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,15 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-RuoYi has a missing authorization vulnerability: Unauthorized Role Assignment To Users. 给不可见用户授予角色，改变其 RBAC membership 和后续权限集合。
+RuoYi has a missing authorization vulnerability in /system/role/authUser/selectAll, allocatedList/unallocatedList. An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/selectAll, allocatedList/unallocatedList without the required permission.
 
-- Attack precondition: 拥有 `system:role:edit`，且目标 `roleId` 可见。
-- Affected authorization property: ``sys_user_role.user_id`, `sys_user_role.role_id`。`
-- Security impact: 给不可见用户授予角色，改变其 RBAC membership 和后续权限集合。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `/system/role/authUser/selectAll, allocatedList/unallocatedList`
+- Affected authorization property: ``sys_user_role.user_id`, `sys_user_role.role_id``
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through /system/role/authUser/selectAll, allocatedList/unallocatedList without the required permission.
 
 ### 1.2 Exploit path
 
-POST `/system/role/authUser/selectAll`，提交不在操作者 DataScope 内的 `userIds`。
+The attacker sends crafted requests to /system/role/authUser/selectAll, allocatedList/unallocatedList with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -30,7 +31,7 @@ POST `/system/role/authUser/selectAll`，提交不在操作者 DataScope 内的 
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysRoleController.java#L310
 
 ```text
-  307      @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  307      @Log(title = "[non-English text removed]", businessType = BusinessType.GRANT)
   308      @PostMapping("/authUser/selectAll")
   309      @ResponseBody
   310      public AjaxResult selectAuthUserAll(Long roleId, String userIds)
@@ -38,9 +39,9 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-admi
   312          roleService.checkRoleDataScope(roleId);
   313          return toAjax(roleService.insertAuthUsers(roleId, userIds));
   314      }
-  315  
+  315
   316      /**
-  317       * 加载角色部门（数据权限）列表树
+  317       * [non-English text removed]([non-English text removed])[non-English text removed]
   318       */
   319      @RequiresPermissions("system:role:edit")
   320      @GetMapping("/deptTreeData")
@@ -53,40 +54,40 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
 ```text
   400          return userRoleMapper.deleteUserRoleInfos(roleId, Convert.toLongArray(userIds));
   401      }
-  402  
+  402
   403      /**
-  404       * 批量选择授权用户角色
-  405       * 
-  406       * @param roleId 角色ID
-  407       * @param userIds 需要授权的用户数据ID
-  408       * @return 结果
+  404       * [non-English text removed]
+  405       *
+  406       * @param roleId [non-English text removed]ID
+  407       * @param userIds [non-English text removed]ID
+  408       * @return [non-English text removed]
   409       */
   410      @Override
   411      public int insertAuthUsers(Long roleId, String userIds)
   412      {
   413          Long[] users = Convert.toLongArray(userIds);
-  414          // 新增用户与角色管理
+  414          // [non-English text removed]
   415          List<SysUserRole> list = new ArrayList<SysUserRole>();
   416          for (Long userId : users)
   417          {
   418              SysUserRole ur = new SysUserRole();
 ```
 
-3. `ruoyi-system/target/classes/mapper/system/SysUserRoleMapper.xml`
+3. `ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml`
 
-Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/target/classes/mapper/system/SysUserRoleMapper.xml#L31
+Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/resources/mapper/system/SysUserRoleMapper.xml#L31
 
 ```text
-   28          </foreach> 
+   28          </foreach>
    29   	</delete>
-   30  	
+   30
    31  	<insert id="batchUserRole">
    32  		insert into sys_user_role(user_id, role_id) values
    33  		<foreach item="item" index="index" collection="list" separator=",">
    34  			(#{item.userId},#{item.roleId})
    35  		</foreach>
    36  	</insert>
-   37  	
+   37
    38  	<delete id="deleteUserRoleInfo" parameterType="SysUserRole">
 ```
 
@@ -95,7 +96,7 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
 Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/SysUserServiceImpl.java#L456
 
 ```text
-  453       * @param userId 用户id
+  453       * @param userId [non-English text removed]id
   454       */
   455      @Override
   456      public void checkUserDataScope(Long userId)
@@ -107,11 +108,11 @@ Evidence location: https://github.com/yangzongzhuan/RuoYi/blob/master/ruoyi-syst
   462              List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
   463              if (StringUtils.isEmpty(users))
   464              {
-  465                  throw new ServiceException("没有权限访问用户数据！");
+  465                  throw new ServiceException("[non-English text removed]");
   466              }
   467          }
   468      }
-  469  
+  469
   470      /**
 ```
 
@@ -131,7 +132,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-对每个待授权 `userId` 调用 `userService.checkUserDataScope(userId)`，并禁止对超级管理员用户进行授权变更。
+Enforce server-side authorization for /system/role/authUser/selectAll, allocatedList/unallocatedList before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

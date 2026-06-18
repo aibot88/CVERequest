@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "onedev has a missing authorization vulnerability: Detector POST /projects forkedFromId 未校验源项目读权限. 当前代码下不能用无权 source project id 直接 fork/copy 私有仓库内容。",
+          "value": "onedev has a missing authorization vulnerability. An authenticated attacker can read authorization-sensitive data that should be restricted.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "onedev has a missing authorization vulnerability: Detector POST /projects forkedFromId 未校验源项目读权限. 当前代码下不能用无权 source project id 直接 fork/copy 私有仓库内容。<p>This issue affects onedev.</p>"
+              "value": "onedev has a missing authorization vulnerability. An authenticated attacker can read authorization-sensitive data that should be restricted.<p>This issue affects onedev.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4660388",
+    "cveId": "CAN-2026-9191042",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

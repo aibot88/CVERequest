@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "inlong has a missing authorization vulnerability: C-1: Cross-tenant tenant-role assignment. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries",
+          "value": "inlong has a missing authorization vulnerability in /api/role/tenant/save, /api/role/tenant/update, /api/role/tenant/delete. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "inlong has a missing authorization vulnerability: C-1: Cross-tenant tenant-role assignment. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries<p>This issue affects inlong.</p>"
+              "value": "inlong has a missing authorization vulnerability in /api/role/tenant/save, /api/role/tenant/update, /api/role/tenant/delete. The attacker can create, modify, or delete tenant-role bindings outside the tenant they administer, breaking tenant RBAC boundaries<p>This issue affects inlong.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-7677655",
+    "cveId": "CAN-2026-3895373",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

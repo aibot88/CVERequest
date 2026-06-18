@@ -1,11 +1,11 @@
 ---
 title: "inlong issue5: D-3: Broker config mutation via manager-filled master token"
-description: "inlong has a missing authorization vulnerability: D-3: Broker config mutation via manager-filled master token. Unauthorized broker configuration changes, including broker creation/deletion, online/offline state, reload, region id, and publish/subscribe flags"
+description: "inlong has a missing authorization vulnerability in /v1/node/broker. Unauthorized broker configuration changes, including broker creation/deletion, online/offline state, reload, region id, and publish/subscribe flags"
 tags:
   - inlong
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-inlong has a missing authorization vulnerability: D-3: Broker config mutation via manager-filled master token. Unauthorized broker configuration changes, including broker creation/deletion, online/offline state, reload, region id, and publish/subscribe flags
+inlong has a missing authorization vulnerability in /v1/node/broker. Unauthorized broker configuration changes, including broker creation/deletion, online/offline state, reload, region id, and publish/subscribe flags
 
 - Attack precondition: The attacker can access `/v1/node/broker`
+- Affected endpoint: `/v1/node/broker`
+- Affected authorization property: `clusterId, confModAuthToken, masterService.baseRequestMaster, baseRequestMaster, confModAuthToken=masterEntry.getToken()`
 - Security impact: Unauthorized broker configuration changes, including broker creation/deletion, online/offline state, reload, region id, and publish/subscribe flags
 
 ### 1.2 Exploit path

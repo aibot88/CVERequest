@@ -1,11 +1,11 @@
 ---
-title: "jeesite5 issue5: empUser/listData?isAll=true 员工数据枚举"
-description: "jeesite5 has a missing authorization vulnerability: empUser/listData?isAll=true 员工数据枚举. 攻击者可绕过员工数据范围限制，枚举员工及其组织归属等权限边界信息。"
+title: "jeesite5 issue5: empUser/listData?isAll=true"
+description: "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/empUser/listData?isAll=true. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/empUser/listData?isAll=true without the required permission."
 tags:
   - jeesite5
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-jeesite5 has a missing authorization vulnerability: empUser/listData?isAll=true 员工数据枚举. 攻击者可绕过员工数据范围限制，枚举员工及其组织归属等权限边界信息。
+jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/empUser/listData?isAll=true. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/empUser/listData?isAll=true without the required permission.
 
-- Attack precondition: 任意登录用户；默认配置 `strictMode=false`。
-- Security impact: 攻击者可绕过员工数据范围限制，枚举员工及其组织归属等权限边界信息。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET/POST ${adminPath}/sys/empUser/listData?isAll=true`
+- Affected authorization property: `strictMode=false, EmpUser.userCode, EmpUser.employee.office.officeCode, EmpUser.employee.company.companyCode, EmpUser.roleCode, listData`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/empUser/listData?isAll=true without the required permission.
 
 ### 1.2 Exploit path
 
-- 登录用户访问 `listData` 并传入 `isAll=true`。
+The attacker sends crafted requests to GET/POST ${adminPath}/sys/empUser/listData?isAll=true with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -36,8 +38,8 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   112  	@RequestMapping(value = "listData")
   113  	@ResponseBody
   114  	public Page<EmpUser> listData(EmpUser empUser,
-  115  								  @Parameter(description = "查询全部数据") @RequestParam(required = false) Boolean isAll,
-  116  								  @Parameter(description = "数据控制权限") @RequestParam(required = false) String ctrlPermi,
+  115  								  @Parameter(description = "[non-English text removed]") @RequestParam(required = false) Boolean isAll,
+  116  								  @Parameter(description = "[non-English text removed]") @RequestParam(required = false) String ctrlPermi,
   117  								  HttpServletRequest request, HttpServletResponse response) {
   118  		empUser.getEmployee().getOffice().setIsQueryChildren(true);
   119  		empUser.getEmployee().getCompany().setIsQueryChildren(true);
@@ -48,18 +50,18 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   124  		Page<EmpUser> page = empUserService.findPage(empUser);
   125  		return page;
   126  	}
-  127  
+  127
   128  	@RequiresPermissions("sys:empUser:view")
   129  	@RequestMapping(value = "form")
-  130  	public String form(EmpUser empUser, @Parameter(description = "操作类型") String op, Model model) {
-  131  		
+  130  	public String form(EmpUser empUser, @Parameter(description = "[non-English text removed]") String op, Model model) {
+  131
   132  		Employee employee = empUser.getEmployee();
-  133  		
-  134  		// 设置默认的部门
+  133
+  134  		// [non-English text removed]
   135  		if (StringUtils.isBlank(employee.getCompany().getCompanyCode())) {
   136  			employee.setCompany(EmpUtils.getCompany());
   137  		}
-  138  		
+  138
 ```
 
 3. `modules/core/src/main/java/com/jeesite/modules/sys/service/support/EmpUserServiceSupport.java`
@@ -69,19 +71,19 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 ```text
    62  		this.companyDao = companyDao;
    63  	}
-   64  	
+   64
    65  	/**
-   66  	 * 获取单条数据
+   66  	 * [non-English text removed]
    67  	 */
    68  	@Override
    69  	public EmpUser get(EmpUser empUser) {
    70  		return super.get(empUser);
    71  	}
-   72  	
+   72
    73  	/**
-   74  	 * 添加数据权限过滤条件
-   75  	 * @param empUser 控制对象
-   76  	 * @param ctrlPermi 控制权限类型（拥有的数据权限：DataScope.CTRL_PERMI_HAVE、可管理的数据权限：DataScope.CTRL_PERMI_HAVE）
+   74  	 * [non-English text removed]
+   75  	 * @param empUser [non-English text removed]
+   76  	 * @param ctrlPermi [non-English text removed]([non-English text removed]:DataScope.CTRL_PERMI_HAVE,[non-English text removed]:DataScope.CTRL_PERMI_HAVE)
    77  	 */
    78  	@Override
    79  	public void addDataScopeFilter(EmpUser empUser, String ctrlPermi) {
@@ -104,13 +106,13 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/resources/config/jeesite-core.yml#L750
 
 ```text
-  747    # 静态资源路径前缀，可做 CDN 加速优化，默认前面增加 ctxPath 前缀，如果前面写 “//” 两个斜杠 或 包含 “://” 不加 ctxPath。
+  747    # [non-English text removed],[non-English text removed] CDN [non-English text removed],[non-English text removed] ctxPath [non-English text removed],[non-English text removed] "//" [non-English text removed] [non-English text removed] [non-English text removed] "://" [non-English text removed] ctxPath.
   748    staticPrefix: /static
-  749    
-  750    # 严格模式（更严格的数据安全验证）
+  749
+  750    # [non-English text removed]([non-English text removed])
   751    strictMode: false
-  752  
-  753    # 所有请求信息将进行xss过滤，这里列出不被xss过滤的地址
+  752
+  753    # [non-English text removed]xss[non-English text removed],[non-English text removed]xss[non-English text removed]
   754    xssFilterExcludeUri: /ureport/,/visual/
 ```
 
@@ -127,7 +129,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-普通请求永远应用员工 data scope；`isAll` 只能由服务端可信调用或高权限管理员使用。
+Enforce server-side authorization for GET/POST ${adminPath}/sys/empUser/listData?isAll=true before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

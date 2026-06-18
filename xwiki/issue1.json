@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "xwiki has a missing authorization vulnerability: Confirmed Vulnerability. unauthorized access to authorization-sensitive state",
+          "value": "xwiki has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "xwiki has a missing authorization vulnerability: Confirmed Vulnerability. unauthorized access to authorization-sensitive state<p>This issue affects xwiki.</p>"
+              "value": "xwiki has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.<p>This issue affects xwiki.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4897103",
+    "cveId": "CAN-2026-4877894",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

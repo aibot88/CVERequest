@@ -1,11 +1,11 @@
 ---
-title: "jeesite5 issue4: sys/post/save 岗位角色绑定"
-description: "jeesite5 has a missing authorization vulnerability: sys/post/save 岗位角色绑定. 攻击者可用岗位编辑权限绕过用户/角色授权路径，为岗位绑定高权限角色。"
+title: "jeesite5 issue4: sys/post/save"
+description: "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/post/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/post/save without the required permission."
 tags:
   - jeesite5
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-jeesite5 has a missing authorization vulnerability: sys/post/save 岗位角色绑定. 攻击者可用岗位编辑权限绕过用户/角色授权路径，为岗位绑定高权限角色。
+jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/post/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/post/save without the required permission.
 
-- Attack precondition: 攻击者拥有 `sys:post:edit`；系统开启 `user.postRolePermi=true` 时该绑定会进入权限生效链路。
-- Security impact: 攻击者可用岗位编辑权限绕过用户/角色授权路径，为岗位绑定高权限角色。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST ${adminPath}/sys/post/save`
+- Affected authorization property: `sys:post:edit, user.postRolePermi=true, Post.roleCodes, sys_post_role.post_code, sys_post_role.role_code, roleCodes`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/post/save without the required permission.
 
 ### 1.2 Exploit path
 
-- 请求提交岗位信息和 `roleCodes`。
+The attacker sends crafted requests to POST ${adminPath}/sys/post/save with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -31,19 +33,19 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 ```text
    93  		return "modules/sys/postForm";
    94  	}
-   95  
+   95
    96  	@RequiresPermissions("sys:post:edit")
    97  	@PostMapping(value = "save")
    98  	@ResponseBody
    99  	public String save(@Validated Post post, HttpServletRequest request) {
   100  		Post old = super.getWebDataBinderSource(request);
   101  		if (!"true".equals(checkPostName(old != null ? old.getPostName() : "", post.getPostName()))) {
-  102  			return renderResult(Global.FALSE, text("保存岗位失败，岗位名称''{0}''已存在", post.getPostName()));
+  102  			return renderResult(Global.FALSE, text("[non-English text removed],[non-English text removed]''{0}''[non-English text removed]", post.getPostName()));
   103  		}
   104  		postService.save(post);
-  105  		return renderResult(Global.TRUE, text("保存岗位''{0}''成功", post.getPostName()));
+  105  		return renderResult(Global.TRUE, text("[non-English text removed]''{0}''[non-English text removed]", post.getPostName()));
   106  	}
-  107  
+  107
   108  	@RequiresPermissions("sys:post:edit")
 ```
 
@@ -57,11 +59,11 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
    87  	@Transactional
    88  	public void save(Post post) {
    89  		if (post.getIsNewRecord()){
-   90  			// 生成主键，并验证改主键是否存在，如存在则抛出验证信息
+   90  			// [non-English text removed],[non-English text removed],[non-English text removed]
    91  			genIdAndValid(post, post.getViewCode());
    92  		}
    93  		super.save(post);
-   94  		// 重新绑定岗位和角色之间的关系
+   94  		// [non-English text removed]
    95  		if (StringUtils.isNotBlank(post.getPostCode()) && post.getRoleCodes() != null) {
    96  			PostRole where = new PostRole();
    97  			where.setPostCode(post.getPostCode());
@@ -87,23 +89,23 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/modules/sys/web/SwitchController.java#L98
 
 ```text
-   95  	 * 切换岗位菜单（用户->岗位->角色）v4.9.2
+   95  	 * [non-English text removed]([non-English text removed]->[non-English text removed]->[non-English text removed])v4.9.2
    96  	 */
    97  	@RequiresPermissions("user")
    98  	@RequestMapping(value = {"switchPost","switchPost/{postCode}"})
    99  	public String switchPost(@PathVariable(required=false) String postCode, HttpServletRequest request, HttpServletResponse response) {
   100  		Session session = UserUtils.getSession();
   101  		if (StringUtils.isNotBlank(postCode)){
-  102  			// 只能设置当前用户的岗位，查询权限的时候系统也会二次验证当前用户岗位
+  102  			// [non-English text removed],[non-English text removed]
   103  			if (EmpUtils.getEmployeePostList().stream().noneMatch((ep) ->
   104  					StringUtils.equals(postCode, ep.getPostCode()))){
-  105  				return renderResult(response, Global.FALSE, text("没有权限切换到该岗位"));
+  105  				return renderResult(response, Global.FALSE, text("[non-English text removed]"));
   106  			}
-  107  			// 开启 user.postRolePermi 参数后，才可以使用岗位关联角色过滤菜单权限
+  107  			// [non-English text removed] user.postRolePermi [non-English text removed],[non-English text removed]
   108  			if (!Global.getConfigToBoolean("user.postRolePermi", "false")) {
-  109  				return renderResult(response, Global.FALSE, text("请开启 user.postRolePermi 参数。"));
+  109  				return renderResult(response, Global.FALSE, text("[non-English text removed] user.postRolePermi [non-English text removed]."));
   110  			}
-  111  			// 查询岗位关联的角色
+  111  			// [non-English text removed]
   112  			PostRole where = new PostRole();
   113  			where.setPostCode(postCode);
   114  			where.sqlMap().loadJoinTableAlias("r");
@@ -117,7 +119,7 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   122  				roleCodes.add("__none__");
   123  			}
   124  			session.setAttribute("postCode", postCode);
-  125  			session.setAttribute("roleCode", StringUtils.joinComma(roleCodes)); // 5.4.0+ 支持多个，逗号隔开
+  125  			session.setAttribute("roleCode", StringUtils.joinComma(roleCodes)); // 5.4.0+ [non-English text removed],[non-English text removed]
   126  		}else{
   127  			session.removeAttribute("postCode");
   128  			session.removeAttribute("roleCode");
@@ -136,18 +138,18 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   530  				if (roleCodes.isEmpty()){
   531  					roleCodes.add("__none__");
   532  				}
-  533  				session.setAttribute("roleCode", StringUtils.joinComma(roleCodes)); // 5.4.0+ 支持多个，逗号隔开
+  533  				session.setAttribute("roleCode", StringUtils.joinComma(roleCodes)); // 5.4.0+ [non-English text removed],[non-English text removed]
   534  			} else {
   535  				session.removeAttribute("roleCode");
   536  			}
   537  		}
   538  		UserUtils.removeCache(UserUtils.CACHE_AUTH_INFO+"_"+session.getId());
   539  		if (ServletUtils.isAjaxRequest(request)) {
-  540  			return renderResult(response, Global.TRUE, text("部门切换成功"));
+  540  			return renderResult(response, Global.TRUE, text("[non-English text removed]"));
   541  		}
   542  		return REDIRECT + adminPath + "/index";
   543  	}
-  544  	
+  544
   545  }
 ```
 
@@ -156,13 +158,13 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/resources/config/jeesite-core.yml#L223
 
 ```text
-  220    # 二级管理员的控制权限类型（1拥有的权限 2管理的权限，管理功能包括：用户管理、组织机构、公司管理等）（v4.1.5+）
+  220    # [non-English text removed](1[non-English text removed] 2[non-English text removed],[non-English text removed]:[non-English text removed],[non-English text removed],[non-English text removed])(v4.1.5+)
   221    adminCtrlPermi: 2
-  222  
-  223    # 是否启用岗位角色，开启后将 用户->岗位->关联角色，纳入菜单和权限管理 v5.9.2
+  222
+  223    # [non-English text removed],[non-English text removed] [non-English text removed]->[non-English text removed]->[non-English text removed],[non-English text removed] v5.9.2
   224    postRolePermi: false
-  225  
-  226    # 是否启用切换部门功能，再开启启用岗位角色后可支持 用户->附属部门->岗位->关联角色，纳入菜单和权限管理 v5.10.1
+  225
+  226    # [non-English text removed],[non-English text removed] [non-English text removed]->[non-English text removed]->[non-English text removed]->[non-English text removed],[non-English text removed] v5.10.1
   227    switchOffice: false
 ```
 
@@ -179,7 +181,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-保存岗位角色时校验 `roleCodes` 必须是当前操作者可授予角色集合的子集；或将岗位角色绑定纳入与用户角色授权同级的权限控制。
+Enforce server-side authorization for POST ${adminPath}/sys/post/save before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

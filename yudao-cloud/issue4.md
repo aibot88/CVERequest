@@ -1,11 +1,11 @@
 ---
 title: "yudao-cloud issue4: CRM Permission Update Can Modify Permission Rows Across Objects"
-description: "yudao-cloud has a missing authorization vulnerability: CRM Permission Update Can Modify Permission Rows Across Objects. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER"
+description: "yudao-cloud has a missing authorization vulnerability in PUT /crm/permission/update, bizType/bizId. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER"
 tags:
   - yudao-cloud
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-yudao-cloud has a missing authorization vulnerability: CRM Permission Update Can Modify Permission Rows Across Objects. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER
+yudao-cloud has a missing authorization vulnerability in PUT /crm/permission/update, bizType/bizId. The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER
 
 - Attack precondition: Attacker has OWNER permission on CRM object A and knows the `crm_permission.id` of a permission row for object B
+- Affected endpoint: `PUT /crm/permission/update, bizType/bizId`
+- Affected authorization property: `crm_permission.id, @CrmPermission, ids, crm_permission.level, id, CrmPermissionController.updatePermission()`
 - Security impact: The attacker can change `crm_permission.level` for another CRM object without being owner of that object, potentially upgrading a permission row to READ, WRITE, or OWNER
 
 ### 1.2 Exploit path

@@ -1,11 +1,11 @@
 ---
 title: "surveyking issue4: Workflow Approval Field Permission Bypass"
-description: "surveyking has a missing authorization vulnerability: Workflow Approval Field Permission Bypass. 绕过字段级编辑权限，修改答卷中本不允许当前审批节点修改的字段。"
+description: "surveyking has a missing authorization vulnerability in POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId without the required permission."
 tags:
   - surveyking
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-surveyking has a missing authorization vulnerability: Workflow Approval Field Permission Bypass. 绕过字段级编辑权限，修改答卷中本不允许当前审批节点修改的字段。
+surveyking has a missing authorization vulnerability in POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId. An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId without the required permission.
 
-- Attack precondition: 用户能触发有效流程任务；至少知道有效 `taskId/processInstanceId/activityId/answerId`。
-- Security impact: 绕过字段级编辑权限，修改答卷中本不允许当前审批节点修改的字段。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId`
+- Affected authorization property: `request.answer, mergeAnswer, result.putAll(target), ApprovalTaskRequest.answer, updateTaskAnswer, fieldPermission == editable`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `POST /api/workflow/approvalTask`，在 `request.answer` 中携带当前节点非 editable 的 questionId。
+The attacker sends crafted requests to POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -49,7 +51,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-在 `updateTaskAnswer` 中只接受 `fieldPermission == editable` 的字段，并校验当前用户是任务 assignee/candidate。
+Enforce server-side authorization for POST /api/workflow/approvalTask, taskId/processInstanceId/activityId/answerId before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

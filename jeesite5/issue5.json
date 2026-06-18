@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: empUser/listData?isAll=true 员工数据枚举. 攻击者可绕过员工数据范围限制，枚举员工及其组织归属等权限边界信息。",
+          "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/empUser/listData?isAll=true. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/empUser/listData?isAll=true without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: empUser/listData?isAll=true 员工数据枚举. 攻击者可绕过员工数据范围限制，枚举员工及其组织归属等权限边界信息。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in GET/POST ${adminPath}/sys/empUser/listData?isAll=true. An authenticated attacker can perform authorization-sensitive operations through GET/POST ${adminPath}/sys/empUser/listData?isAll=true without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5012495",
+    "cveId": "CAN-2026-3312537",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

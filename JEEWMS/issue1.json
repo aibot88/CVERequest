@@ -10,10 +10,10 @@
           "product": "JEEWMS",
           "programFiles": [
             "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java#L581",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-xxljob/src/main/java/com/xxl/job/admin/controller/UserController.java#L587",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-xxljob/src/main/java/com/xxl/job/admin/controller/UserController.java#L595",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-xxljob/src/main/java/com/xxl/job/admin/controller/UserController.java#L643",
-            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/jeewms-cloud/java/base-cloud-module/base-cloud-xxljob/src/main/java/com/xxl/job/admin/controller/UserController.java#L664"
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java#L587",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java#L595",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java#L643",
+            "https://gitee.com/erzhongxmu/JEEWMS/blob/master/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java#L664"
           ],
           "repo": "https://gitee.com/erzhongxmu/JEEWMS",
           "vendor": "erzhongxmu",
@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "JEEWMS has a missing authorization vulnerability: `saveUser` 可重建用户角色和组织绑定. 可将任意用户加入更高权限角色或跨组织绑定，改变系统后续菜单、接口、数据权限判断结果。",
+          "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "JEEWMS has a missing authorization vulnerability: `saveUser` 可重建用户角色和组织绑定. 可将任意用户加入更高权限角色或跨组织绑定，改变系统后续菜单、接口、数据权限判断结果。<p>This issue affects JEEWMS.</p>"
+              "value": "JEEWMS has a missing authorization vulnerability. An authenticated attacker can perform authorization-sensitive operations without the required permission.<p>This issue affects JEEWMS.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9950603",
+    "cveId": "CAN-2026-9148882",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

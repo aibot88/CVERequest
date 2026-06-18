@@ -17,7 +17,7 @@
             "https://github.com/halo-dev/halo/blob/master/userService.c",
             "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/user/service/impl/UserServiceImpl.java",
             "https://github.com/halo-dev/halo/blob/master/api/src/main/java/run/halo/app/core/extension/RoleBinding.java",
-            "https://github.com/halo-dev/halo/blob/master/application/build/resources/main/extensions/system-default-role.yaml",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/resources/extensions/system-default-role.yaml",
             "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/user/service/impl/PatServiceImpl.java"
           ],
           "repo": "https://github.com/halo-dev/halo",
@@ -36,12 +36,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "halo has a missing authorization vulnerability: 任意角色授予 / `super-role` 提权. 攻击者可将默认存在的 `super-role` 授予自己、新建用户或任意目标用户，从而获得全局 `*` 权限，实现权限提升。",
+          "value": "halo has a missing authorization vulnerability in POST /apis/api.console.halo.run/v1alpha1/users, POST /apis/api.console.halo.run/v1alpha1/users/{name}/permissions, apiGroups/resources/nonResourceURLs/verbs, /users/{name}/permissions. An authenticated attacker can perform authorization-sensitive operations through POST /apis/api.console.halo.run/v1alpha1/users, POST /apis/api.console.halo.run/v1alpha1/users/{name}/permissions, apiGroups/resources/nonResourceURLs/verbs, /users/{name}/permissions without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "halo has a missing authorization vulnerability: 任意角色授予 / `super-role` 提权. 攻击者可将默认存在的 `super-role` 授予自己、新建用户或任意目标用户，从而获得全局 `*` 权限，实现权限提升。<p>This issue affects halo.</p>"
+              "value": "halo has a missing authorization vulnerability in POST /apis/api.console.halo.run/v1alpha1/users, POST /apis/api.console.halo.run/v1alpha1/users/{name}/permissions, apiGroups/resources/nonResourceURLs/verbs, /users/{name}/permissions. An authenticated attacker can perform authorization-sensitive operations through POST /apis/api.console.halo.run/v1alpha1/users, POST /apis/api.console.halo.run/v1alpha1/users/{name}/permissions, apiGroups/resources/nonResourceURLs/verbs, /users/{name}/permissions without the required permission.<p>This issue affects halo.</p>"
             }
           ]
         }
@@ -91,7 +91,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9652908",
+    "cveId": "CAN-2026-2446022",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

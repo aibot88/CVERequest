@@ -28,12 +28,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Role Resource Assignment Lacks Grantable-Resource Upper Bound. Grants permissions the actor does not possess to arbitrary roles",
+          "value": "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-resources. Grants permissions the actor does not possess to arbitrary roles",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Role Resource Assignment Lacks Grantable-Resource Upper Bound. Grants permissions the actor does not possess to arbitrary roles<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-resources. Grants permissions the actor does not possess to arbitrary roles<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -83,7 +83,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-6387834",
+    "cveId": "CAN-2026-2038091",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

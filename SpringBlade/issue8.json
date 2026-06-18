@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "SpringBlade has a missing authorization vulnerability: `POST /data-scope/*` and `POST /api-scope/*`. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope",
+          "value": "SpringBlade has a missing authorization vulnerability in POST /user/save-user, POST /user/user-auth-info, POST /role/grant, GET /user/detail, GET /user/user-list, GET /tenant/page. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "SpringBlade has a missing authorization vulnerability: `POST /data-scope/*` and `POST /api-scope/*`. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope<p>This issue affects SpringBlade.</p>"
+              "value": "SpringBlade has a missing authorization vulnerability in POST /user/save-user, POST /user/user-auth-info, POST /role/grant, GET /user/detail, GET /user/user-list, GET /tenant/page. expands data visibility or API path permissions once the rule is bound to a role, or immediately if modifying an already-bound scope<p>This issue affects SpringBlade.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-6348161",
+    "cveId": "CAN-2026-1622491",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

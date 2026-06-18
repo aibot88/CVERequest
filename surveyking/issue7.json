@@ -30,12 +30,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "surveyking has a missing authorization vulnerability: System User Position Permission Boundary Bypass. 绕过独立岗位更新权限，修改用户的部门/岗位绑定；该绑定后续参与工作流用户组解析。",
+          "value": "surveyking has a missing authorization vulnerability in POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update. An authenticated attacker can perform authorization-sensitive operations through POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "surveyking has a missing authorization vulnerability: System User Position Permission Boundary Bypass. 绕过独立岗位更新权限，修改用户的部门/岗位绑定；该绑定后续参与工作流用户组解析。<p>This issue affects surveyking.</p>"
+              "value": "surveyking has a missing authorization vulnerability in POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update. An authenticated attacker can perform authorization-sensitive operations through POST /api/system/user/update, userPosition.deptId/positionId, /system/user/update without the required permission.<p>This issue affects surveyking.</p>"
             }
           ]
         }
@@ -85,7 +85,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-1118924",
+    "cveId": "CAN-2026-1365197",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

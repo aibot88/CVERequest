@@ -1,11 +1,11 @@
 ---
-title: "onedev issue5: Detector work log 写入绕过 time tracking gate"
-description: "onedev has a missing authorization vulnerability: Detector work log 写入绕过 time tracking gate. 无 time-tracking 权限的用户可创建 time-tracking 记录，影响 issue work log 数据；REST 路径非管理员只能写自己，未扩大为伪造任意他人 work。"
+title: "onedev issue5: Detector work log time tracking gate"
+description: "onedev has a missing authorization vulnerability in POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper. An authenticated attacker can perform authorization-sensitive operations through POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper without the required permission."
 tags:
   - onedev
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-onedev has a missing authorization vulnerability: Detector work log 写入绕过 time tracking gate. 无 time-tracking 权限的用户可创建 time-tracking 记录，影响 issue work log 数据；REST 路径非管理员只能写自己，未扩大为伪造任意他人 work。
+onedev has a missing authorization vulnerability in POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper. An authenticated attacker can perform authorization-sensitive operations through POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper without the required permission.
 
-- Attack precondition: 已认证用户，可访问目标 issue；订阅 active；项目开启 time tracking；但用户没有 `AccessTimeTracking`。
-- Security impact: 无 time-tracking 权限的用户可创建 time-tracking 记录，影响 issue work log 数据；REST 路径非管理员只能写自己，未扩大为伪造任意他人 work。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper`
+- Affected authorization property: `AccessTimeTracking, IssueWork, canAccessTimeTracking, createWork, canAccessIssue, issueWorkService.createOrUpdate(work)`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper without the required permission.
 
 ### 1.2 Exploit path
 
-调用 `POST /issue-works` 写入自己的 `IssueWork`，或调用 `/tod/log-work` 以当前用户写入 work log。
+The attacker sends crafted requests to POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -29,11 +31,11 @@ onedev has a missing authorization vulnerability: Detector work log 写入绕过
 Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/rest/resource/IssueWorkResource.java#L57
 
 ```text
-   54  	
+   54
    55  	@Api(order=200, description="Log new issue work")
    56  	@POST
    57  	public Long createWork(@NotNull IssueWork work) {
-   58  		if (!subscriptionService.isSubscriptionActive()) 
+   58  		if (!subscriptionService.isSubscriptionActive())
    59  			throw new NotAcceptableException("This feature requires an active subscription");
    60  		if (!work.getIssue().getProject().isTimeTracking())
 ```
@@ -51,9 +53,9 @@ Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/jav
 ```text
   148  				otherActivities.add(new IssueCommentActivity(comment));
   149  		}
-  150  		
-  151  		if (showWorkLog && getIssue().getProject().isTimeTracking() 
-  152  				&& WicketUtils.isSubscriptionActive() 
+  150
+  151  		if (showWorkLog && getIssue().getProject().isTimeTracking()
+  152  				&& WicketUtils.isSubscriptionActive()
   153  				&& canAccessTimeTracking(getIssue().getProject())) {
   154  			for (IssueWork work: getIssue().getWorks())
 ```
@@ -68,7 +70,7 @@ Evidence location: https://code.onedev.io/onedev/server/server-core/src/main/jav
   273  	public boolean isScheduleIssues() {
   274  		return scheduleIssues;
   275  	}
-  276  
+  276
   277  	public void setScheduleIssues(boolean scheduleIssues) {
 ```
 
@@ -91,7 +93,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-在 `IssueWorkResource.createWork` 和 `TodResource.logWork` 中增加 `SecurityUtils.canAccessTimeTracking(issue.getProject())`；如产品语义希望“可见 issue 即可记工”，则需要新增显式 `LogWork` 权限，而不是复用隐式绕过。
+Enforce server-side authorization for POST /issue-works, POST /projects, /tod/log-work, /issues/{id}/works, /issue-works/{id}, /mcp-helper before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

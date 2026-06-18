@@ -32,12 +32,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "onedev has a missing authorization vulnerability: Codex PullRequestAssignment 授权上界缺失. 被写入的用户会被后续 `canModifyPullRequest` 直接信任为 PR assignee，从而获得修改该 PR 的权限。影响包括改标题、描述、label、assignee、merge strategy 等；merge/run job 等路径另有额外检查，不在本结论中扩大。",
+          "value": "onedev has a missing authorization vulnerability in POST /pull-request-assignments, /tod/create-pull-request, /tod/edit-pull-request, user/request. An authenticated attacker can perform authorization-sensitive operations through POST /pull-request-assignments, /tod/create-pull-request, /tod/edit-pull-request, user/request without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "onedev has a missing authorization vulnerability: Codex PullRequestAssignment 授权上界缺失. 被写入的用户会被后续 `canModifyPullRequest` 直接信任为 PR assignee，从而获得修改该 PR 的权限。影响包括改标题、描述、label、assignee、merge strategy 等；merge/run job 等路径另有额外检查，不在本结论中扩大。<p>This issue affects onedev.</p>"
+              "value": "onedev has a missing authorization vulnerability in POST /pull-request-assignments, /tod/create-pull-request, /tod/edit-pull-request, user/request. An authenticated attacker can perform authorization-sensitive operations through POST /pull-request-assignments, /tod/create-pull-request, /tod/edit-pull-request, user/request without the required permission.<p>This issue affects onedev.</p>"
             }
           ]
         }
@@ -87,7 +87,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-4434209",
+    "cveId": "CAN-2026-3128884",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

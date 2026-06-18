@@ -37,12 +37,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminImport Direct Route Writes Customer/Address Bindings Under READ Permission. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:",
+          "value": "PrestaShop has a missing authorization vulnerability in /process. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "PrestaShop has a missing authorization vulnerability: Legacy AdminImport Direct Route Writes Customer/Address Bindings Under READ Permission. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:<p>This issue affects PrestaShop.</p>"
+              "value": "PrestaShop has a missing authorization vulnerability in /process. A user with only import view access may trigger database writes that create or update customers and addresses, including relationship-binding fields:<p>This issue affects PrestaShop.</p>"
             }
           ]
         }
@@ -92,7 +92,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-3082846",
+    "cveId": "CAN-2026-3724375",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

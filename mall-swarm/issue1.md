@@ -1,11 +1,11 @@
 ---
 title: "mall-swarm issue1: Order Detail Unauthorized Read"
-description: "mall-swarm has a missing authorization vulnerability: Order Detail Unauthorized Read. 可越权读取他人订单详情，包括订单归属、商品明细、收货人、电话、收货地址等非公开信息。"
+description: "mall-swarm has a missing authorization vulnerability in GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/**. An authenticated attacker can perform authorization-sensitive operations through GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** without the required permission."
 tags:
   - mall-swarm
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-mall-swarm has a missing authorization vulnerability: Order Detail Unauthorized Read. 可越权读取他人订单详情，包括订单归属、商品明细、收货人、电话、收货地址等非公开信息。
+mall-swarm has a missing authorization vulnerability in GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/**. An authenticated attacker can perform authorization-sensitive operations through GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** without the required permission.
 
-- Attack precondition: 任意已登录商城会员，知道或猜到他人 `orderId`。
-- Security impact: 可越权读取他人订单详情，包括订单归属、商品明细、收货人、电话、收货地址等非公开信息。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/**`
+- Affected authorization property: `orderId, OmsPortalOrderServiceImpl.detail(orderId), orderMapper.selectByPrimaryKey(orderId), OmsOrderDetail, oms_order.id -> oms_order.member_id -> currentMember.id, oms_order.member_id == currentMember.id`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** without the required permission.
 
 ### 1.2 Exploit path
 
-`GET /mall-portal/order/detail/{orderId}` -> `OmsPortalOrderServiceImpl.detail(orderId)` -> `orderMapper.selectByPrimaryKey(orderId)` -> 返回 `OmsOrderDetail`。
+The attacker sends crafted requests to GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -43,7 +45,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-使用 `orderId + currentMember.id` 查询订单；若不存在则返回 404/403。订单项也应只在订单归属校验成功后加载。
+Enforce server-side authorization for GET /mall-portal/order/detail/{orderId}, GET /order/detail/{orderId}, /mall-portal/** before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

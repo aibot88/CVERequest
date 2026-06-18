@@ -1,11 +1,11 @@
 ---
 title: "MCMS issue1: Backend category list bypasses `cms:category:view`"
-description: "MCMS has a missing authorization vulnerability: Backend category list bypasses `cms:category:view`. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers"
+description: "MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, GET/POST /ms/cms/category/list, /ms/**, /list, /ms/cms/category/list. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers"
 tags:
   - MCMS
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-MCMS has a missing authorization vulnerability: Backend category list bypasses `cms:category:view`. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers
+MCMS has a missing authorization vulnerability in POST /ms/cms/category/list, GET/POST /ms/cms/category/list, /ms/**, /list, /ms/cms/category/list. Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers
 
 - Attack precondition: The attacker is an authenticated backend `manager` user but does not have `cms:category:view`
+- Affected endpoint: `POST /ms/cms/category/list, GET/POST /ms/cms/category/list, /ms/**, /list, /ms/cms/category/list`
+- Affected authorization property: `manager, cms:category:view, categoryBiz.list(...), @RequiresPermissions, new EUListBean(categoryList, categoryList.size()), authc,managerRoles[MANAGER]`
 - Security impact: Unauthorized backend users can read category hierarchy and metadata, including parent links, display/search flags, model bindings, category flags, and business child markers
 
 ### 1.2 Exploit path

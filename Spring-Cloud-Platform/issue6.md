@@ -1,11 +1,11 @@
 ---
-title: "Spring-Cloud-Platform issue6: group-user 读取接口泄露成员关系和用户敏感字段"
-description: "Spring-Cloud-Platform has a missing authorization vulnerability: group-user 读取接口泄露成员关系和用户敏感字段. 泄露角色成员/负责人关系以及用户密码哈希等敏感信息。成员关系本身也参与后续权限派生。"
+title: "Spring-Cloud-Platform issue6: group-user"
+description: "Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*}. An authenticated attacker can perform authorization-sensitive operations through GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} without the required permission."
 tags:
   - Spring-Cloud-Platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,13 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-Spring-Cloud-Platform has a missing authorization vulnerability: group-user 读取接口泄露成员关系和用户敏感字段. 泄露角色成员/负责人关系以及用户密码哈希等敏感信息。成员关系本身也参与后续权限派生。
+Spring-Cloud-Platform has a missing authorization vulnerability in GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*}. An authenticated attacker can perform authorization-sensitive operations through GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} without the required permission.
 
-- Security impact: 泄露角色成员/负责人关系以及用户密码哈希等敏感信息。成员关系本身也参与后续权限派生。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*}`
+- Affected authorization property: `GroupUsers, base_user u.*, password, getGroupUsers, select u.*, client.*`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} without the required permission.
 
 ### 1.2 Exploit path
 
-`GET /api/admin/group/{id}/user` 读取目标角色/组的成员与负责人。权限字典仅有 `PUT /admin/group/{*}/user` 分配用户动作，没有对应 GET 子资源；父级 `GET /admin/group/{*}` 被正则锚定，不能覆盖 `/user` 后缀。接口放行后返回 `GroupUsers`，底层 SQL join `base_user u.*`，包含 `password` 等用户敏感字段。
+The attacker sends crafted requests to GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -39,10 +42,6 @@ Evidence location: MenuMapper.xml
 
 Evidence location: ElementMapper.xml
 
-## 2. Existing checks and why they fail
-
-`PUT /admin/group/{*}/user` 不能覆盖 GET；`GET /admin/group/{*}` 不能覆盖 `/user` 子路径；响应未使用脱敏 DTO。
-
 ## 3. Root Cause Analysis
 
 Root Cause 1: Missing server-side authorization on the vulnerable operation.
@@ -55,7 +54,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-增加 `GET /admin/group/{*}/user` 权限项；校验当前用户是否可查看目标 group 成员；返回用户 DTO 并移除 `password` 等敏感字段。
+Enforce server-side authorization for GET /api/admin/group/{id}/user, PUT /admin/group/{, GET /admin/group/{, GET /group/{id}/user, PUT /admin/group/{*}/user, GET /admin/group/{*} before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

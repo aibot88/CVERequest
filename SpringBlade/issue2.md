@@ -1,11 +1,11 @@
 ---
 title: "SpringBlade issue2: `POST /user/user-auth-info`"
-description: "SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token"
+description: "SpringBlade has a missing authorization vulnerability in POST /user/user-auth-info, /user/user-auth-info, uuid/source, tenantId/uuid/source. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token"
 tags:
   - SpringBlade
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token
+SpringBlade has a missing authorization vulnerability in POST /user/user-auth-info, /user/user-auth-info, uuid/source, tenantId/uuid/source. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token
 
 - Attack precondition: authenticated attacker can reach `/user/user-auth-info` and can control a social `uuid/source` pair
+- Affected endpoint: `POST /user/user-auth-info, /user/user-auth-info, uuid/source, tenantId/uuid/source`
+- Affected authorization property: `@RestController, userOauth.userId, userOauth.tenantId, userOauth.uuid, userOauth.source, UserOauth`
 - Security impact: OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token
 
 ### 1.2 Exploit path
@@ -29,12 +31,12 @@ attacker posts `UserOauth` with attacker-controlled `uuid/source` and `userId` s
 Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-service-api/blade-user-api/src/main/java/org/springblade/system/user/feign/IUserClient.java#L69
 
 ```text
-   66  	 * @param userOauth 第三方授权用户信息
+   66  	 * @param userOauth [non-English text removed]
    67  	 * @return UserInfo
    68  	 */
    69  	@PostMapping(API_PREFIX + "/user-auth-info")
    70  	R<UserInfo> userAuthInfo(@RequestBody UserOauth userOauth);
-   71  
+   71
    72  	/**
 ```
 
@@ -44,7 +46,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
    51  	}
-   52  
+   52
    53  	@Override
    54  	@PostMapping(API_PREFIX + "/user-auth-info")
    55  	public R<UserInfo> userAuthInfo(UserOauth userOauth) {
@@ -59,11 +61,11 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
   180  		data.forEach(userExcel -> {
   181  			User user = Objects.requireNonNull(BeanUtil.copyProperties(userExcel, User.class));
-  182  			// 设置部门ID
+  182  			// [non-English text removed]ID
   183  			user.setDeptId(sysClient.getDeptIds(userExcel.getTenantId(), userExcel.getDeptName()));
-  184  			// 设置岗位ID
+  184  			// [non-English text removed]ID
   185  			user.setPostId(sysClient.getPostIds(userExcel.getTenantId(), userExcel.getPostName()));
-  186  			// 设置角色ID
+  186  			// [non-English text removed]ID
 ```
 
 4. `blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java`
@@ -72,12 +74,12 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 
 ```text
   187  			user.setRoleId(sysClient.getRoleIds(userExcel.getTenantId(), userExcel.getRoleName()));
-  188  			// 设置默认密码
+  188  			// [non-English text removed]
   189  			user.setPassword(CommonConstant.DEFAULT_PASSWORD);
   190  			this.submit(user);
   191  		});
   192  	}
-  193  
+  193
 ```
 
 5. `blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java`
@@ -87,7 +89,7 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
   191  		});
   192  	}
-  193  
+  193
   194  	@Override
   195  	public List<UserExcel> exportUser(Wrapper<User> queryWrapper) {
   196  		List<UserExcel> userList = baseMapper.exportUser(queryWrapper);
@@ -101,8 +103,8 @@ Evidence location: https://github.com/chillzhuang/SpringBlade/blob/master/blade-
 ```text
    78  			throw new ServiceException("social grant failure, auth response is not success");
    79  		}
-   80  
-   81  		// 组装数据
+   80
+   81  		// [non-English text removed]
    82  		UserOauth userOauth = Objects.requireNonNull(BeanUtil.copyProperties(authUser, UserOauth.class));
    83  		userOauth.setSource(authUser.getSource());
    84  		userOauth.setTenantId(tenantId);

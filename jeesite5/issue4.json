@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: sys/post/save 岗位角色绑定. 攻击者可用岗位编辑权限绕过用户/角色授权路径，为岗位绑定高权限角色。",
+          "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/post/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/post/save without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: sys/post/save 岗位角色绑定. 攻击者可用岗位编辑权限绕过用户/角色授权路径，为岗位绑定高权限角色。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/post/save. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/post/save without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-5323507",
+    "cveId": "CAN-2026-4112418",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "mall4cloud has a missing authorization vulnerability: Attribute Update/Delete and Attribute-Category Edges Miss Ownership Checks. A shop user with attribute management permission can alter or delete another shop's attributes, or create unauthorized attribute-category relationships",
+          "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/attr, DELETE /admin/attr, role.tenant_id/biz_type, menu_id/menu_permission_id, /role, /sys_user. A shop user with attribute management permission can alter or delete another shop's attributes, or create unauthorized attribute-category relationships",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "mall4cloud has a missing authorization vulnerability: Attribute Update/Delete and Attribute-Category Edges Miss Ownership Checks. A shop user with attribute management permission can alter or delete another shop's attributes, or create unauthorized attribute-category relationships<p>This issue affects mall4cloud.</p>"
+              "value": "mall4cloud has a missing authorization vulnerability in PUT /admin/attr, DELETE /admin/attr, role.tenant_id/biz_type, menu_id/menu_permission_id, /role, /sys_user. A shop user with attribute management permission can alter or delete another shop's attributes, or create unauthorized attribute-category relationships<p>This issue affects mall4cloud.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-2010367",
+    "cveId": "CAN-2026-1738746",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

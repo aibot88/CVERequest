@@ -3,9 +3,9 @@ title: "pig issue2: Role-Menu Permission Binding Write Without Grant Boundary"
 description: "pig has a missing authorization vulnerability in `PUT /role/menu`. The attacker can grant excessive permissions to roles, including their own role, resulting in privilege escalation and persistent RBAC model corruption"
 tags:
   - pig
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -15,7 +15,9 @@ tags:
 
 pig has a missing authorization vulnerability in `PUT /role/menu`. The attacker can grant excessive permissions to roles, including their own role, resulting in privilege escalation and persistent RBAC model corruption
 
+- Attack precondition: Any authenticated user
 - Affected endpoint: ``PUT /role/menu``
+- Affected authorization property: `sys_role_menu.role_id, sys_role_menu.menu_id, sys_role_perm, roleId, menuIds, SysRoleMenu(roleId, menuId)`
 - Security impact: The attacker can grant excessive permissions to roles, including their own role, resulting in privilege escalation and persistent RBAC model corruption
 
 ### 1.2 Exploit path
@@ -36,8 +38,7 @@ Evidence location: SysUserServiceImpl.java
 
 ## 2. Existing checks and why they fail
 
-- `sys_role_perm` protects the operation but does not define or enforce an authorization upper bound.
-- No code checks target role level, target role ownership, self-modification, or whether every requested `menuId` is grantable by the current user.
+- `sys_role_perm` protects the operation but does not define or enforce an authorization upper bound. - No code checks target role level, target role ownership, self-modification, or whether every requested `menuId` is grantable by the current user
 
 ## 3. Root Cause Analysis
 

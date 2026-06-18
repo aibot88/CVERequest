@@ -31,12 +31,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "jeesite5 has a missing authorization vulnerability: empUser/save 组织/岗位重绑定. 攻击者可把员工重绑定到不可管理的公司、机构或岗位，污染组织/岗位权限边界；在岗位角色权限开启场景下，可能进一步影响后续 session 角色聚合。",
+          "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode without the required permission.",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "jeesite5 has a missing authorization vulnerability: empUser/save 组织/岗位重绑定. 攻击者可把员工重绑定到不可管理的公司、机构或岗位，污染组织/岗位权限边界；在岗位角色权限开启场景下，可能进一步影响后续 session 角色聚合。<p>This issue affects jeesite5.</p>"
+              "value": "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode without the required permission.<p>This issue affects jeesite5.</p>"
             }
           ]
         }
@@ -86,7 +86,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-9553502",
+    "cveId": "CAN-2026-4096937",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

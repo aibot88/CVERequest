@@ -1,11 +1,11 @@
 ---
-title: "jeesite5 issue1: empUser/save 组织/岗位重绑定"
-description: "jeesite5 has a missing authorization vulnerability: empUser/save 组织/岗位重绑定. 攻击者可把员工重绑定到不可管理的公司、机构或岗位，污染组织/岗位权限边界；在岗位角色权限开启场景下，可能进一步影响后续 session 角色聚合。"
+title: "jeesite5 issue1: empUser/save /"
+description: "jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode without the required permission."
 tags:
   - jeesite5
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,14 +13,16 @@ tags:
 
 ### 1.1 Summary
 
-jeesite5 has a missing authorization vulnerability: empUser/save 组织/岗位重绑定. 攻击者可把员工重绑定到不可管理的公司、机构或岗位，污染组织/岗位权限边界；在岗位角色权限开启场景下，可能进一步影响后续 session 角色聚合。
+jeesite5 has a missing authorization vulnerability in POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode. An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode without the required permission.
 
-- Attack precondition: 攻击者拥有 `sys:empUser:edit`，能够新增员工或编辑其数据范围内的员工。
-- Security impact: 攻击者可把员工重绑定到不可管理的公司、机构或岗位，污染组织/岗位权限边界；在岗位角色权限开启场景下，可能进一步影响后续 session 角色聚合。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode`
+- Affected authorization property: `sys:empUser:edit, EmpUser.employee.office.officeCode, EmpUser.employee.company.companyCode, EmpUser.employee.employeePosts, EmployeePost.postCode, EmpUser.employee.employeeOfficeList[].officeCode`
+- Security impact: An authenticated attacker can perform authorization-sensitive operations through POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode without the required permission.
 
 ### 1.2 Exploit path
 
-- Spring MVC 将请求参数绑定到 `EmpUser`。
+The attacker sends crafted requests to POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode with target identifiers or authorization-sensitive fields that should be rejected.
 
 ### 1.3 Key code evidence
 
@@ -35,7 +37,7 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   182  		}
   183  		EmpUser old = super.getWebDataBinderSource(request);
   184  		if (!Global.TRUE.equals(userService.checkLoginCode(old != null ? old.getLoginCode() : "", empUser.getLoginCode()))) {
-  185  			return renderResult(Global.FALSE, text("保存用户失败，登录账号''{0}''已存在", empUser.getLoginCode()));
+  185  			return renderResult(Global.FALSE, text("[non-English text removed],[non-English text removed]''{0}''[non-English text removed]", empUser.getLoginCode()));
   186  		}
   187  		if (StringUtils.isBlank(empUser.getEmployee().getEmpNo())){
   188  			empUser.getEmployee().setEmpNo(empUser.getLoginCode());
@@ -46,15 +48,15 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
 Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/modules/sys/web/user/EmpUserController.java#L203
 
 ```text
-  200  				return renderResult(Global.FALSE, text("启用岗位角色权限后，请在用户关联岗位中关联角色", empUser.getUserName()));
+  200  				return renderResult(Global.FALSE, text("[non-English text removed],[non-English text removed]", empUser.getUserName()));
   201  			}
   202  		}else if (StringUtils.inString(op, Global.OP_ADD, Global.OP_AUTH) && subject.isPermitted("sys:empUser:authRole")){
   203  			empUserService.checkUserDataScope(empUser.getUserCode(), Global.getConfig("user.adminCtrlPermi", "2"));
   204  			userService.saveAuth(empUser);
   205  		}
-  206  		return renderResult(Global.TRUE, text("保存用户''{0}''成功", empUser.getUserName()));
+  206  		return renderResult(Global.TRUE, text("[non-English text removed]''{0}''[non-English text removed]", empUser.getUserName()));
   207  	}
-  208  	
+  208
   209  	/**
 ```
 
@@ -73,43 +75,43 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
   160  		company.sqlMap().getDataScope().addFilter("dsf", "Company", "a.company_code",
   161  				null, ctrlPermi, "office_user");
   162  		if (companyDao.findCount(company) == 0) {
-  163  			throw new ServiceException(text("没有权限使用该公司数据！"));
+  163  			throw new ServiceException(text("[non-English text removed]"));
   164  		}
   165  	}
-  166  
+  166
   167  	/**
-  168  	 * 查询数据
+  168  	 * [non-English text removed]
   169  	 */
   170  	@Override
   171  	public List<EmpUser> findList(EmpUser entity) {
   172  		return super.findList(entity);
   173  	}
-  174  
+  174
   175  	/**
-  176  	 * 分页查询数据
+  176  	 * [non-English text removed]
   177  	 */
   178  	@Override
   179  	public Page<EmpUser> findPage(EmpUser empUser) {
   180  		return super.findPage(empUser);
   181  	}
-  182  
+  182
   183  	/**
-  184  	 * 查询全部用户，仅返回基本信息
+  184  	 * [non-English text removed],[non-English text removed]
   185  	 */
   186  	@Override
   187  	public List<EmpUser> findUserList(EmpUser empUser){
   188  		return dao.findUserList(empUser);
   189  	}
-  190  	
+  190
   191  	/**
-  192  	 * 根据部门编码查询用户，仅返回基本信息
+  192  	 * [non-English text removed],[non-English text removed]
   193  	 */
   194  	@Override
   195  	public List<EmpUser> findUserListByOfficeCodes(EmpUser empUser){
   196  		return dao.findUserListByOfficeCodes(empUser);
   197  	}
   198  	/**
-  199  	 * 根据公司编码查询用户，仅返回基本信息
+  199  	 * [non-English text removed],[non-English text removed]
   200  	 */
 ```
 
@@ -124,11 +126,11 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
    77  	public void save(Employee employee) {
    78  		if (employee.getIsNewRecord()){
    79  			if (dao.get(employee) != null){
-   80  				throw newValidationException(text("员工工号已存在"));
+   80  				throw newValidationException(text("[non-English text removed]"));
    81  			}
    82  		}
    83  		super.save(employee);
-   84  		// 保存员工岗位
+   84  		// [non-English text removed]
    85  		EmployeePost where = new EmployeePost();
    86  		where.setEmpCode(employee.getEmpCode());
    87  		employeePostDao.deleteByEntity(where);
@@ -139,7 +141,7 @@ Evidence location: https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/
    92  			employeePostDao.insertBatch(employee.getEmployeePostList(), null);
    93  		}
    94  	}
-   95  	
+   95
    96  	/**
 ```
 
@@ -156,7 +158,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-保存前逐项校验主机构、公司、岗位、附属机构和附属岗位均在当前操作者可管理范围内；任一越界则拒绝整个保存。
+Enforce server-side authorization for POST ${adminPath}/sys/empUser/save, officeCode/companyCode/postCode before reading or writing target objects, roles, permissions, ownership, tenant, organization, or grant-bound state.
 
 ## 5. Verification after fix
 

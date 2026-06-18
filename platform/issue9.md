@@ -1,11 +1,11 @@
 ---
 title: "platform issue9: Role Resource Assignment Lacks Grantable-Resource Upper Bound"
-description: "platform has a missing authorization vulnerability: Role Resource Assignment Lacks Grantable-Resource Upper Bound. Grants permissions the actor does not possess to arbitrary roles"
+description: "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-resources. Grants permissions the actor does not possess to arbitrary roles"
 tags:
   - platform
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,9 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-platform has a missing authorization vulnerability: Role Resource Assignment Lacks Grantable-Resource Upper Bound. Grants permissions the actor does not possess to arbitrary roles
+platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-resources. Grants permissions the actor does not possess to arbitrary roles
 
 - Attack precondition: The attacker has `sys:role:assign-resource`, but not necessarily the resources being granted
+- Affected endpoint: `PUT /roles/{roleId}/assign-resources`
+- Affected authorization property: `sys:role:assign-resource, req.roleId, resIdList, roleId, resIdList current_user.grantableResources`
 - Security impact: Grants permissions the actor does not possess to arbitrary roles
 
 ### 1.2 Exploit path
@@ -43,7 +45,7 @@ The implementation relies on endpoint access, UI filtering, or object existence 
 
 ## 4. Recommended fix
 
-Use the path `roleId`, validate target role manageability, and enforce `resIdList ⊆ current_user.grantableResources`
+Use the path `roleId`, validate target role manageability, and enforce `resIdList current_user.grantableResources`
 
 ## 5. Verification after fix
 

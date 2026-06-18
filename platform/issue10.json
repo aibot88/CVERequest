@@ -29,12 +29,12 @@
       "descriptions": [
         {
           "lang": "en",
-          "value": "platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login",
+          "value": "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-users. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login",
           "supportingMedia": [
             {
               "base64": false,
               "type": "text/html",
-              "value": "platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login<p>This issue affects platform.</p>"
+              "value": "platform has a missing authorization vulnerability in PUT /roles/{roleId}/assign-users. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login<p>This issue affects platform.</p>"
             }
           ]
         }
@@ -84,7 +84,7 @@
   },
   "cveMetadata": {
     "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
-    "cveId": "CAN-2026-8365271",
+    "cveId": "CAN-2026-5982453",
     "requesterUserId": "00000000-0000-4000-9000-000000000000",
     "serial": 1,
     "state": "PUBLISHED"

@@ -1,11 +1,11 @@
 ---
 title: "PrestaShop issue2: Legacy AdminAccess Module Uninstall Permission Update"
-description: "PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Module Uninstall Permission Update. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations"
+description: "PrestaShop has a missing authorization vulnerability in edit/UPDATE, configure/edit, uninstall/delete. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations"
 tags:
   - PrestaShop
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,8 +13,11 @@ tags:
 
 ### 1.1 Summary
 
-PrestaShop has a missing authorization vulnerability: Legacy AdminAccess Module Uninstall Permission Update. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations
+PrestaShop has a missing authorization vulnerability in edit/UPDATE, configure/edit, uninstall/delete. The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations
 
+- Attack precondition: Any authenticated user
+- Affected endpoint: `edit/UPDATE, configure/edit, uninstall/delete`
+- Affected authorization property: `AdminAccess, DELETE, uninstall, module_access.id_profile, module_access.id_authorization_role, ajaxProcessUpdateModuleAccess()`
 - Security impact: The attacker can grant a profile module `uninstall` permission, which maps to a `DELETE` authorization role and enables destructive module operations
 
 ### 1.2 Exploit path
@@ -44,8 +47,7 @@ Evidence location: src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParam
 
 ## 2. Existing checks and why they fail
 
-- `configure/edit` and `uninstall/delete` are separate capabilities.
-- The endpoint validates the permission name, but does not enforce that the current employee may grant a DELETE-class permission.
+- `configure/edit` and `uninstall/delete` are separate capabilities. - The endpoint validates the permission name, but does not enforce that the current employee may grant a DELETE-class permission
 
 ## 3. Root Cause Analysis
 

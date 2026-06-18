@@ -1,11 +1,11 @@
 ---
 title: "mall-swarm issue6: Return Apply Unauthorized Creation"
-description: "mall-swarm has a missing authorization vulnerability: Return Apply Unauthorized Creation. 可为他人订单/商品创建退货申请，污染售后流程，并可能影响后台处理和退款/退货状态。"
+description: "mall-swarm has a missing authorization vulnerability in POST /mall-portal/returnApply/create, POST /returnApply/create, orderId/productId/orderSn/memberUsername, order_id/product_id/member_username, /mall-portal/**, orderId/productId/memberUsername. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers."
 tags:
   - mall-swarm
-  - 漏洞报告
-  - 越权
-  - 访问控制
+  - vulnerability-report
+  - authorization
+  - access-control
   - CVE
 ---
 
@@ -13,10 +13,12 @@ tags:
 
 ### 1.1 Summary
 
-mall-swarm has a missing authorization vulnerability: Return Apply Unauthorized Creation. 可为他人订单/商品创建退货申请，污染售后流程，并可能影响后台处理和退款/退货状态。
+mall-swarm has a missing authorization vulnerability in POST /mall-portal/returnApply/create, POST /returnApply/create, orderId/productId/orderSn/memberUsername, order_id/product_id/member_username, /mall-portal/**, orderId/productId/memberUsername. An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
-- Attack precondition: 任意已登录商城会员，知道或构造目标 `orderId/productId/orderSn/memberUsername`。
-- Security impact: 可为他人订单/商品创建退货申请，污染售后流程，并可能影响后台处理和退款/退货状态。
+- Attack precondition: Any authenticated user
+- Affected endpoint: `POST /mall-portal/returnApply/create, POST /returnApply/create, orderId/productId/orderSn/memberUsername, order_id/product_id/member_username, /mall-portal/**, orderId/productId/memberUsername`
+- Affected authorization property: `OmsOrderReturnApplyParam, BeanUtils.copyProperties(returnApply, realApply), oms_order_return_apply, memberUsername, OmsOrderReturnApply, orderId`
+- Security impact: An authenticated attacker can operate on out-of-scope objects by supplying target identifiers.
 
 ### 1.2 Exploit path
 
