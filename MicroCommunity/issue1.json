@@ -1,0 +1,103 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "MicroCommunity",
+          "programFiles": [
+            "https://github.com/java110/MicroCommunity/blob/master/app/role.saveRoleStaff",
+            "https://github.com/java110/MicroCommunity/blob/master/app/add.privilege.PrivilegeGroup",
+            "https://github.com/java110/MicroCommunity/blob/master/app/role.saveStaffCommunity",
+            "https://github.com/java110/MicroCommunity/blob/master/app/owner.saveOwnerMember",
+            "https://github.com/java110/MicroCommunity/blob/master/app/owner.editOwnerMember",
+            "https://github.com/java110/MicroCommunity/blob/master/app/ownerSettled.saveOwnerSettledApply",
+            "https://github.com/java110/MicroCommunity/blob/master/service-api/src/main/java/com/java110/api/controller/app/AppController.java#L83",
+            "https://github.com/java110/MicroCommunity/blob/master/service-api/src/main/java/com/java110/api/controller/app/AppController.java#L103",
+            "https://github.com/java110/MicroCommunity/blob/master/service-user/src/main/java/com/java110/user/cmd/role/SaveRoleStaffCmd.java#L84",
+            "https://github.com/java110/MicroCommunity/blob/master/service-user/src/main/java/com/java110/user/cmd/role/SaveRoleStaffCmd.java#L122",
+            "https://github.com/java110/MicroCommunity/blob/master/service-user/src/main/java/com/java110/user/cmd/role/SaveRoleStaffCmd.java#L124",
+            "https://github.com/java110/MicroCommunity/blob/master/service-user/src/main/java/com/java110/user/cmd/role/SaveRoleStaffCmd.java#L130"
+          ],
+          "repo": "https://github.com/java110/MicroCommunity",
+          "vendor": "java110",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "MicroCommunity has a missing authorization vulnerability: Confirmed Vulnerability. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "MicroCommunity has a missing authorization vulnerability: Confirmed Vulnerability. A user with access to this action can bind a high-privilege role to themselves or another staff account, causing privilege escalation across the backend permission system<p>This issue affects MicroCommunity.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-639",
+              "description": "CWE-639 Authorization Bypass Through User-Controlled Key"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/MicroCommunity/issue1.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3586899",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

@@ -1,0 +1,96 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "JSH_ERP",
+          "programFiles": [
+            "https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/controller/RoleController.java#L119",
+            "https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/controller/DepotController.java#L159",
+            "https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/controller/SupplierController.java#L342",
+            "https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/controller/UserController.java#L465",
+            "https://gitee.com/jishenghua/JSH_ERP/blob/master/jshERP-boot/src/main/java/com/jsh/erp/service/UserBusinessService.java#L135"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "jishenghua",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "JSH_ERP has a missing authorization vulnerability in `GET /role/findUserRole`, `GET /depot/findUserDepot`, `GET /supplier/getUserCustomerValue`, `GET /user/getUserWithChecked`. The endpoints reveal authorization relationships such as which role a user has, which warehouses a user can access, which customers are assigned, or which users are linked to a relationship value",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "JSH_ERP has a missing authorization vulnerability in `GET /role/findUserRole`, `GET /depot/findUserDepot`, `GET /supplier/getUserCustomerValue`, `GET /user/getUserWithChecked`. The endpoints reveal authorization relationships such as which role a user has, which warehouses a user can access, which customers are assigned, or which users are linked to a relationship value<p>This issue affects JSH_ERP.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/JSH_ERP/issue7.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3917344",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

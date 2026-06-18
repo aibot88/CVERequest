@@ -1,0 +1,93 @@
+{
+    "containers": {
+        "cna": {
+            "affected": [
+                {
+                    "defaultStatus": "unaffected",
+                    "platforms": [
+                        "Linux"
+                    ],
+                    "product": "JSH_ERP",
+                    "programFiles": [
+                        "https://gitee.com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/controller/UserController.java#L342",
+                        "https://gitee.com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/service/UserService.java#L679"
+                    ],
+                    "repo": "https://gitee.com/jishenghua/JSH_ERP",
+                    "vendor": "jishenghua",
+                    "versions": [
+                        {
+                            "lessThanOrEqual": "3.6",
+                            "status": "affected",
+                            "version": "0",
+                            "versionType": "custom"
+                        }
+                    ],
+                    "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+                }
+            ],
+            "descriptions": [
+                {
+                    "lang": "en",
+                    "supportingMedia": [
+                        {
+                            "base64": false,
+                            "type": "text/html",
+                            "value": "Improper Handling of Insufficient Permissions or Privileges vulnerability in jishenghua JSH_ERP on Linux.<p> This vulnerability is associated with program files <tt>https://gitee.Com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/controller/UserController.Java#L342</tt>, <tt>https://gitee.Com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/service/UserService.Java#L679</tt>.</p><p>This issue affects JSH_ERP: through 3.6.</p>"
+                        }
+                    ],
+                    "value": "Improper Handling of Insufficient Permissions or Privileges vulnerability in jishenghua JSH_ERP on Linux. This vulnerability is associated with program files https://gitee.Com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/controller/UserController.Java#L342, https://gitee.Com/jishenghua/JSH_ERP/blob/v3.6/jshERP-boot/src/main/java/com/jsh/erp/service/UserService.Java#L679.\n\nThis issue affects JSH_ERP: through 3.6."
+                }
+            ],
+            "problemTypes": [
+                {
+                    "descriptions": [
+                        {
+                            "cweId": "CWE-280",
+                            "description": "CWE-280 Improper Handling of Insufficient Permissions or Privileges",
+                            "lang": "en",
+                            "type": "CWE"
+                        }
+                    ]
+                }
+            ],
+            "providerMetadata": {
+                "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+            },
+            "references": [
+                {
+                    "url": "https://www.cnblogs.com/aibot/p/20611604"
+                }
+            ],
+            "source": {
+                "discovery": "EXTERNAL"
+            },
+            "x_Other_CNA": {
+                "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+            },
+            "x_Read_Landing": {
+                "x_Acknowledge": "NO"
+            },
+            "x_Request_Type": {
+                "x_Publication_Request": "NO"
+            },
+            "x_generator": {
+                "engine": "CVE-Request-form 0.0.1"
+            },
+            "x_theConversation": [
+                {
+                    "authorRole": "CNA-LR",
+                    "visibility": "public"
+                }
+            ]
+        }
+    },
+    "cveMetadata": {
+        "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+        "cveId": "CAN-2026-2032057",
+        "requesterUserId": "00000000-0000-4000-9000-000000000000",
+        "serial": 1,
+        "state": "PUBLISHED"
+    },
+    "dataType": "CVE_RECORD",
+    "dataVersion": "5.2"
+}

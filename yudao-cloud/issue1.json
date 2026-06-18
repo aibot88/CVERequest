@@ -1,0 +1,92 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "yudao-cloud",
+          "programFiles": [
+            "@ss.h"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "yudao-cloud",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "yudao-cloud has a missing authorization vulnerability: System Permission Assignment Lacks Grant-Bound Checks. A lower-privileged administrator can grant roles, menus, or data scopes beyond their own authority. This can modify `system_user_role.role_id`, `system_role_menu.menu_id`, and `system_role.data_scope/data_scope_dept_ids`, which are directly consumed by later RBAC and data permission decisions<p>This issue affects yudao-cloud.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/yudao-cloud/issue1.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-2219710",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

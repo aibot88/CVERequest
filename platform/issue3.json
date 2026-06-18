@@ -1,0 +1,95 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "platform",
+          "programFiles": [
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/PlanDefinitionController.java#L75",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/ProductDefinitionServiceImpl.java#L94",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/PlanDefResMapper.xml#L6",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/ResourceServiceImpl.java#L74"
+          ],
+          "repo": "https://gitee.com/fuyang_lipengjun/platform",
+          "vendor": "fuyang_lipengjun",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "platform has a missing authorization vulnerability: Plan Definition Resource Authorization Can Be Modified Without Permission. Alters which platform resources a subscribed tenant receives<p>This issue affects platform.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/platform/issue3.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-1144655",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

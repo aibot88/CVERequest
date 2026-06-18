@@ -1,0 +1,97 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "halo",
+          "programFiles": [
+            "https://github.com/halo-dev/halo/blob/master/apis/api.halo.run",
+            "https://github.com/halo-dev/halo/blob/master/Comment.c",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/endpoint/theme/CommentFinderEndpoint.java",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/theme/finders/impl/CommentPublicQueryServiceImpl.java",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/theme/finders/vo/CommentVo.java",
+            "https://github.com/halo-dev/halo/blob/master/api/src/main/java/run/halo/app/core/extension/content/Comment.java"
+          ],
+          "repo": "https://github.com/halo-dev/halo",
+          "vendor": "halo-dev",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "halo has a missing authorization vulnerability: Public get-by-name 绕过评论 hidden/approved 可见性过滤. 匿名或低权限用户可按名称读取 hidden 或未审核评论的正文、raw 内容、审核状态和隐藏状态，绕过公开评论列表的可见性控制。<p>This issue affects halo.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/halo/issue2.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-8916916",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

@@ -1,0 +1,97 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "onedev",
+          "programFiles": [
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/rest/resource/PullRequestAssignmentResource.java#L49",
+            "https://code.onedev.io/onedev/server/SecurityUtils.c",
+            "https://code.onedev.io/onedev/server/assignmentService.c",
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/service/impl/DefaultPullRequestAssignmentService.java#L26",
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/security/SecurityUtils.java#L645",
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/web/component/pullrequest/assignment/AssigneeProvider.java#L28"
+          ],
+          "repo": "https://code.onedev.io/onedev/server",
+          "vendor": "onedev",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "onedev has a missing authorization vulnerability: Codex PullRequestAssignment 授权上界缺失. 被写入的用户会被后续 `canModifyPullRequest` 直接信任为 PR assignee，从而获得修改该 PR 的权限。影响包括改标题、描述、label、assignee、merge strategy 等；merge/run job 等路径另有额外检查，不在本结论中扩大。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "onedev has a missing authorization vulnerability: Codex PullRequestAssignment 授权上界缺失. 被写入的用户会被后续 `canModifyPullRequest` 直接信任为 PR assignee，从而获得修改该 PR 的权限。影响包括改标题、描述、label、assignee、merge strategy 等；merge/run job 等路径另有额外检查，不在本结论中扩大。<p>This issue affects onedev.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/onedev/issue1.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-4434209",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

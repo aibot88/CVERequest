@@ -1,0 +1,95 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "Spring-Cloud-Platform",
+          "programFiles": [
+            "GroupController.java",
+            "GroupBiz.java",
+            "ElementMapper.xml",
+            "init.sql"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "Spring-Cloud-Platform",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色按钮/API 权限关系可被越权增删. 攻击者可给角色增加或移除按钮/API 权限，影响后续接口级授权。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "Spring-Cloud-Platform has a missing authorization vulnerability: 角色按钮/API 权限关系可被越权增删. 攻击者可给角色增加或移除按钮/API 权限，影响后续接口级授权。<p>This issue affects Spring-Cloud-Platform.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/Spring-Cloud-Platform/issue2.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3360949",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

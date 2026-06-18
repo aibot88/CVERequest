@@ -1,0 +1,101 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "halo",
+          "programFiles": [
+            "https://github.com/halo-dev/halo/blob/master/apis/api.console.halo.run",
+            "https://github.com/halo-dev/halo/blob/master/UserEndpoint.c",
+            "https://github.com/halo-dev/halo/blob/master/UserServiceImpl.c",
+            "https://github.com/halo-dev/halo/blob/master/RoleBinding.c",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/endpoint/console/UserEndpoint.java",
+            "https://github.com/halo-dev/halo/blob/master/userService.c",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/user/service/impl/UserServiceImpl.java",
+            "https://github.com/halo-dev/halo/blob/master/api/src/main/java/run/halo/app/core/extension/RoleBinding.java",
+            "https://github.com/halo-dev/halo/blob/master/application/build/resources/main/extensions/system-default-role.yaml",
+            "https://github.com/halo-dev/halo/blob/master/application/src/main/java/run/halo/app/core/user/service/impl/PatServiceImpl.java"
+          ],
+          "repo": "https://github.com/halo-dev/halo",
+          "vendor": "halo-dev",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "halo has a missing authorization vulnerability: 任意角色授予 / `super-role` 提权. 攻击者可将默认存在的 `super-role` 授予自己、新建用户或任意目标用户，从而获得全局 `*` 权限，实现权限提升。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "halo has a missing authorization vulnerability: 任意角色授予 / `super-role` 提权. 攻击者可将默认存在的 `super-role` 授予自己、新建用户或任意目标用户，从而获得全局 `*` 权限，实现权限提升。<p>This issue affects halo.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/halo/issue1.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-9652908",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

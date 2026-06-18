@@ -1,0 +1,94 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "DSpace",
+          "programFiles": [
+            "EPersonRestRepository.java",
+            "EPersonConverter.java",
+            "EPersonRestPermissionEvaluatorPlugin.java"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "DSpace",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "DSpace has a missing authorization vulnerability: EPerson byEmail Search Leaks Account Authorization Properties. Unauthorized disclosure of EPerson account attributes including `email`, `netid`, `canLogIn`, `requireCertificate`, `selfRegistered`, and `lastActive`. These are authorization/authentication-related properties, especially `netid` and login flags<p>This issue affects DSpace.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/DSpace/issue2.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-9710174",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

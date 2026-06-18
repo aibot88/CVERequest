@@ -1,0 +1,99 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "jeesite5",
+          "programFiles": [
+            "https://gitee.com/thinkgem/jeesite5/blob/master/EmpUser.employee.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/sys_employee.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/EmpUser.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/modules/sys/web/user/EmpUserController.java#L277",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/modules/sys/service/support/EmpUserServiceSupport.java#L214",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/modules/sys/entity/EmpUser.java#L94",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/common/utils/excel/fieldtype/OfficeType.java#L23",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/core/src/main/java/com/jeesite/common/utils/excel/fieldtype/CompanyType.java#L23"
+          ],
+          "repo": "https://gitee.com/thinkgem/jeesite5",
+          "vendor": "thinkgem",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "jeesite5 has a missing authorization vulnerability: empUser/importData 组织重绑定. 攻击者可批量创建或更新员工的机构/公司归属，放大组织边界污染。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "jeesite5 has a missing authorization vulnerability: empUser/importData 组织重绑定. 攻击者可批量创建或更新员工的机构/公司归属，放大组织边界污染。<p>This issue affects jeesite5.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/jeesite5/issue2.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-1670188",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

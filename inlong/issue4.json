@@ -1,0 +1,94 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "inlong",
+          "programFiles": [
+            "inlong-tubemq/tubemq-manager/src/main/java/org/apache/inlong/tubemq/manager/controller/node/NodeController.java",
+            "inlong-tubemq/tubemq-manager/src/main/java/org/apache/inlong/tubemq/manager/service/NodeServiceImpl.java",
+            "inlong-tubemq/tubemq-manager/src/main/java/org/apache/inlong/tubemq/manager/service/MasterServiceImpl.java"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "inlong",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "inlong has a missing authorization vulnerability: D-2: `/v1/node/master` modifies master token/ip/webPort. The attacker can replace the stored TubeMQ master connection endpoint and authorization token used by TubeMQ Manager for later privileged operations<p>This issue affects inlong.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/inlong/issue4.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-5181205",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

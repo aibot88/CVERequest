@@ -1,0 +1,97 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "SpringBlade",
+          "programFiles": [
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-service-api/blade-user-api/src/main/java/org/springblade/system/user/feign/IUserClient.java#L69",
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/feign/UserClient.java#L54",
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java#L183",
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java#L190",
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-service/blade-system/src/main/java/org/springblade/system/service/impl/UserServiceImpl.java#L194",
+            "https://github.com/chillzhuang/SpringBlade/blob/master/blade-auth/src/main/java/org/springblade/auth/granter/SocialTokenGranter.java#L81"
+          ],
+          "repo": "https://github.com/chillzhuang/SpringBlade",
+          "vendor": "chillzhuang",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "SpringBlade has a missing authorization vulnerability: `POST /user/user-auth-info`. OAuth account binding hijack; attacker-controlled social identity can become bound to another local user and obtain that user's login context/token<p>This issue affects SpringBlade.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/SpringBlade/issue2.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3621121",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

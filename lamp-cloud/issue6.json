@@ -1,0 +1,94 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "lamp-cloud",
+          "programFiles": [
+            "https://gitee.com/dromara/lamp-cloud/blob/master/lamp-oauth/lamp-oauth-controller/src/main/java/top/tangyh/lamp/oauth/controller/ResourceController.java",
+            "https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support/lamp-boot-server/src/main/resources/application.yml#L73",
+            "https://gitee.com/dromara/lamp-cloud/blob/master/lamp-support/lamp-boot-server/src/main/java/top/tangyh/lamp/base/interceptor/AuthenticationSaInterceptor.java#L73"
+          ],
+          "repo": "https://gitee.com/dromara/lamp-cloud",
+          "vendor": "dromara",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "lamp-cloud has a missing authorization vulnerability in `GET /anyone/visible/resource`. Disclosure of another employee's authorization profile, including role list, resource code list, and router/menu list",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "lamp-cloud has a missing authorization vulnerability in `GET /anyone/visible/resource`. Disclosure of another employee's authorization profile, including role list, resource code list, and router/menu list<p>This issue affects lamp-cloud.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/lamp-cloud/issue6.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-6870641",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

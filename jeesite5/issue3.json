@@ -1,0 +1,98 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "jeesite5",
+          "programFiles": [
+            "https://gitee.com/thinkgem/jeesite5/blob/master/Article.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/cms_article.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/article.c",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/cms/src/main/java/com/jeesite/modules/cms/web/ArticleController.java#L150",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/cms/src/main/java/com/jeesite/modules/cms/service/ArticleService.java#L95",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/cms/src/main/java/com/jeesite/modules/cms/service/ArticleService.java#L160",
+            "https://gitee.com/thinkgem/jeesite5/blob/master/modules/cms/src/main/java/com/jeesite/modules/cms/entity/Article.java#L31"
+          ],
+          "repo": "https://gitee.com/thinkgem/jeesite5",
+          "vendor": "thinkgem",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "jeesite5 has a missing authorization vulnerability: cms/article/save 栏目重绑定. 攻击者可把文章创建或迁移到无权管理的栏目，绕过栏目级内容管理边界。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "jeesite5 has a missing authorization vulnerability: cms/article/save 栏目重绑定. 攻击者可把文章创建或迁移到无权管理的栏目，绕过栏目级内容管理边界。<p>This issue affects jeesite5.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/jeesite5/issue3.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-1202241",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

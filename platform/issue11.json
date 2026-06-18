@@ -1,0 +1,96 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "platform",
+          "programFiles": [
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/UserSaveReq.java#L58",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/UserUpdateReq.java#L46",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/platform-admin/src/main/java/com/platform/controller/UserController.java#L88",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/platform-admin/src/main/java/com/platform/service/impl/UserServiceImpl.java#L107",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/DataScopeServiceImpl.java#L73"
+          ],
+          "repo": "https://gitee.com/fuyang_lipengjun/platform",
+          "vendor": "fuyang_lipengjun",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "platform has a missing authorization vulnerability: User orgId / positionId Can Be Written Without Manageable-Org Checks. `orgId` is used in data-scope calculation. Moving a user to a broader or different organization can change that user's later data visibility<p>This issue affects platform.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/platform/issue11.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3304937",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

@@ -1,0 +1,100 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "PrestaShop",
+          "programFiles": [
+            "classes/webservice/WebserviceRequest.php#L609",
+            "classes/webservice/WebserviceRequest.php#L844",
+            "classes/webservice/WebserviceRequest.php#L930",
+            "classes/webservice/WebserviceRequest.php#L1507",
+            "classes/SpecificPrice.php#L36",
+            "classes/SpecificPrice.php#L60",
+            "classes/Address.php#L137",
+            "classes/Cart.php#L145",
+            "classes/order/Order.php#L229"
+          ],
+          "repo": "https://gitee.com/jishenghua/JSH_ERP",
+          "vendor": "PrestaShop",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "PrestaShop has a missing authorization vulnerability: Legacy Webservice Body RBP Write Without Binding Authorization. The attacker can write authorization/ownership-related relationships in database entities, such as shop/customer/group-specific price rules, address ownership, cart ownership, or order relations. This can affect tenant boundaries, customer ownership, and pricing/authorization behavior<p>This issue affects PrestaShop.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/PrestaShop/issue3.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-3790719",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

@@ -1,0 +1,9 @@
+title: CVERequest
+markdown: kramdown
+theme: minima
+exclude:
+  - cnblogs_session.json
+  - summary.json
+  - summary.local.json
+  - summary.local_feishu.json
+  - summary.github.json

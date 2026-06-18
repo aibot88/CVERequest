@@ -1,0 +1,94 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "platform",
+          "programFiles": [
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/RoleController.java#L138",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/RoleServiceImpl.java#L137",
+            "https://gitee.com/fuyang_lipengjun/platform/blob/master/RoleServiceImpl.java#L121"
+          ],
+          "repo": "https://gitee.com/fuyang_lipengjun/platform",
+          "vendor": "fuyang_lipengjun",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "platform has a missing authorization vulnerability: Role User Assignment Lacks Target Role and User Scope Checks. Adds users to high-privilege, built-in, or super roles, causing privilege escalation after permission refresh or re-login<p>This issue affects platform.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-862",
+              "description": "CWE-862 Missing Authorization"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/platform/issue10.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-8365271",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}

@@ -1,0 +1,95 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "defaultStatus": "unaffected",
+          "platforms": [
+            "Linux"
+          ],
+          "product": "onedev",
+          "programFiles": [
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/rest/resource/ProjectResource.java#L303",
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/rest/resource/ProjectResource.java#L305",
+            "https://code.onedev.io/onedev/server/SecurityUtils.c",
+            "https://code.onedev.io/onedev/server/server-core/src/main/java/io/onedev/server/rest/resource/ProjectResource.java#L320"
+          ],
+          "repo": "https://code.onedev.io/onedev/server",
+          "vendor": "onedev",
+          "versions": [
+            {
+              "lessThanOrEqual": "3.6",
+              "status": "affected",
+              "version": "0",
+              "versionType": "custom"
+            }
+          ],
+          "x_CopyOfCNAUnderAffected": "IN-CNA-LR-SCOPE"
+        }
+      ],
+      "descriptions": [
+        {
+          "lang": "en",
+          "value": "onedev has a missing authorization vulnerability: Detector POST /projects forkedFromId 未校验源项目读权限. 当前代码下不能用无权 source project id 直接 fork/copy 私有仓库内容。",
+          "supportingMedia": [
+            {
+              "base64": false,
+              "type": "text/html",
+              "value": "onedev has a missing authorization vulnerability: Detector POST /projects forkedFromId 未校验源项目读权限. 当前代码下不能用无权 source project id 直接 fork/copy 私有仓库内容。<p>This issue affects onedev.</p>"
+            }
+          ]
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            {
+              "lang": "en",
+              "type": "CWE",
+              "cweId": "CWE-200",
+              "description": "CWE-200 Exposure of Sensitive Information to an Unauthorized Actor"
+            }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "orgId": "3f7ee930-0574-4b80-9164-96afdeab8389"
+      },
+      "references": [
+        {
+          "url": "https://aibot88.github.io/CVERequest/onedev/issue4.html"
+        }
+      ],
+      "source": {
+        "discovery": "EXTERNAL"
+      },
+      "x_Other_CNA": {
+        "x_CNA_Contact": "IN-CNA-LR-SCOPE"
+      },
+      "x_Read_Landing": {
+        "x_Acknowledge": "NO"
+      },
+      "x_Request_Type": {
+        "x_Publication_Request": "NO"
+      },
+      "x_generator": {
+        "engine": "CVERequester 0.1"
+      },
+      "x_theConversation": [
+        {
+          "authorRole": "CNA-LR",
+          "visibility": "public"
+        }
+      ]
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "3f7ee930-0574-4b80-9164-96afdeab8389",
+    "cveId": "CAN-2026-4660388",
+    "requesterUserId": "00000000-0000-4000-9000-000000000000",
+    "serial": 1,
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.2"
+}
