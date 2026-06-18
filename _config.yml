@@ -1,6 +1,10 @@
 title: CVERequest
 markdown: kramdown
-theme: minima
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
 exclude:
   - cnblogs_session.json
   - summary.json
